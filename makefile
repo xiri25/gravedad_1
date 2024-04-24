@@ -5,7 +5,7 @@ CFLAGS=-Wall -Wextra
 
 all: planetas
 
-satisfactory: main.c
+planetas: main.c
 	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
 
 clean:
