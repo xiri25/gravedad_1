@@ -37,7 +37,7 @@ cuerpo2d mover_tierra(double radio_orbita, double w, int t) {
   // Por ahora un  movimiento circular
   double x, y;
   x = radio_orbita * cos(w*t);
-  y = radio_orbita * sin(w+t);
+  y = radio_orbita * sin(w*t);
 
   cuerpo2d cuerpo;
 
