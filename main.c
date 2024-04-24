@@ -51,7 +51,7 @@ cuerpo2d mover_tierra(double radio_orbita, double w, int t) {
 cuerpo2d mover_luna(cuerpo2d tierra, double radio_orbita, double w, int t) {
   double dx, dy;
   dx = radio_orbita * cos(w*t);
-  dy = radio_orbita * sin(w+t);
+  dy = radio_orbita * sin(w*t);
 
   double x, y;
   x = tierra.pos_x + dx;
@@ -97,8 +97,16 @@ int main() {
   for (int i = 0; i < planetas_number; i += 3) {
     //printf("%d\n", i);
     planetas[i] = sol;
-    planetas[i+1] = mover_tierra(r_orbita_tierra_sol, 1, i);
-    planetas[i+2] = mover_luna(planetas[i-1], r_orbita_luna_tierra, 0.5, i);
+    planetas[i+1] = mover_tierra(r_orbita_tierra_sol, 0.01, i);
+    planetas[i+2] = mover_luna(planetas[i-1], r_orbita_luna_tierra, 0.005, i);
+  }
+
+  printf("Resultados, Sol.pos_x, Sol.pos_y; Tierra.pos_x, Tierra.pos_y; Luna.pos_x, Luna.pos_y\n");
+  for (int i = 0; i < planetas_number; i += 3) {
+    printf("%f, %f\n",
+           /* planetas[i].pos_x, planetas[i].pos_y, */
+           planetas[i + 1].pos_x, planetas[i + 1].pos_y
+           /* planetas[i + 2].pos_x, planetas[i + 2].pos_y */);
   }
 
   //DO NOT FORGET
