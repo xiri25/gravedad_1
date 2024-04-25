@@ -66,6 +66,16 @@ cuerpo2d mover_luna(cuerpo2d tierra, double radio_orbita, double w, int t) {
   return cuerpo;
 }
 
+void escribir_archivo(cuerpo2d *resultados) {
+  FILE *fptr;
+  fptr = fopen("resultados.txt", "w");
+  
+  fprintf(fptr, "Hola\n");
+  fprintf(fptr, "%p\n", resultados);
+
+  fclose(fptr);
+}
+
 int main() {
   int size = sizeof(double);
   printf("Un double mide: %d bytes, %d bits\n", size, size * 8);
@@ -110,6 +120,8 @@ int main() {
            planetas[i + 1].pos_x, planetas[i + 1].pos_y,
            planetas[i + 2].pos_x, planetas[i + 2].pos_y);
   }
+
+  escribir_archivo(planetas);
 
   //DO NOT FORGET
   free(planetas);
