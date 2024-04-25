@@ -85,6 +85,8 @@ int main() {
   planetas[1] = tierra;
   planetas[2] = luna;
 
+  printf("D. Memoria de planetas: %p\n", &planetas);
+
   //En este toy problem el sol es estático y punto de referencia
   printf("planetas_size: %d\n", planetas_size);
   int planetas_number = ITERATIONS * 3;
