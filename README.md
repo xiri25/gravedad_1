@@ -14,8 +14,8 @@ Voy a escribir los resultados en un archivo, porque aun no me aclaro con python
 El archivo tiene como formato, un frame por linea y cada coordenada de cada cuerpo
 separada por espacios
 
-sol.pos_x sol.pos_y tierra.pos_x tierra.pos_y luna.pos_x luna.pos_y
-sol.pos_x sol.pos_y tierra.pos_x tierra.pos_y luna.pos_x luna.pos_y
+sol.pos_x sol.pos_y tierra.pos_x tierra.pos_y luna.pos_x luna.pos_y \
+sol.pos_x sol.pos_y tierra.pos_x tierra.pos_y luna.pos_x luna.pos_y \
 ...
 
 esto deberia facilitar la lectura en python, al menos por ahora
