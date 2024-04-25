@@ -66,12 +66,17 @@ cuerpo2d mover_luna(cuerpo2d tierra, double radio_orbita, double w, int t) {
   return cuerpo;
 }
 
-void escribir_archivo(cuerpo2d *resultados) {
+void escribir_archivo(cuerpo2d *resultados, int size) {
   FILE *fptr;
   fptr = fopen("resultados.txt", "w");
-  
-  fprintf(fptr, "Hola\n");
-  fprintf(fptr, "%p\n", resultados);
+ 
+  //Este loop hay que hacerlo de 3 en 3
+  for (int i = 0; i < size; i += 3) {
+    fprintf(fptr, "%.10f %.10f %.10f %.10f %.10f %.10f\n",
+            resultados[i].pos_x, resultados[i].pos_y,
+            resultados[i+1].pos_x, resultados[i+1].pos_y,
+            resultados[i+2].pos_x, resultados[i+2].pos_y);
+  }
 
   fclose(fptr);
 }
@@ -113,15 +118,17 @@ int main() {
     planetas[i+2] = mover_luna(planetas[i+1], r_orbita_luna_tierra, 0.005, i);
   }
 
+/*
   printf("Resultados, Sol.pos_x, Sol.pos_y; Tierra.pos_x, Tierra.pos_y; Luna.pos_x, Luna.pos_y\n");
   for (int i = 0; i < planetas_number; i += 3) {
     printf("%f, %f; %f, %f\n",
-           /* planetas[i].pos_x, planetas[i].pos_y, */
+           // planetas[i].pos_x, planetas[i].pos_y,
            planetas[i + 1].pos_x, planetas[i + 1].pos_y,
            planetas[i + 2].pos_x, planetas[i + 2].pos_y);
   }
+*/
 
-  escribir_archivo(planetas);
+  escribir_archivo(planetas, planetas_number);
 
   //DO NOT FORGET
   free(planetas);
