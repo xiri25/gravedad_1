@@ -98,15 +98,15 @@ int main() {
     //printf("%d\n", i);
     planetas[i] = sol;
     planetas[i+1] = mover_tierra(r_orbita_tierra_sol, 0.01, i);
-    planetas[i+2] = mover_luna(planetas[i-1], r_orbita_luna_tierra, 0.005, i);
+    planetas[i+2] = mover_luna(planetas[i+1], r_orbita_luna_tierra, 0.005, i);
   }
 
   printf("Resultados, Sol.pos_x, Sol.pos_y; Tierra.pos_x, Tierra.pos_y; Luna.pos_x, Luna.pos_y\n");
   for (int i = 0; i < planetas_number; i += 3) {
-    printf("%f, %f\n",
+    printf("%f, %f; %f, %f\n",
            /* planetas[i].pos_x, planetas[i].pos_y, */
-           planetas[i + 1].pos_x, planetas[i + 1].pos_y
-           /* planetas[i + 2].pos_x, planetas[i + 2].pos_y */);
+           planetas[i + 1].pos_x, planetas[i + 1].pos_y,
+           planetas[i + 2].pos_x, planetas[i + 2].pos_y);
   }
 
   //DO NOT FORGET
