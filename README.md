@@ -19,3 +19,4 @@ sol.pos_x sol.pos_y tierra.pos_x tierra.pos_y luna.pos_x luna.pos_y \
 ...
 
 esto deberia facilitar la lectura en python, al menos por ahora
+matplotlib necesita ffmpeg para generar un video con la animacion (sugerencia de GePeTo)
