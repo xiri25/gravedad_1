@@ -40,4 +40,5 @@ real	0m47.371s \
 user	0m46.745s \
 sys	0m2.380s \
 
-Repartir entre distintos procesos es una idea, generar varios videos o varios procesos generando images????
+Repartir entre distintos procesos es una idea, generar varios videos o varios procesos generando images???? \
+INCLUSO PASAR DE PYTHON E INTENTARLO CON GNUPLOT Y C
