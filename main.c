@@ -115,7 +115,7 @@ int main() {
     //printf("%d\n", i);
     planetas[i] = sol;
     planetas[i+1] = mover_tierra(r_orbita_tierra_sol, 0.01, i);
-    planetas[i+2] = mover_luna(planetas[i+1], r_orbita_luna_tierra, 0.005, i);
+    planetas[i+2] = mover_luna(planetas[i+1], r_orbita_luna_tierra, 0.05, i);
   }
 
 /*
