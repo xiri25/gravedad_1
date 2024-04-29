@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 
-#define ITERATIONS 100
+#define ITERATIONS 1000
 
 // Podria probar con una version de 32bits
 // En teoria si la struct esta compuesta por

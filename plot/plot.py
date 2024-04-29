@@ -9,7 +9,7 @@ def leer_archivo(archivo, length):
 
         if (frames_num != length):
             #Error
-            return 1
+            return np.array([])
 
         frames = []
 
@@ -60,5 +60,8 @@ def animate_frames(frames):
     plt.close(fig)  # Cerrar la figura para liberar recursos
 
 
-frames = leer_archivo("../resultados.txt", 100)
-animate_frames(frames)
+frames = leer_archivo("../resultados.txt", 1000)
+if len(frames) > 1:
+    animate_frames(frames)
+else:
+    print("algo falla")
