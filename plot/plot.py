@@ -30,9 +30,6 @@ def animate_frames(frames):
     num_bodies = len(frames[0]) // 2
     coordinates_per_body = 2
 
-    # Dividir los datos en grupos de coordenadas para cada cuerpo
-    bodies_data = np.split(frames, num_bodies, axis=1)
-
     # Crear una lista de puntos para cada cuerpo
     points = [ax.plot([], [], marker='o')[0] for _ in range(num_bodies)]
 
