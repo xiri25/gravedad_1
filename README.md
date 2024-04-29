@@ -26,16 +26,18 @@ la animacion se procesa en un solo core y necesita de bastante ram,
 puede que haya que buscar otro acercamiento (es bastante lenta ademas) \
 
 Nueva implementacion que genera los frames como imagenes \
-es mucho mas lenta y engorrosa
+es mucho mas lenta y engorrosa \
 
-(plot) xiri@debian:~/planetas1/plot$ time python plot.py
+(plot) xiri@debian:~/planetas1/plot$ time python plot.py \
 
-real	1m44.417s
-user	1m43.775s
-sys	0m0.844s
-(plot) xiri@debian:~/planetas1/plot$ time python plot.py
+real	1m44.417s \
+user	1m43.775s \
+sys	0m0.844s \
 
-real	0m47.371s
-user	0m46.745s
-sys	0m2.380s
+(plot) xiri@debian:~/planetas1/plot$ time python plot.py \
 
+real	0m47.371s \
+user	0m46.745s \
+sys	0m2.380s \
+
+Repartir entre distintos procesos es una idea, generar varios videos o varios procesos generando images????
