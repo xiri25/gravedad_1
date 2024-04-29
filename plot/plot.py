@@ -52,6 +52,7 @@ def animate_frames(frames):
         ax.set_ylabel('Y')
         ax.set_xlim(-20, 20)  # Ajusta los límites x para que se ajusten a tus datos
         ax.set_ylim(-20, 20)  # Ajusta los límites y para que se ajusten a tus datos
+        ax.set_aspect('equal')  # Establecer la escala de ejes igualada
 
     ani = animation.FuncAnimation(fig, update, frames=len(frames), interval=200)
 
