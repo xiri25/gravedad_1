@@ -6,7 +6,7 @@ LDFLAGS=-lm
 
 all: planetas
 
-planetas: main.c
+planetas: main.c points/points.c
 	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
 
 clean:
