@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include "points/points.h"
 
-#define ITERATIONS 1000
+#define ITERATIONS 10
 
 // Cualquier cosa con masa suficiente como para tenerla en cuenta
 typedef struct {
@@ -99,19 +100,28 @@ int main() {
     planetas[i+2] = mover_luna(planetas[i+1], r_orbita_luna_tierra, 0.05, i);
   }
 
-/*
-  printf("Resultados, Sol.pos_x, Sol.pos_y; Tierra.pos_x, Tierra.pos_y; Luna.pos_x, Luna.pos_y\n");
-  for (int i = 0; i < planetas_number; i += 3) {
-    printf("%f, %f; %f, %f\n",
-           // planetas[i].pos_x, planetas[i].pos_y,
-           planetas[i + 1].pos_x, planetas[i + 1].pos_y,
-           planetas[i + 2].pos_x, planetas[i + 2].pos_y);
-  }
-*/
-
   escribir_archivo(planetas, planetas_number);
 
   //DO NOT FORGET
   free(planetas);
+
+
+  //Points, try 1
+  grid grid = {10, 10};
+  point2d_64 *puntos = malloc_points(grid, ITERATIONS);
+  if (puntos == NULL) {
+    printf("Malloc failed alojando los puntos\n");
+    return 1;
+  }
+  inicilizar_points(puntos, grid, ITERATIONS);
+
+  int puntos_number = grid.height * grid.length * ITERATIONS;
+  printf("Hopefully sizeof puntos: %lu\n", puntos_number * sizeof(point2d_64));
+  
+  for (int i = 0; i < puntos_number; i++) {
+    //IDK how to make sense of this right now so:
+    printf("Punto[%d] = {%f, %f}\n", i, puntos[i].pos_x, puntos[i].pos_y);
+  }
+
   return 0;
 }
