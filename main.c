@@ -3,7 +3,7 @@
 #include <math.h>
 #include "points/points.h"
 
-#define ITERATIONS 2
+#define ITERATIONS 3
 
 // Cualquier cosa con masa suficiente como para tenerla en cuenta
 typedef struct {
@@ -122,6 +122,8 @@ int main() {
     //IDK how to make sense of this right now so:
     printf("Punto[%d] = {%f, %f}\n", i, puntos[i].pos_x, puntos[i].pos_y);
   }
+
+  free(puntos);
 
   return 0;
 }
