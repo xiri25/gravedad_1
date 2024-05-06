@@ -20,6 +20,12 @@ typedef struct {
   double norm_vec_y;
 } point2d_64;
 
-point2d_64* crear_points();
+typedef struct {
+  //El ingles es claramente un lenguaje th, ht XD
+  int length;
+  int height;
+} grid;
+
+void* malloc_points(grid grid);
 
 #endif
