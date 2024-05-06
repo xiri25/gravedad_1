@@ -16,6 +16,7 @@ void inicilizar_points(point2d_64* points, grid grid, int frames) {
   for (int f = 0; f < frames; f++) {
     for (int i = 0; i < grid.length; i++) {
       for (int j = 0; j < grid.height; j++) {
+        int index = i * grid.height + j;
         point2d_64 point = {
           .pos_x = i,
           .pos_y = j,
@@ -26,7 +27,7 @@ void inicilizar_points(point2d_64* points, grid grid, int frames) {
           .norm_vec_y = 0
         };
         
-        points[i*j] = point;
+        points[index] = point;
       }
     }
   }

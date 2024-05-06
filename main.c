@@ -3,7 +3,7 @@
 #include <math.h>
 #include "points/points.h"
 
-#define ITERATIONS 10
+#define ITERATIONS 1
 
 // Cualquier cosa con masa suficiente como para tenerla en cuenta
 typedef struct {
