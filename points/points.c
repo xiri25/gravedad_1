@@ -13,10 +13,13 @@ void* malloc_points(grid grid, int frames) {
 }
 
 void inicilizar_points(point2d_64* points, grid grid, int frames) {
+  
+  int total_points = grid.length * grid.height;
+
   for (int f = 0; f < frames; f++) {
     for (int i = 0; i < grid.length; i++) {
       for (int j = 0; j < grid.height; j++) {
-        int index = i * grid.height + j;
+        int index = f * total_points + i * grid.height + j;
         point2d_64 point = {
           .pos_x = i,
           .pos_y = j,
