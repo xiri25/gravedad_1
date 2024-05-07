@@ -100,6 +100,8 @@ int main() {
     printf("Punto[%d] = {%f, %f}\n", i, puntos[i].pos_x, puntos[i].pos_y);
   }
 
+  escribir_puntos_archivo(puntos, puntos_number * sizeof(point2d_64), &grid, ITERATIONS);
+
   free(puntos);
 
   return 0;

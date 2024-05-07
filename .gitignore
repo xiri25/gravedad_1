@@ -1,5 +1,5 @@
 planetas
-resultados.txt
+*.txt
 plot/plot/*
 plot/animacion.mp4
 plot/animacion_frames
