@@ -2,18 +2,10 @@
 #include <stdlib.h>
 #include <math.h>
 #include "points/points.h"
+#include "cuerpos/cuerpos.h"
+#include "result/write.h"
 
 #define ITERATIONS 3
-
-// Cualquier cosa con masa suficiente como para tenerla en cuenta
-typedef struct {
-  double pos_x;
-  double pos_y;
-
-  //Asumimos una distribucion de masa cte en una circunferencia
-  double r;
-  double m;
-} cuerpo2d;
 
 cuerpo2d mover_tierra(double radio_orbita, double w, int t) {
   // Por ahora un  movimiento circular
@@ -46,21 +38,6 @@ cuerpo2d mover_luna(cuerpo2d tierra, double radio_orbita, double w, int t) {
   cuerpo.m = 1;
 
   return cuerpo;
-}
-
-void escribir_archivo(cuerpo2d *resultados, int size) {
-  FILE *fptr;
-  fptr = fopen("resultados.txt", "w");
- 
-  //Este loop hay que hacerlo de 3 en 3
-  for (int i = 0; i < size; i += 3) {
-    fprintf(fptr, "%.10f %.10f %.10f %.10f %.10f %.10f\n",
-            resultados[i].pos_x, resultados[i].pos_y,
-            resultados[i+1].pos_x, resultados[i+1].pos_y,
-            resultados[i+2].pos_x, resultados[i+2].pos_y);
-  }
-
-  fclose(fptr);
 }
 
 int main() {
@@ -100,7 +77,7 @@ int main() {
     planetas[i+2] = mover_luna(planetas[i+1], r_orbita_luna_tierra, 0.05, i);
   }
 
-  escribir_archivo(planetas, planetas_number);
+  escribir_planetas_archivo(planetas, planetas_number);
 
   //DO NOT FORGET
   free(planetas);
