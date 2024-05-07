@@ -42,3 +42,7 @@ sys	0m2.380s \
 
 Repartir entre distintos procesos es una idea, generar varios videos o varios procesos generando images???? \
 INCLUSO PASAR DE PYTHON E INTENTARLO CON GNUPLOT Y C
+
+
+
+QUIERO PASAR EL MALLOC DE LOS PUNTOS A MAIN Y HACER LO QUE HE COMENTADO ENCIMA DE LA FUNCION malloc_points() en points/points.c
