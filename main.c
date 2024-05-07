@@ -85,6 +85,8 @@ int main() {
 
   //Points, try 1
   grid grid = {10, 10};
+
+  //No se cuanto me gusta la abstraccion del tamaño que estoy haciendo con esta funcion
   point2d_64 *puntos = malloc_points(grid, ITERATIONS);
   if (puntos == NULL) {
     printf("Malloc failed alojando los puntos\n");

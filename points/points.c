@@ -4,6 +4,7 @@
 
 // En main tengo que alojar la memoria necesaria (porque la voy a liberar en main y asi es mas claro)
 // podemos hacer un wrapper para calcular cuanta
+// No se cuanto me gusta la abstraccion del tamaño que estoy haciendo con esta funcion
 void* malloc_points(grid grid, int frames) {
   int points_num = grid.height * grid.length;
   int points_size = sizeof(point2d_64);
