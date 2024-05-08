@@ -50,6 +50,14 @@ void points_simular_secuencial_1(point2d_64* puntos, int puntos_number, cuerpo2d
 
         // Ahora el modulo del vector
         double dist = vector2_module(rx, ry);
+
+        if (dist <= 0) {
+          // Lo ponemos a cero y continuamos
+          GX = 0;
+          GY = 0;
+          continue;;
+        }
+
         double dist_cube = dist * dist * dist;
 
         // Ahora calculamos las componentes de la gravedad entre el punto y este planeta
