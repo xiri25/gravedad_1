@@ -87,6 +87,8 @@ int main() {
   grid grid = {10, 10};
 
   int puntos_size = points_size(grid, ITERATIONS);
+  printf("puntos_size = %d bytes\n", puntos_size);
+
   // El cast del ptr se hace implicitamente, creo
   point2d_64 *puntos = malloc(puntos_size);
 
@@ -94,16 +96,13 @@ int main() {
     printf("Malloc failed alojando los puntos\n");
     return 1;
   }
+  printf("D. de memoria de puntos: %p\n", puntos);
+
   inicilizar_points(puntos, grid, ITERATIONS);
 
   int puntos_number = grid.height * grid.length * ITERATIONS;
   printf("Hopefully sizeof puntos: %lu\n", puntos_number * sizeof(point2d_64));
-  
-  for (int i = 0; i < puntos_number; i++) {
-    //IDK how to make sense of this right now so:
-    printf("Punto[%d] = {%f, %f}\n", i, puntos[i].pos_x, puntos[i].pos_y);
-  }
-
+ 
   escribir_puntos_archivo(puntos, puntos_number * sizeof(point2d_64), &grid, ITERATIONS);
 
   free(puntos);
