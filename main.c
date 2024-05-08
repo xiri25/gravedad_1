@@ -79,10 +79,6 @@ int main() {
 
   escribir_planetas_archivo(planetas, planetas_number);
 
-  //DO NOT FORGET
-  free(planetas);
-
-
   //Points, try 1
   grid grid = {10, 10};
 
@@ -103,8 +99,10 @@ int main() {
   int puntos_number = grid.height * grid.length * ITERATIONS;
   printf("Hopefully sizeof puntos: %lu\n", puntos_number * sizeof(point2d_64));
  
-  escribir_puntos_archivo(puntos, puntos_number * sizeof(point2d_64), &grid, ITERATIONS);
+  escribir_puntos_archivo(puntos, puntos_size, &grid, ITERATIONS);
 
+  //DO NOT FORGET
+  free(planetas); // Necesito los planetas para calcular los puntos
   free(puntos);
 
   return 0;
