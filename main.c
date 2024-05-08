@@ -1,9 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include "gravity/gravity.h"
 #include "points/points.h"
 #include "cuerpos/cuerpos.h"
 #include "result/write.h"
+#include "gravity/gravity.h"
 
 #define ITERATIONS 3
 
@@ -98,7 +100,10 @@ int main() {
 
   int puntos_number = grid.height * grid.length * ITERATIONS;
   printf("Hopefully sizeof puntos: %lu\n", puntos_number * sizeof(point2d_64));
- 
+
+  //Claramente hay que mejorar the planetas_number situation
+  points_simular_secuencial_1(puntos, puntos_number, planetas, 3, ITERATIONS); 
+
   escribir_puntos_archivo(puntos, puntos_size, &grid, ITERATIONS);
 
   //DO NOT FORGET
