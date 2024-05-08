@@ -10,19 +10,10 @@ double vector2_module(double x, double y) {
 }
 
 void points_simular_secuencial_1(point2d_64* puntos, int puntos_number, cuerpo2d* planetas, int planetas_number, int frames) {
-  
-  if (puntos_number % frames != 0) {
-    //no deveria pasar nunca
-    printf("El numero de puntos pasado a la simulacion no es mnultiplo del numeros de frames pasados a la simulacion\n");
-    printf("Eso no puede ser!!!!!!\n");
-    return;
-  }
-
-  int puntos_number_per_frame = puntos_number / frames;
 
   for (int f = 0; f < frames; f++) {
     // Dentro de cada frame, recorro todos los puntos
-    for (int i = 0; i < puntos_number_per_frame; i++) {
+    for (int i = 0; i < puntos_number; i++) {
 
       // En principio merece la pena intentar mantener esto en el stack
       
