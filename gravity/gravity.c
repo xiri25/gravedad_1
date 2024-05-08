@@ -1,12 +1,14 @@
 #include <math.h>
-#include <stdio.h>
 #include "gravity.h"
 
 #define G 1
+#define EPSILON 0.000001
+
 
 //Esta funcion quizas la quiero en otro archivo
 double vector2_module(double x, double y) {
-  return sqrt(x * x + y * y);
+  double mod =  sqrt(x * x + y * y);
+  return mod;
 }
 
 void points_simular_secuencial_1(point2d_64* puntos, int puntos_number, cuerpo2d* planetas, int planetas_number, int frames) {
@@ -42,7 +44,7 @@ void points_simular_secuencial_1(point2d_64* puntos, int puntos_number, cuerpo2d
         // Ahora el modulo del vector
         double dist = vector2_module(rx, ry);
 
-        if (dist <= 0) {
+        if (dist < EPSILON) {
           // Lo ponemos a cero y continuamos
           GX = 0;
           GY = 0;
