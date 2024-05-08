@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include "gravity/gravity.h"
 #include "points/points.h"
 #include "cuerpos/cuerpos.h"
 #include "result/write.h"
