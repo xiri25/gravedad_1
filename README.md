@@ -51,3 +51,11 @@ HAY UNA PRIMERA VERSION DEL CALCULO DEL VALOR DEL CAMPO GRAVITATORIO, \
 #No me sirve de nada guardar los valores (algo mas de precision si que tienen)   # \
 #del campo en cada punto, porque ya los guardo normalizados y guardo el modulo   # \
 ################################################################################## \
+
+\```
+##################################################################################
+# No me sirve de nada guardar los valores (algo mas de precision si que tienen) #
+# del campo en cada punto, porque ya los guardo normalizados y guardo el modulo #
+##################################################################################
+\```
+
