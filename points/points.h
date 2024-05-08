@@ -26,7 +26,7 @@ typedef struct {
   int height;
 } grid;
 
-void* malloc_points(grid grid, int frames);
+int points_size(grid grid, int frames);
 void inicilizar_points(point2d_64* points, grid grid, int frames);
 
 #endif

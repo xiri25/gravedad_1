@@ -1,18 +1,10 @@
 #include "points.h"
-#include <stdlib.h>
 
-
-// En main tengo que alojar la memoria necesaria (porque la voy a liberar en main y asi es mas claro)
-// podemos hacer un wrapper para calcular cuanta
-// No se cuanto me gusta la abstraccion del tamaño que estoy haciendo con esta funcion
-// Puede que cambiar esta funcion por otra que calcule el tamaño (las 3 primeras lineas)
-// y haccer el malloc directamente eon main.c u otra funcion sea un mejor acercamiento
-void* malloc_points(grid grid, int frames) {
+int points_size(grid grid, int frames) {
   int points_num = grid.height * grid.length;
   int points_size = sizeof(point2d_64);
   int size = points_num * points_size * frames;
-  void* grid_ptr = malloc(size);
-  return grid_ptr;
+  return size;
 }
 
 void inicilizar_points(point2d_64* points, grid grid, int frames) {

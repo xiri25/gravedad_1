@@ -86,8 +86,10 @@ int main() {
   //Points, try 1
   grid grid = {10, 10};
 
-  //No se cuanto me gusta la abstraccion del tamaño que estoy haciendo con esta funcion
-  point2d_64 *puntos = malloc_points(grid, ITERATIONS);
+  int puntos_size = points_size(grid, ITERATIONS);
+  // El cast del ptr se hace implicitamente, creo
+  point2d_64 *puntos = malloc(puntos_size);
+
   if (puntos == NULL) {
     printf("Malloc failed alojando los puntos\n");
     return 1;
