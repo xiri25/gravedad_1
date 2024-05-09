@@ -20,8 +20,8 @@ void inicilizar_points(point2d_64* points, grid grid, int frames) {
                 point2d_64 point = {
                     .pos_x = i,
                     .pos_y = j,
-                    .vector_x = 0,
-                    .vector_y = 0,
+//                    .vector_x = 0,
+//                    .vector_y = 0,
                     .mod_vector = 0,
                     .norm_vec_x = 0,
                     .norm_vec_y = 0

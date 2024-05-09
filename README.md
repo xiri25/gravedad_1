@@ -47,7 +47,4 @@ HAY UNA PRIMERA VERSION DEL CALCULO DEL VALOR DEL CAMPO GRAVITATORIO, \
 -NO SE TIENEN EN CUENTA LOS PUNTOS DENTRO DE LOS PLANETAS
 -ES TOTALMENTE SECUENCIAL Y PROBABLEMENTE NO MUY OPTIMIZADA
 
-################################################################################## \
-#No me sirve de nada guardar los valores (algo mas de precision si que tienen)   # \
-#del campo en cada punto, porque ya los guardo normalizados y guardo el modulo   # \
-################################################################################## \
+Si necesito mas precision, descomentar los valores del campo en la struct points2d

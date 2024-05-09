@@ -64,8 +64,8 @@ void points_simular_secuencial_1(point2d_64* puntos, int puntos_number, cuerpo2d
         GX_n = GX / modulo_vector_gravedad;
         GY_n = GY / modulo_vector_gravedad;
 
-        puntos[frame_offset + i].vector_x = GX;
-        puntos[frame_offset + i].vector_y = GX;
+//        puntos[frame_offset + i].vector_x = GX;
+//        puntos[frame_offset + i].vector_y = GX;
         puntos[frame_offset + i].mod_vector = modulo_vector_gravedad;
         puntos[frame_offset + i].norm_vec_x = GX_n;
         puntos[frame_offset + i].norm_vec_y = GY_n;

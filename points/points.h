@@ -11,8 +11,8 @@ typedef struct {
     double pos_y;
 
     // Valor del campo
-    double vector_x;
-    double vector_y;
+//    double vector_x;
+//    double vector_y;
 
     // Esto no se si lo quiero guardar aqui
     double mod_vector;
