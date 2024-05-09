@@ -51,3 +51,33 @@ HAY UNA PRIMERA VERSION DEL CALCULO DEL VALOR DEL CAMPO GRAVITATORIO, \
 #No me sirve de nada guardar los valores (algo mas de precision si que tienen)   # \
 #del campo en cada punto, porque ya los guardo normalizados y guardo el modulo   # \
 ################################################################################## \
+
+
+
+Pruebas basicas de plot_py_pruebas
+Con plotRealTime = True
+y plotThisTurn siempre True
+
+real    3m26.676s
+user    3m12.558s
+sys     0m3.499s
+
+~1001 imagenes
+
+
+Con plotRealTime = True
+y plotThisTurn = False :133
+
+real    3m29.398s
+user    3m15.097s
+sys     0m3.706s
+
+~1001 imagenes
+
+EL MISMO NUMERO XD
+
+Con plotRealTime = False
+
+real    1m15.208s
+user    1m14.210s
+sys     0m1.097s

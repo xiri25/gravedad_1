@@ -59,7 +59,7 @@ def main():
     dt        = 0.001   # timestep
     tOut      = 0.01    # draw frequency
     nu        = 0.001   # viscosity
-    plotRealTime = True # switch on for plotting as the simulation goes along
+    plotRealTime = False # switch on for plotting as the simulation goes along
     
     # Domain [0,1] x [0,1]
     L = 1    
@@ -130,7 +130,7 @@ def main():
         # plot in real time
         plotThisTurn = True
         if t + dt > outputCount*tOut:
-            plotThisTurn = True
+            plotThisTurn = False
         if (plotRealTime and plotThisTurn) or (i == Nt-1):
             
             plt.cla()
