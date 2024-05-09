@@ -81,3 +81,6 @@ Con plotRealTime = False
 real    1m15.208s
 user    1m14.210s
 sys     0m1.097s
+
+
+En google colab funciona distinto XD
