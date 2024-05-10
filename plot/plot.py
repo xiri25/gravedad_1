@@ -31,7 +31,7 @@ def leer_archivo(nombre_archivo):
 
     return np.array(frames)
 
-def plot(frames_vectores, nombre):
+def plot(frames_vectores, frames_planetas, nombre):
     fig, ax = plt.subplots()
     ax.set_title('Quiver Plot')
     ax.set_xlabel('X')
@@ -73,17 +73,20 @@ def plot(frames_vectores, nombre):
     
     for i, frame in enumerate(frames_vectores):
         ax.clear()
+        ratio_radio = 0.02
+        # Agregar planetas
+        for planeta in frames_planetas[i]:
+            ax.add_patch(plt.Circle((planeta[0], planeta[1]), planeta[2] * ratio_radio, color='yellow'))
      #   print("Frame:", i)
    #     for vector in frame:
       #      print("Vector:", vector)
         ax.quiver(frame[:, 0], frame[:, 1], frame[:, 3], frame[:, 4], color=cmap(norm(frame[:, 2])), scale_units='xy', angles='xy', scale=2)
         ax.scatter(frame[:, 0], frame[:, 1], color='white', s=10)
+
         plt.savefig(f'images/{nombre}{i}.png', dpi=300)
         #plt.show()
 
 frames_puntos = leer_archivo("../resultados_puntos.txt")
-#print(frames_puntos[1][11])
-plot(frames_puntos, "campo")
-
 frames_planetas = leer_archivo("../resultados_cuerpos.txt")
-print(frames_planetas)
+
+plot(frames_puntos, frames_planetas, "campo")

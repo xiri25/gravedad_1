@@ -13,9 +13,10 @@ void escribir_planetas_archivo(cuerpo2d *resultados, int cuerpos_num, int frames
     
     for (int f = 0; f < frames; f ++) {
         for (int i = 0; i < cuerpos_num; i++) {
-            fprintf(fptr, "%12.10f %12.10f\n",
+            fprintf(fptr, "%12.10f %12.10f %12.10f\n",
                     resultados[i + f * cuerpos_num].pos_x,
-                    resultados[i + f * cuerpos_num].pos_y);
+                    resultados[i + f * cuerpos_num].pos_y,
+                    resultados[i + f * cuerpos_num].r);
         }
         fprintf(fptr, "\n");
     }
