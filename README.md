@@ -50,3 +50,9 @@ HAY UNA PRIMERA VERSION DEL CALCULO DEL VALOR DEL CAMPO GRAVITATORIO, \
 Si necesito mas precision, descomentar los valores del campo en la struct points2d
 
 // Segmentation fault :)
+
+ES BASTANTE URGENTE HACER UN setup.c
+MALLOC NO LANZA NINGUN ERROR SI SE VA A ALOJAR MAS MEMORIA DE LA QUE SE DISPONE FISICAMENTE, PERO SI LA USAS
+TE ENCUENTRAS CON SEG. FAULT
+
+He consumido los 4GB de RAM de la vm antes de los que esperaba F
