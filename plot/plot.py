@@ -52,7 +52,7 @@ def leer_archivo_planetas(archivo, length):
 
     return np.array(frames)
 
-def plot(frames, nombre):
+def plot(frames_vectores, nombre):
     fig, ax = plt.subplots()
     ax.set_title('Quiver Plot')
     ax.set_xlabel('X')
@@ -60,8 +60,8 @@ def plot(frames, nombre):
     ax.set_facecolor('black')
 
     # Concatenar todas las coordenadas x e y de todos los frames
-    all_x = np.concatenate([frame[:, 0] for frame in frames])
-    all_y = np.concatenate([frame[:, 1] for frame in frames])
+    all_x = np.concatenate([frame[:, 0] for frame in frames_vectores])
+    all_y = np.concatenate([frame[:, 1] for frame in frames_vectores])
 
     # Obtener los límites de los ejes
     min_x, max_x = all_x.min(), all_x.max()
@@ -80,7 +80,7 @@ def plot(frames, nombre):
 
 
     # Obtener los módulos de los vectores de todos los frames
-    modulos = np.concatenate([frame[:, 2] for frame in frames])
+    modulos = np.concatenate([frame[:, 2] for frame in frames_vectores])
 
     # Normalizar los módulos para utilizarlos como colores
     #print(modulos.min(), modulos.max())
@@ -88,7 +88,7 @@ def plot(frames, nombre):
     #cmap = plt.get_cmap('RdBu')
     cmap = plt.get_cmap('coolwarm')
 
-    for i, frame in enumerate(frames):
+    for i, frame in enumerate(frames_vectores):
         ax.clear()
      #   print("Frame:", i)
    #     for vector in frame:
