@@ -6,7 +6,7 @@
 #include "result/write.h"
 #include "gravity/gravity.h"
 
-#define ITERATIONS 3
+#define ITERATIONS 10
 
 cuerpo2d mover_tierra(double radio_orbita, double w, int t) {
     // Por ahora un  movimiento circular

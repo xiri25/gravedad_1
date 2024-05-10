@@ -48,3 +48,5 @@ HAY UNA PRIMERA VERSION DEL CALCULO DEL VALOR DEL CAMPO GRAVITATORIO, \
 -ES TOTALMENTE SECUENCIAL Y PROBABLEMENTE NO MUY OPTIMIZADA
 
 Si necesito mas precision, descomentar los valores del campo en la struct points2d
+
+Segmentation fault :)
