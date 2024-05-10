@@ -78,7 +78,7 @@ int main() {
         planetas[i+2] = mover_luna(planetas[i+1], r_orbita_luna_tierra, 0.05, i);
     }
 
-    escribir_planetas_archivo(planetas, planetas_number);
+    escribir_planetas_archivo(planetas, 3, ITERATIONS);
 
     //Points, try 1
     grid grid = {10, 10};

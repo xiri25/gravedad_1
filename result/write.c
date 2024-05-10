@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "write.h"
 
-void escribir_planetas_archivo(cuerpo2d *resultados, int size) {
+void escribir_planetas_archivo(cuerpo2d *resultados, int cuerpos_num, int frames) {
     FILE *fptr;
     fptr = fopen("resultados_cuerpos.txt", "w");
  
@@ -10,12 +10,14 @@ void escribir_planetas_archivo(cuerpo2d *resultados, int size) {
         return;
     }
 
-    //Este loop hay que hacerlo de 3 en 3 porque en este caso hay 3 cuerpos
-    for (int i = 0; i < size; i += 3) {
-        fprintf(fptr, "%.10f %.10f %.10f %.10f %.10f %.10f\n",
-                resultados[i].pos_x, resultados[i].pos_y,
-                resultados[i+1].pos_x, resultados[i+1].pos_y,
-                resultados[i+2].pos_x, resultados[i+2].pos_y);
+    
+    for (int f = 0; f < frames; f ++) {
+        for (int i = 0; i < cuerpos_num; i++) {
+            fprintf(fptr, "%12.10f %12.10f\n",
+                    resultados[i + f * cuerpos_num].pos_x,
+                    resultados[i + f * cuerpos_num].pos_y);
+        }
+        fprintf(fptr, "\n");
     }
 
     fclose(fptr);

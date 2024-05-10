@@ -6,7 +6,7 @@ import numpy as np
 import os
 from math import log, ceil
 
-def leer_archivo_puntos(nombre_archivo):
+def leer_archivo(nombre_archivo):
     """Leer los puntos"""
     frames = []
     frame_actual = []
@@ -28,27 +28,6 @@ def leer_archivo_puntos(nombre_archivo):
     # Asegurarse de agregar el último frame si hay alguno
     if frame_actual:
         frames.append(frame_actual)
-
-    return np.array(frames)
-
-
-def leer_archivo_planetas(archivo, length):
-    """Convierte el resultado en un array de arrays, con los valores de cada frame"""
-    with open(archivo, "r", encoding="utf-8") as resultados:
-        frames_num = len(resultados.readlines())
-
-        if (frames_num != length):
-            #Error
-            return np.array([])
-
-        frames = []
-
-        # Reset file pointer to the beginning of the file
-        resultados.seek(0)
-
-        for _, line in enumerate(resultados):
-            frame = [float(value) for value in line.split()]
-            frames.append(np.array(frame))
 
     return np.array(frames)
 
@@ -101,6 +80,9 @@ def plot(frames_vectores, nombre):
         plt.savefig(f'images/{nombre}{i}.png', dpi=300)
         plt.show()
 
-frames_puntos = leer_archivo_puntos("../resultados_puntos.txt")
+frames_puntos = leer_archivo("../resultados_puntos.txt")
 #print(frames_puntos[1][11])
 plot(frames_puntos, "campo")
+
+frames_planetas = leer_archivo("../resultados_cuerpos.txt")
+print(frames_planetas)
