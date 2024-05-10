@@ -1,6 +1,6 @@
 CC=gcc
 CFLAGS=-Wall -Wextra
-LDFLAGS=-lm
+LDFLAGS=-lm -g
 
 .PHONY: all clean
 

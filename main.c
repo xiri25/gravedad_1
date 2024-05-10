@@ -6,7 +6,7 @@
 #include "result/write.h"
 #include "gravity/gravity.h"
 
-#define ITERATIONS 10
+#define ITERATIONS 100
 
 cuerpo2d mover_tierra(double radio_orbita, double w, int t) {
     // Por ahora un  movimiento circular
@@ -60,7 +60,7 @@ int main() {
     planetas[1] = tierra;
     planetas[2] = luna;
 
-    printf("D. Memoria de planetas: %p\n", &planetas);
+    printf("D. Memoria de planetas: %p\n", (void *)planetas);
 
     //En este toy problem el sol es estático y punto de referencia
     printf("planetas_size: %d\n", planetas_size);
@@ -101,7 +101,7 @@ int main() {
     printf("Hopefully sizeof puntos: %lu\n", puntos_number * sizeof(point2d_64));
 
     //Claramente hay que mejorar the planetas_number situation
-    points_simular_secuencial_1(puntos, puntos_number, planetas, 3, ITERATIONS); 
+    points_simular_secuencial_1(puntos, puntos_number / ITERATIONS, planetas, 3, ITERATIONS); 
 
     escribir_puntos_archivo(puntos, puntos_size, &grid, ITERATIONS);
 

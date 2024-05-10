@@ -7,7 +7,7 @@
 
 //Esta funcion quizas la quiero en otro archivo
 double vector2_module(double x, double y) {
-    double mod =  sqrt(x * x + y * y);
+    double mod = sqrt(x * x + y * y);
     return mod;
 }
 
@@ -38,23 +38,23 @@ void points_simular_secuencial_1(point2d_64* puntos, int puntos_number, cuerpo2d
         for (int j = 0; j < planetas_number; j++) {
         
             // Empezamos calculando el vector que une el punto con el planeta
-            double rx = planetas[frame_offset + j].pos_x - puntos[frame_offset + i].pos_x;
-            double ry = planetas[frame_offset + j].pos_y - puntos[frame_offset + i].pos_y;
+            double rx = planetas[f * planetas_number + j].pos_x - puntos[frame_offset + i].pos_x;
+            double ry = planetas[f * planetas_number + j].pos_y - puntos[frame_offset + i].pos_y;
 
             // Ahora el modulo del vector
             double dist = vector2_module(rx, ry);
 
             if (dist < EPSILON) {
                 // Lo ponemos a cero y continuamos
-                GX = 0;
-                GY = 0;
+                //GX = 0;
+                //GY = 0;
                 continue;;
             }
 
             double dist_cube = dist * dist * dist;
 
             // Ahora calculamos las componentes de la gravedad entre el punto y este planeta
-            double Gm = G * planetas[frame_offset + j].m;
+            double Gm = G * planetas[f* planetas_number + j].m;
             double Gm_entre_r3 = Gm / dist_cube;
             GX += Gm_entre_r3 * rx;
             GY += Gm_entre_r3 * ry;
