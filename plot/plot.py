@@ -67,6 +67,10 @@ def plot(frames_vectores, nombre):
     #cmap = plt.get_cmap('RdBu')
     cmap = plt.get_cmap('coolwarm')
 
+    ax.set_aspect('equal', 'box')
+    cb = fig.colorbar(plt.cm.ScalarMappable(cmap=cmap, norm=norm), ax=ax)
+    cb.set_label('Modulo del vector')
+    
     for i, frame in enumerate(frames_vectores):
         ax.clear()
      #   print("Frame:", i)
@@ -74,11 +78,8 @@ def plot(frames_vectores, nombre):
       #      print("Vector:", vector)
         ax.quiver(frame[:, 0], frame[:, 1], frame[:, 3], frame[:, 4], color=cmap(norm(frame[:, 2])), scale_units='xy', angles='xy', scale=2)
         ax.scatter(frame[:, 0], frame[:, 1], color='white', s=10)
-        ax.set_aspect('equal', 'box')
-        cb = fig.colorbar(plt.cm.ScalarMappable(cmap=cmap, norm=norm), ax=ax)
-        cb.set_label('Modulo del vector')
         plt.savefig(f'images/{nombre}{i}.png', dpi=300)
-        plt.show()
+        #plt.show()
 
 frames_puntos = leer_archivo("../resultados_puntos.txt")
 #print(frames_puntos[1][11])
