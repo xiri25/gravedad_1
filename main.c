@@ -5,7 +5,7 @@
 #include "cuerpos/cuerpos.h"
 #include "result/write.h"
 #include "gravity/gravity.h"
-#include "setup/setup.h"
+//#include "setup/setup.h"
 
 #define ITERATIONS 100
 
@@ -43,7 +43,7 @@ cuerpo2d mover_luna(cuerpo2d tierra, double radio_orbita, double w, int t) {
 }
 
 int main() {
-
+/*
     sim_info info = {
         .total_iter = 100,
         .point_size = 1,
@@ -62,8 +62,9 @@ int main() {
     int *indexes = malloc(size_array_indexes);
     SETUP_frames_division_indexes(indexes, divisions,  info.total_iter);
 
+    free(indexes);
     return 0;
-
+*/
     int size = sizeof(double);
     printf("Un double mide: %d bytes, %d bits\n", size, size * 8);
 
