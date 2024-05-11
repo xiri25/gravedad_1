@@ -5,6 +5,7 @@
 #include "cuerpos/cuerpos.h"
 #include "result/write.h"
 #include "gravity/gravity.h"
+#include "setup/setup.h"
 
 #define ITERATIONS 100
 
@@ -42,7 +43,28 @@ cuerpo2d mover_luna(cuerpo2d tierra, double radio_orbita, double w, int t) {
 }
 
 int main() {
-      int size = sizeof(double);
+
+    sim_info info = {
+        .total_iter = 100,
+        .point_size = 1,
+        .point_number_per_frame = 1,
+        .body_size = 1,
+        .body_number_per_frame = 1,
+        .max_mem = 95
+    };
+    
+    int divisions = SETUP_divisions(&info);
+    printf("Divisions = %d\n", divisions);
+
+    int size_array_indexes = sizeof(int) * (divisions + 1);
+    printf("size_array_indexes : %d\n", size_array_indexes);
+
+    int *indexes = malloc(size_array_indexes);
+    SETUP_frames_division_indexes(indexes, divisions,  info.total_iter);
+
+    return 0;
+
+    int size = sizeof(double);
     printf("Un double mide: %d bytes, %d bits\n", size, size * 8);
 
     // Primero vamos a hacer que los "planetas" se muevan
