@@ -7,7 +7,7 @@
 #include "gravity/gravity.h"
 //#include "setup/setup.h"
 
-#define ITERATIONS 100
+#define ITERATIONS 20
 
 cuerpo2d mover_tierra(double radio_orbita, double w, int t) {
     // Por ahora un  movimiento circular
@@ -69,9 +69,9 @@ int main() {
     printf("Un double mide: %d bytes, %d bits\n", size, size * 8);
 
     // Primero vamos a hacer que los "planetas" se muevan
-    cuerpo2d sol = {0, 0, 100, 100};
-    cuerpo2d tierra = {10, 10, 2, 2};
-    cuerpo2d luna = {11, 11, 1, 1};
+    cuerpo2d sol = {0, 0, 50, 100};
+    cuerpo2d tierra = {5, 5, 2, 20};
+    cuerpo2d luna = {6, 6, 1, 10};
 
     int planetas_size = sizeof(cuerpo2d) * ITERATIONS * 3;
     cuerpo2d *planetas = (cuerpo2d *)malloc(planetas_size);
@@ -90,7 +90,7 @@ int main() {
     int planetas_number = ITERATIONS * 3;
     printf("planetas_number: %d\n", planetas_number);
   
-    double r_orbita_tierra_sol = sqrt(10*10+10*10);
+    double r_orbita_tierra_sol = sqrt(10*10);
   
     // (11 - 10)**2 + (11 - 10)**2
     double r_orbita_luna_tierra = sqrt(2);
@@ -104,7 +104,7 @@ int main() {
     escribir_planetas_archivo(planetas, 3, ITERATIONS);
 
     //Points, try 1
-    grid grid = {10, 10};
+    grid grid = {20, 20};
 
     int puntos_size = points_size(grid, ITERATIONS);
     printf("puntos_size = %d bytes\n", puntos_size);

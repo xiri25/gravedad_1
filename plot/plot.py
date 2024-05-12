@@ -86,13 +86,14 @@ def plot(frames_vectores, frames_planetas, nombre):
 
         ratio_radio = 0.02
 
-        ax.quiver(frame_vector[:, 0], frame_vector[:, 1], frame_vector[:, 3], frame_vector[:, 4], color=cmap(norm(frame_vector[:, 2])), scale_units='xy', angles='xy', scale=1, linewidth=0.3, headwidth=0.5, headlength=0.7)
+        ax.quiver(frame_vector[:, 0], frame_vector[:, 1], frame_vector[:, 3], frame_vector[:, 4], color=cmap(norm(frame_vector[:, 2])), scale_units='xy', angles='xy', scale=2, linewidth=0.1, headwidth=0.1, headlength=0.3)
         ax.scatter(frame_vector[:, 0], frame_vector[:, 1], color='white', s=1)
         for planeta in frames_planetas[i]:
             ax.add_patch(plt.Circle((planeta[0], planeta[1]), planeta[2] * ratio_radio, color='yellow'))
         plt.savefig(f'images/{nombre}{i}.png', dpi=300)
 
-frames_puntos = leer_archivo("../resultados_puntos.txt")
+#frames_puntos = leer_archivo("../resultados_puntos.txt")
+frames_puntos = leer_archivo("../hola")
 frames_planetas = leer_archivo("../resultados_cuerpos.txt")
 
 plot(frames_puntos, frames_planetas, "campo")

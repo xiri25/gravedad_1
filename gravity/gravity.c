@@ -1,8 +1,9 @@
 #include <math.h>
+#include <stdio.h>
 #include "gravity.h"
 
 #define G 1
-#define EPSILON 0.000001
+#define EPSILON 0.00000001
 
 
 //Esta funcion quizas la quiero en otro archivo
@@ -14,9 +15,11 @@ double vector2_module(double x, double y) {
 void points_simular_secuencial_1(point2d_64* puntos, int puntos_number, cuerpo2d* planetas, int planetas_number, int frames) {
 
     for (int f = 0; f < frames; f++) {
+        //printf("g.Frame = %d\n", f);
         // Dentro de cada frame, recorro todos los puntos
         for (int i = 0; i < puntos_number; i++) {
 
+        //printf("    g.Punto: %d", i);
         // En principio merece la pena intentar mantener esto en el stack
       
         // De cada punto queremos calcular el vector gravedad, el modulo del vector gravedad y el vector gravedad normalizado
@@ -48,7 +51,7 @@ void points_simular_secuencial_1(point2d_64* puntos, int puntos_number, cuerpo2d
                 // Lo ponemos a cero y continuamos
                 //GX = 0;
                 //GY = 0;
-                continue;;
+                continue;
             }
 
             double dist_cube = dist * dist * dist;
@@ -61,6 +64,7 @@ void points_simular_secuencial_1(point2d_64* puntos, int puntos_number, cuerpo2d
         }
 
         modulo_vector_gravedad = vector2_module(GX, GY);
+        //printf(" g.modulo = %f\n", modulo_vector_gravedad);
         GX_n = GX / modulo_vector_gravedad;
         GY_n = GY / modulo_vector_gravedad;
 
@@ -69,6 +73,18 @@ void points_simular_secuencial_1(point2d_64* puntos, int puntos_number, cuerpo2d
         puntos[frame_offset + i].mod_vector = modulo_vector_gravedad;
         puntos[frame_offset + i].norm_vec_x = GX_n;
         puntos[frame_offset + i].norm_vec_y = GY_n;
+        
+        //Debugging
+        printf("%12.10f %12.10f %12.10f %12.10f %12.10f\n",
+        puntos[i + frame_offset].pos_x,
+        puntos[i + frame_offset].pos_y,
+//                    resultado[i + f * grid_size].vector_x,
+//                    resultado[i + f * grid_size].vector_y,
+        puntos[i + frame_offset].mod_vector,
+        puntos[i + frame_offset].norm_vec_x,
+        puntos[i + frame_offset].norm_vec_y);
+
         }
+    printf("\n");
     }
 }

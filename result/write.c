@@ -45,8 +45,14 @@ void escribir_puntos_archivo(point2d_64 *resultado, int resultado_size, grid* gr
 
     //Quiero separar cada frame
     for (int f = 0; f < frames; f++) {
+
+        //printf("w.Frame = %d\n", f);
+        
         //Cada punto en una linea
         for (int i = 0; i < grid_size; i++) {
+
+            //printf("    w.Punto: %d", i);
+            
             // En teoria deberian ser 12 characteres incluyendo la coma, 10 de ellos despues de la coma, pero se la pela
             fprintf(fptr, "%12.10f %12.10f %12.10f %12.10f %12.10f\n",
                     resultado[i + f * grid_size].pos_x,
@@ -56,6 +62,10 @@ void escribir_puntos_archivo(point2d_64 *resultado, int resultado_size, grid* gr
                     resultado[i + f * grid_size].mod_vector,
                     resultado[i + f * grid_size].norm_vec_x,
                     resultado[i + f * grid_size].norm_vec_y);
+            
+
+            //printf(" w.modulo: %.10f\n", resultado[i + f * grid_size].mod_vector);
+        
         }
         fprintf(fptr, "\n");
     }
