@@ -62,13 +62,12 @@ void escribir_puntos_archivo(point2d_64 *resultado, int resultado_size, grid* gr
                     resultado[i + f * grid_size].mod_vector,
                     resultado[i + f * grid_size].norm_vec_x,
                     resultado[i + f * grid_size].norm_vec_y);
-            
-
-            //printf(" w.modulo: %.10f\n", resultado[i + f * grid_size].mod_vector);
+             
+            //printf(" w.modulo: %12.10f\n", resultado[i + f * grid_size].mod_vector);
         
         }
         fprintf(fptr, "\n");
+        //printf("\n");
     }
-
     fclose(fptr);
 }

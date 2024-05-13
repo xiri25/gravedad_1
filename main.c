@@ -7,7 +7,7 @@
 #include "gravity/gravity.h"
 //#include "setup/setup.h"
 
-#define ITERATIONS 20
+#define ITERATIONS 2
 
 cuerpo2d mover_tierra(double radio_orbita, double w, int t) {
     // Por ahora un  movimiento circular
@@ -104,7 +104,7 @@ int main() {
     escribir_planetas_archivo(planetas, 3, ITERATIONS);
 
     //Points, try 1
-    grid grid = {20, 20};
+    grid grid = {2, 3};
 
     int puntos_size = points_size(grid, ITERATIONS);
     printf("puntos_size = %d bytes\n", puntos_size);
