@@ -22,7 +22,7 @@ double now(void) {
 #endif
 
 
-#define ITERATIONS 100
+#define ITERATIONS 1000
 
 cuerpo2d mover_tierra(double radio_orbita, double w, int t) {
     // Por ahora un  movimiento circular
@@ -138,7 +138,7 @@ int main() {
     #endif
 
     //Points, try 1
-    grid grid = {20, 5};
+    grid grid = {5, 5};
 
     int puntos_size = points_size(grid, ITERATIONS);
     printf("puntos_size = %d bytes\n", puntos_size);
@@ -181,24 +181,32 @@ int main() {
     free(puntos);
 
     #if MEASURE_TIME
+
     double stop_time_main = now();
     double time_main = stop_time_main - start_time_main;
-    printf("Time main: %.10fs\n", time_main);
 
     double time_planetas = stop_time_planetas - start_time_planetas;
-    printf("Time planetas_calc: %0.10fs\n", time_planetas);
+    printf("Time planetas_calc:      %0.10f s / %0.10f\n",
+           time_planetas, time_planetas / time_main);
 
     double time_planetas_escribir = stop_time_planetas_escribir - start_time_planetas_escribir;
-    printf("Time escribir planetas: %0.10fs\n", time_planetas_escribir);
+    printf("Time escribir planetas:  %0.10f s / %0.10f\n",
+           time_planetas_escribir, time_planetas_escribir / time_main);
 
     double time_puntos_inicializar = stop_time_puntos_inicializar - start_time_puntos_inicializar;
-    printf("Time inicializar puntos: %0.10fs\n", time_puntos_inicializar);
+    printf("Time inicializar puntos: %0.10f s / %0.10f\n",
+           time_puntos_inicializar, time_puntos_inicializar / time_main);
 
     double time_puntos_simular = stop_time_puntos_simular - start_time_puntos_simular;
-    printf("Time simular puntos: %0.10fs\n", time_puntos_simular);
+    printf("Time simular puntos:     %0.10f s / %0.10f\n",
+           time_puntos_simular, time_puntos_simular / time_main);
 
     double time_puntos_escribir = stop_time_puntos_escribir - start_time_puntos_escribir;
-    printf("Time escribir puntos: %0.10fs\n", time_puntos_escribir);
+    printf("Time escribir puntos:    %0.10f s / %0.10f\n",
+           time_puntos_escribir, time_puntos_escribir / time_main);
+
+    printf("Time main:               %.10f s\n",
+           time_main);
     #endif
 
     return 0;
