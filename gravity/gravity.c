@@ -86,6 +86,6 @@ void points_simular_secuencial_1(point2d_64* puntos, int puntos_number, cuerpo2d
                 puntos[i + frame_offset].norm_vec_y);
             */
         }
-    printf("\n");
+    //printf("\n");
     }
 }
