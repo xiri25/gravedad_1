@@ -22,7 +22,7 @@ double now(void) {
 #endif
 
 
-#define ITERATIONS 1000
+#define ITERATIONS 500
 
 cuerpo2d mover_tierra(double radio_orbita, double w, int t) {
     // Por ahora un  movimiento circular
@@ -138,10 +138,13 @@ int main() {
     #endif
 
     //Points, try 1
-    grid grid = {5, 5};
+    grid grid = {150, 150};
 
     int puntos_size = points_size(grid, ITERATIONS);
     printf("puntos_size = %d bytes\n", puntos_size);
+    printf("puntos_size = %f Kbytes\n", (double)puntos_size / 1024);
+    printf("puntos_size = %f Mbytes\n", (double)puntos_size / 1024 / 1024);
+    printf("puntos_size = %f Gbytes\n", (double)puntos_size / 1024 / 1024 / 1024);
 
     // El cast del ptr se hace implicitamente, creo
     point2d_64 *puntos = malloc(puntos_size);

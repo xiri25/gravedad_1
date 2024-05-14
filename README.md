@@ -62,5 +62,3 @@ Si necesito mas precision, descomentar los valores del campo en la struct points
 ES BASTANTE URGENTE HACER UN setup.c
 MALLOC NO LANZA NINGUN ERROR SI SE VA A ALOJAR MAS MEMORIA DE LA QUE SE DISPONE FISICAMENTE, PERO SI LA USAS
 TE ENCUENTRAS CON SEG. FAULT
-
-He consumido los 4GB de RAM de la vm antes de los que esperaba F
