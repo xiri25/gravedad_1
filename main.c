@@ -12,12 +12,12 @@
 #if MEASURE_TIME
 #include <time.h>
 
-#define ONE_BILLION 1000000000.0
+#define 1K_MILLONES 1000000000.0
 
 double now(void) {
   struct timespec current_time;
   clock_gettime(CLOCK_REALTIME, &current_time);
-  return current_time.tv_sec + (current_time.tv_nsec / ONE_BILLION);
+  return current_time.tv_sec + (current_time.tv_nsec / 1K_MILLONES);
 }
 #endif
 

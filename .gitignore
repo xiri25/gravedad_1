@@ -8,3 +8,5 @@ plot/media/*
 plot_py_pruebas/images/
 plot/images
 hola
+gmon.out
+gravity.s
