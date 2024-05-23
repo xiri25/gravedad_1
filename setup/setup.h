@@ -10,7 +10,7 @@ typedef struct {
     int body_size;
     int body_number_per_frame;
     int point_size;
-    int point_number_per_frame;
+    int point_number_per_frame; //Deberia tener el grid ya calculado para poder poner este valor
 } sim_info;
 
 int SETUP_divisions(sim_info *sim_info);

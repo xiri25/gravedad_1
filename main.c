@@ -63,14 +63,13 @@ int main() {
     double start_time_main = now();
     #endif
 
-
     sim_info info = {
-        .total_iter = 100,
-        .point_size = 1,
-        .point_number_per_frame = 1,
-        .body_size = 1,
-        .body_number_per_frame = 1,
-        .max_mem = 95
+        .total_iter = 500,
+        .point_size = sizeof(point2d_64),
+        .point_number_per_frame = 150 * 150, //Deberia tener el grid ya calculado para poder poner este valor
+        .body_size = sizeof(cuerpo2d),
+        .body_number_per_frame = 3,
+        .max_mem = 100 * 1024 * 1024 //100Mbytes
     };
     
     int divisions = SETUP_divisions(&info);
@@ -83,11 +82,11 @@ int main() {
     indexes = SETUP_frames_division_indexes(indexes, divisions,  info.total_iter);
 
     for (int i = 0; i < (divisions + 1); i++) {
-        printf("Divisiones_indices[%d] = %d\n", i, indexes[i]);
+        printf("Frame_divisiones_indices[%d] = %d\n", i, indexes[i]);
     }
         
     free(indexes);
-    return 0;
+    //return 0;
 
     int size = sizeof(double);
     printf("Un double mide: %d bytes, %d bits\n", size, size * 8);
