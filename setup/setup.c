@@ -18,7 +18,7 @@ int SETUP_divisions(sim_info *sim_info) {
 
     int divisions = (int)floor((double)sim_info->total_iter / frames_per_division);
 
-    return divisions + 1 + (frames_per_division_mod > 0);
+    return divisions + (frames_per_division_mod > 0);
 }
 
 // Esta funcion que divide los frames, debe poder ser usada para la paralelizacion

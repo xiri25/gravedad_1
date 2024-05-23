@@ -5,7 +5,7 @@
 #include "cuerpos/cuerpos.h"
 #include "result/write.h"
 #include "gravity/gravity.h"
-//#include "setup/setup.h"
+#include "setup/setup.h"
 
 #define MEASURE_TIME 1
 
@@ -63,7 +63,7 @@ int main() {
     double start_time_main = now();
     #endif
 
-/*
+
     sim_info info = {
         .total_iter = 100,
         .point_size = 1,
@@ -80,11 +80,15 @@ int main() {
     printf("size_array_indexes : %d\n", size_array_indexes);
 
     int *indexes = malloc(size_array_indexes);
-    SETUP_frames_division_indexes(indexes, divisions,  info.total_iter);
+    indexes = SETUP_frames_division_indexes(indexes, divisions,  info.total_iter);
 
+    for (int i = 0; i < (divisions + 1); i++) {
+        printf("Divisiones_indices[%d] = %d\n", i, indexes[i]);
+    }
+        
     free(indexes);
     return 0;
-*/
+
     int size = sizeof(double);
     printf("Un double mide: %d bytes, %d bits\n", size, size * 8);
 
