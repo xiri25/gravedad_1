@@ -5,6 +5,8 @@
 typedef struct {
     double pos_x;
     double pos_y;
+    double v_x;
+    double v_y;
 
     //Asumimos una distribucion de masa cte en una circunferencia
     double r;

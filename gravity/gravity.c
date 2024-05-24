@@ -89,3 +89,123 @@ void points_simular_secuencial_1(point2d_64* puntos, int puntos_number, cuerpo2d
     //printf("\n");
     }
 }
+
+/*
+    Las distancias que nos interesan calcular son
+    |  |p1|p2|p3|p4|p5|
+    |p1|  |xx|xx|xx|xx|
+    |p2|  |  |xx|xx|xx|
+    |p3|  |  |  |xx|xx|
+    |p4|  |  |  |  |xx|
+    |p5|  |  |  |  |  |
+
+    Numero planetas -> distnacias que interesan
+    2 -> 1  = 1
+    3 -> 3  = 2 + 1
+    4 -> 6  = 3 + 2 + 1
+    5 -> 10 = 4 + 3 + 2 + 1
+    ...
+
+    distancias = (planetas - 1) * planetas / 2
+*/
+
+int calc_buffer_size(int planetas_number){
+    if (planetas_number < 2) {
+        printf("El numero de planetas es menor de 2\n");
+        return 0;
+    }
+    return (planetas_number - 1) * planetas_number / 2;
+}
+
+//El array planetas_t0 contiene las condiciones iniciales y por lo tanto tiene {planetas_number} elementos
+void cuerpos_simular(cuerpo2d* planetas, int planetas_number, cuerpo2d* planetas_t0, int frames, int dt) {
+
+    //Condiciones iniciales
+    for (int i = 0; i < planetas_number; i++) {
+        planetas[i] = planetas_t0[i];
+    }
+
+    //buffers, TODO: teniendo en cuenta que al final no estoy usando ningun buffer, buscar otro nombre
+    int buffer_size = calc_buffer_size(planetas_number);
+
+    //Simulacion
+    //Empezamos en el frame 1, en lugar del 0, porque el 0 son las condiciones iniciales
+    for (int f = 1; f < frames; f++) {
+
+        //Primero quiero calcular los vectores entre los planetas
+        /*
+            |  |p1|p2|p3|p4|p5|
+            |p1|  |01|02|03|04|
+            |p2|  |  |05|06|07|
+            |p3|  |  |  |08|09|
+            |p4|  |  |  |  |10|
+            |p5|  |  |  |  |  |
+
+            |  |p0|p1|p2|p3|p4|
+            |p0|  |00|01|02|03|
+            |p1|  |  |04|05|06|
+            |p2|  |  |  |07|08|
+            |p3|  |  |  |  |09|
+            |p4|  |  |  |  |  |
+
+            la i es el eje x
+            la j es el eje y
+
+            Calculamos los vactores en el sentido planeta[j] - planeta[i]
+            Es decir estos vectores apuntan a planeta[j] desde planeta[i]
+        */
+        int index_frames_anterior = f * planetas_number - 1;
+        for (int j = 0; j < buffer_size; j++) {
+            for (int i = j + 1; i < buffer_size; i++) {
+                //Estado del frame anterior
+                cuerpo2d* planeta_i_frame_anterior = &planetas[index_frames_anterior + i];
+                cuerpo2d* planeta_j_frame_anterior = &planetas[index_frames_anterior + j];
+                
+                //Calculamos el vector
+                double dx = planeta_j_frame_anterior->pos_x - planeta_i_frame_anterior->pos_x;
+                double dy = planeta_j_frame_anterior->pos_y - planeta_i_frame_anterior->pos_y;
+                
+                //Calculamos la distancia
+                double dist = vector2_module(dx, dy);
+
+                //Calculo de Gm1m2
+                double m1 = planeta_j_frame_anterior->m;
+                double m2 = planeta_i_frame_anterior->m;
+                double Gm1m2 = G * m1 * m2;
+
+                double dist_2 = dist * dist;
+
+                //Calculamos la fuerza
+                double F_x = (Gm1m2 * dx) / dist_2;
+                double F_y = (Gm1m2 * dy) / dist_2;
+
+                //Aceleraciones
+                double ai_x = F_x / m2;
+                double ai_y = F_y / m2;
+                double aj_x = -F_x / m1;
+                double aj_y = -F_y / m1;
+
+                cuerpo2d* planeta_i = &planetas[index_frames_anterior + 1 + i];
+                cuerpo2d* planeta_j = &planetas[index_frames_anterior + 1 + j];
+
+                //Velocidades
+                planeta_i->v_x += ai_x * dt;
+                planeta_i->v_y += ai_y * dt;
+                planeta_j->v_x += aj_x * dt;
+                planeta_j->v_y += aj_y * dt;
+
+                //Posiciones
+                planeta_i->pos_x += ai_x * dt * dt;
+                planeta_i->pos_y += ai_y * dt * dt;
+                planeta_j->pos_x += aj_x * dt * dt;
+                planeta_j->pos_y += aj_y * dt * dt;
+
+                //Las constantes las voy a pasar por aqui por ahora
+                planeta_i->m = planeta_i_frame_anterior->m;
+                planeta_i->r = planeta_i_frame_anterior->r;
+                planeta_j->m = planeta_j_frame_anterior->m;
+                planeta_j->r = planeta_j_frame_anterior->r;
+            }
+        }
+    }
+}
