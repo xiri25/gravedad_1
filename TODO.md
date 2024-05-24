@@ -16,4 +16,4 @@ Puedo calcular la energia por cada franme y ver que tal
 - Comprobar que tal vectoriza, hace uso de SIMD GCC el codigo de la primera implementacion
 la gravedad para los cuerpos y ver que puedo hacer para mejorarlo (No solo en caso necesario,
 si no siempre, quiero aprender a hacerlo en el codigo y no depender tanto de los mecanismos
-automaticos del compilador)
+automaticos del compilador) (tiene buena pinta XD)
