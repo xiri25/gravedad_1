@@ -3,6 +3,16 @@
 #include <math.h>
 #include "test.h"
 
+void print_frame(cuerpo2d* planetas, int planetas_number, int frame) {
+    for (int i = 0; i < planetas_number; i++) {
+        printf("    Planeta[%d]:\n", i);
+        printf("        v_x = %f\n", planetas[frame * planetas_number + i].v_x);
+        printf("        v_y = %f\n", planetas[frame * planetas_number + i].v_y);
+        printf("        pos_x = %f\n", planetas[frame * planetas_number + i].pos_x);
+        printf("        pos_y = %f\n", planetas[frame * planetas_number + i].pos_y);
+    }
+}
+
 void test_simulacion_cuerpos(int frames, int planetas_number) {
     printf("Iniciando el test con:\n");
     printf("    %d frames\n", frames);
@@ -27,12 +37,12 @@ void test_simulacion_cuerpos(int frames, int planetas_number) {
     
     //en principio vamos a usar solo dos planetas, asi que voy a hardcodear esto
     cuerpo2d Sol = {
-        .m = 1000,
-        .r = 1000,
-        .v_x = 0,
-        .v_y = 0,
-        .pos_x = 0,
-        .pos_y = 0
+        .m = 1000.0,
+        .r = 1000.0,
+        .v_x = 0.0,
+        .v_y = 0.0,
+        .pos_x = 0.0,
+        .pos_y = 0.0
     };
 
     //Podemos calcular la velocidad de la Tierra suponiendo una orbital circular
@@ -42,11 +52,11 @@ void test_simulacion_cuerpos(int frames, int planetas_number) {
 
     //La velocidad es perpendicular al radio
     cuerpo2d Tierra = {
-        .m = 1,
-        .r = 1,
+        .m = 1.0,
+        .r = 1.0,
         .v_x = tierra_v,
-        .v_y = 0,
-        .pos_x = 0,
+        .v_y = 0.0,
+        .pos_x = 0.0,
         .pos_y = r_orbita
     };
 
@@ -58,6 +68,14 @@ void test_simulacion_cuerpos(int frames, int planetas_number) {
     printf("Simulacion\n");
 
     cuerpos_simular(planetas, planetas_number, planetas_t0, frames, 1);
+
+/*
+    for (int i = 0; i < frames; i++) {
+        printf("Frame: %d\n", i);
+        print_frame(planetas, planetas_number, i);
+        printf("\n");
+    }
+*/
 
     free(planetas);
     free(planetas_t0);
