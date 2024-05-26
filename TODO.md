@@ -17,3 +17,8 @@ Puedo calcular la energia por cada franme y ver que tal
 la gravedad para los cuerpos y ver que puedo hacer para mejorarlo (No solo en caso necesario,
 si no siempre, quiero aprender a hacerlo en el codigo y no depender tanto de los mecanismos
 automaticos del compilador) (tiene buena pinta XD)
+
+- Hecharle un vistazo a la integracion de Verlet, en teoria es un metodo para mantener las
+integraciones numericas de ecuaciones diferenciales ordinarias de segundo orden con valores
+conocidos mas estables/precisas. Suponer que la implementacion actual esta bien y implementar
+este algoritmo

@@ -37,8 +37,8 @@ void test_simulacion_cuerpos(int frames, int planetas_number) {
     
     //en principio vamos a usar solo dos planetas, asi que voy a hardcodear esto
     cuerpo2d Sol = {
-        .m = 1000.0,
-        .r = 1000.0,
+        .m = 100.0,
+        .r = 100.0,
         .v_x = 0.0,
         .v_y = 0.0,
         .pos_x = 0.0,
