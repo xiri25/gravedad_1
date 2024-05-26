@@ -6,6 +6,7 @@
 #include "result/write.h"
 #include "gravity/gravity.h"
 #include "setup/setup.h"
+#include "test/test.h"
 
 #define MEASURE_TIME 1
 
@@ -58,6 +59,11 @@ cuerpo2d mover_luna(cuerpo2d tierra, double radio_orbita, double w, int t) {
 }
 
 int main() {
+
+    //TESTING
+    test_simulacion_cuerpos(10, 2);
+
+    return 0;
 
     #if MEASURE_TIME
     double start_time_main = now();
