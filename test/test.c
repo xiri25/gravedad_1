@@ -48,7 +48,7 @@ void test_simulacion_cuerpos(int frames, int planetas_number, double dt) {
     //Podemos calcular la velocidad de la Tierra suponiendo una orbital circular
     double r_orbita = 1000;
     double tierra_v_2 = 1.0 * Sol.m / r_orbita;
-    double tierra_v = sqrt(tierra_v_2);
+    double tierra_v = sqrt(tierra_v_2 * 1100);
 
     //La velocidad es perpendicular al radio
     cuerpo2d Tierra = {
