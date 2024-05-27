@@ -22,4 +22,6 @@ automaticos del compilador) (tiene buena pinta XD)
 integraciones numericas de ecuaciones diferenciales ordinarias de segundo orden con valores
 conocidos mas estables/precisas. Suponer que la implementacion actual esta bien y implementar
 este algoritmo
-    https://www.physics.udel.edu/~bnikolic/teaching/phys660/numerical_ode/node5.html   
+    https://www.physics.udel.edu/~bnikolic/teaching/phys660/numerical_ode/node5.html
+
+- Kahan Summation Algorithm y Normalizar las variables alrededor de 0 para mayor precision (idealmente -1,1)
