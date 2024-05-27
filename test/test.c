@@ -13,7 +13,7 @@ void print_frame(cuerpo2d* planetas, int planetas_number, int frame) {
     }
 }
 
-void test_simulacion_cuerpos(int frames, int planetas_number) {
+void test_simulacion_cuerpos(int frames, int planetas_number, double dt) {
     printf("Iniciando el test con:\n");
     printf("    %d frames\n", frames);
     printf("    %d planetas\n", planetas_number);
@@ -67,7 +67,7 @@ void test_simulacion_cuerpos(int frames, int planetas_number) {
 
     printf("Simulacion\n");
 
-    cuerpos_simular(planetas, planetas_number, planetas_t0, frames, 1);
+    cuerpos_simular(planetas, planetas_number, planetas_t0, frames, dt);
 
 /*
     for (int i = 0; i < frames; i++) {

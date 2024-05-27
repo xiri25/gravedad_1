@@ -118,7 +118,7 @@ int calc_buffer_size(int planetas_number){
 }
 
 //El array planetas_t0 contiene las condiciones iniciales y por lo tanto tiene {planetas_number} elementos
-void cuerpos_simular(cuerpo2d* planetas, int planetas_number, cuerpo2d* planetas_t0, int frames, int dt) {
+void cuerpos_simular(cuerpo2d* planetas, int planetas_number, cuerpo2d* planetas_t0, int frames, double dt) {
 
     
     printf("gravity/gravity.c:cuerpos_simular()\n");
@@ -126,7 +126,7 @@ void cuerpos_simular(cuerpo2d* planetas, int planetas_number, cuerpo2d* planetas
     printf("    planetas_number: %d\n", planetas_number);
     printf("    planetas_t0: %p\n", (void *)planetas_t0);
     printf("    frames: %d\n", frames);
-    printf("    dt: %d\n", dt);
+    printf("    dt: %f\n", dt);
     
 
     //Condiciones iniciales

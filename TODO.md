@@ -22,3 +22,4 @@ automaticos del compilador) (tiene buena pinta XD)
 integraciones numericas de ecuaciones diferenciales ordinarias de segundo orden con valores
 conocidos mas estables/precisas. Suponer que la implementacion actual esta bien y implementar
 este algoritmo
+    https://www.physics.udel.edu/~bnikolic/teaching/phys660/numerical_ode/node5.html   

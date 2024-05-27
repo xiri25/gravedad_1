@@ -61,8 +61,43 @@ cuerpo2d mover_luna(cuerpo2d tierra, double radio_orbita, double w, int t) {
 int main() {
 
     //TESTING
-    test_simulacion_cuerpos(20, 2);
+    test_simulacion_cuerpos(20, 2, 1);
+    test_simulacion_cuerpos(200, 2, 0.1);
+    test_simulacion_cuerpos(2000, 2, 0.01);
+    test_simulacion_cuerpos(20000, 2, 0.001);
 
+    /*
+
+    cuerpo2d Sol = {
+        .m = 100.0,
+        .r = 100.0,
+        .v_x = 0.0,
+        .v_y = 0.0,
+        .pos_x = 0.0,
+        .pos_y = 0.0
+    };
+
+    //Podemos calcular la velocidad de la Tierra suponiendo una orbital circular
+    double r_orbita = 1000;
+    double tierra_v_2 = 1.0 * Sol.m / r_orbita;
+    double tierra_v = sqrt(tierra_v_2);
+
+    //La velocidad es perpendicular al radio
+    cuerpo2d Tierra = {
+        .m = 1.0,
+        .r = 1.0,
+        .v_x = tierra_v,
+        .v_y = 0.0,
+        .pos_x = 0.0,
+        .pos_y = r_orbita
+    };
+
+
+     20frames,    2cuerpos, 1dt     1.88711606, 981.776166
+     200frames,   2cuerpos, 0.1dt   1.97941911, 979.953918
+     2000frames,  2cuerpos, 0.01dt  1.98863592, 979.771846
+     20000frames, 2cuerpos, 0.001dt 1.98955712, 979.753641
+    */
     return 0;
 
     #if MEASURE_TIME
