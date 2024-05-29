@@ -62,6 +62,7 @@ int main() {
 
     //TESTING
     test_simulacion_cuerpos(20, 2, 1);
+    test_simulacion_cuerpos_verlet(20, 2, 1);
     //test_simulacion_cuerpos_kahan(20, 2, 1);
     //Literalemente los mismos resultados probado con (20, 2, 1) y (200, 1, 0.1)
 //    

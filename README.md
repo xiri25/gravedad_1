@@ -62,3 +62,9 @@ Si necesito mas precision, descomentar los valores del campo en la struct points
 ES BASTANTE URGENTE HACER UN setup.c
 MALLOC NO LANZA NINGUN ERROR SI SE VA A ALOJAR MAS MEMORIA DE LA QUE SE DISPONE FISICAMENTE, PERO SI LA USAS
 TE ENCUENTRAS CON SEG. FAULT
+
+
+
+
+VERLET ES MAS PRECISO, CON EULER DE (20, 2, 1) A (200, 2, 0.1) conservo 1 decimal
+con verlet 3 decimales. El caso es que estoy perdiendo mas altura cuando la orbita deberia ser circular
