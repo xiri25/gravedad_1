@@ -62,6 +62,9 @@ int main() {
 
     //TESTING
     test_simulacion_cuerpos(20, 2, 1);
+    //test_simulacion_cuerpos_kahan(20, 2, 1);
+    //Literalemente los mismos resultados probado con (20, 2, 1) y (200, 1, 0.1)
+//    
 //    test_simulacion_cuerpos(200, 2, 0.1);
 //    test_simulacion_cuerpos(2000, 2, 0.01);
 //    test_simulacion_cuerpos(20000, 2, 0.001);

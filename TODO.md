@@ -24,4 +24,10 @@ conocidos mas estables/precisas. Suponer que la implementacion actual esta bien 
 este algoritmo
     https://www.physics.udel.edu/~bnikolic/teaching/phys660/numerical_ode/node5.html
 
-- Kahan Summation Algorithm y Normalizar las variables alrededor de 0 para mayor precision (idealmente -1,1)
+- Kahan Summation Algorithm (no es muy probable pero puede ser optimizada por el compiler,
+esto eliminaria el algoritmo al reordenar el orden de las operaciones) A no ser que sin
+activar las optimizaciones de ningun tipo gcc haya optimizado esto, es inutil en este momento
+
+- Normalizar las variables alrededor de 0 para mayor precision (idealmente -1,1)
+
+- Pairwise summation parece mejor que Kahan Summation
