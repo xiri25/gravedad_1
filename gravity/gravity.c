@@ -479,35 +479,19 @@ void cuerpos_simular_verlet(cuerpo2d* planetas, int planetas_number, cuerpo2d* p
     // guardarla, pero por mantener paridad y porque la puede calcular (con algo mas de error que la pos)
     // la voy a calcular
     
-    printf("gravity/gravity.c:cuerpos_simular_verlet()\n");
-    printf("    planetas: %p\n", (void *)planetas);
-    printf("    planetas_number: %d\n", planetas_number);
-    printf("    planetas_t0: %p\n", (void *)planetas_t0);
-    printf("    frames: %d\n", frames);
-    printf("    dt: %f\n", dt);
-    
 
     //buffers, TODO: teniendo en cuenta que al final no estoy usando ningun buffer, buscar otro nombre
     int buffer_size = calc_buffer_size(planetas_number);
     
-    printf("    buffer_size: %d\n", buffer_size);
     //Condiciones iniciales
     
     // Si lo he entendido bien Verlet necesita los 2 deltaT anteriores para calcualar el siguiente
     for (int i = 0; i < planetas_number; i++) {
         planetas[i] = planetas_t0[i];
-    
-        printf("    Seteando CI, planetas[%d].m = %f\n", i, planetas[i].m);
-        printf("    Seteando CI, planetas[%d].pos_x = %f\n", i, planetas[i].pos_x);
-        printf("    Seteando CI, planetas[%d].pos_y = %f\n", i, planetas[i].pos_y);
-        printf("    Seteando CI, planetas[%d].v_x = %f\n", i, planetas[i].v_x);
-        printf("    Seteando CI, planetas[%d].v_y = %f\n", i, planetas[i].v_y);
     }
 
     //TODO: Frame 1 mejorar
     for (int f = 1; f < 2; f++) {
-
-        printf("        f: %d\n", f);
 
         //Primero quiero calcular los vectores entre los planetas
         /*
@@ -533,57 +517,32 @@ void cuerpos_simular_verlet(cuerpo2d* planetas, int planetas_number, cuerpo2d* p
         */
         int index_frames_anterior = f * planetas_number - planetas_number;
         for (int j = 0; j < buffer_size; j++) {
-            
-            printf("                j: %d\n", j);
-            
+
             for (int i = j + 1; i < buffer_size + 1; i++) {
-                
-                printf("                i: %d\n", i);
 
                 //Estado del frame anterior
                 cuerpo2d* planeta_i_frame_anterior = &planetas[index_frames_anterior + i];
                 cuerpo2d* planeta_j_frame_anterior = &planetas[index_frames_anterior + j];
                 
-                
-                printf("                    Index planetas_anterior i: %d\n", index_frames_anterior + i);
-                printf("                    Masa_i_frame_anterior: %f\n", planeta_i_frame_anterior->m);
-                printf("                    Index planetas_anterior j: %d\n", index_frames_anterior + j);
-                printf("                    Masa_j_frame_anterior: %f\n", planeta_j_frame_anterior->m);
-                
-                
                 //Calculamos el vector
                 double dx = planeta_j_frame_anterior->pos_x - planeta_i_frame_anterior->pos_x;
                 double dy = planeta_j_frame_anterior->pos_y - planeta_i_frame_anterior->pos_y;
 
-                printf("                    (dx,dy) = (%f,%f)\n", dx, dy);
-                
                 //Calculamos la distancia
                 double dist = vector2_module(dx, dy);
-                
-                printf("\n");
-                printf("                    Distancia: %f\n", dist);
 
                 //Calculo de Gm1m2
                 double m1 = planeta_j_frame_anterior->m;
                 
-                printf("                    mj: %f\n", m1);
-                
                 double m2 = planeta_i_frame_anterior->m;
-                
-                printf("                    mi: %f\n", m2);
-                printf("                    G: %f\n", G);
-                
+
                 double Gm1m2 = G * m1 * m2;
                 
-                printf("                    Gm1m2: %f\n", Gm1m2);
-
                 double dist_2 = dist * dist;
 
                 //Calculamos la fuerza
                 double F_x = (Gm1m2 * dx) / dist_2;
                 double F_y = (Gm1m2 * dy) / dist_2;
-
-                printf("                    Fuerza: (%f, %f)\n", F_x, F_y);
 
                 //Aceleraciones
                 double ai_x = F_x / m2;
@@ -593,11 +552,7 @@ void cuerpos_simular_verlet(cuerpo2d* planetas, int planetas_number, cuerpo2d* p
 
                 cuerpo2d* planeta_i = &planetas[index_frames_anterior + planetas_number + i];
                 cuerpo2d* planeta_j = &planetas[index_frames_anterior + planetas_number + j];
-
-                printf("                    Planetas que se estan calculando (i,j): (%d, %d)\n",
-                       index_frames_anterior + planetas_number + i,
-                       index_frames_anterior + planetas_number + j);
-
+ 
                 //Estado antes de los deltas
                 planeta_i->v_x = planeta_i_frame_anterior->v_x;
                 planeta_i->v_y = planeta_i_frame_anterior->v_y;
@@ -619,11 +574,6 @@ void cuerpos_simular_verlet(cuerpo2d* planetas, int planetas_number, cuerpo2d* p
                 planeta_j->v_x = kahan_sum(sum_vjx, 2);
                 planeta_j->v_y = kahan_sum(sum_vjy, 2);
 
-                printf("                    vix: %f\n", planeta_i->v_x);
-                printf("                    viy: %f\n", planeta_i->v_y);
-                printf("                    vjx: %f\n", planeta_j->v_x);
-                printf("                    vjy: %f\n", planeta_j->v_y);
-
                 //Posiciones TODO: variables para tener las velocidades en el stack y no tener que acceder al array
                 double sum_pix[] = {planeta_i->pos_x, planeta_i->v_x * dt, 0.5 * ai_x * dt * dt};
                 double sum_piy[] = {planeta_i->pos_y, planeta_i->v_y * dt, 0.5 * ai_y * dt * dt};
@@ -635,11 +585,6 @@ void cuerpos_simular_verlet(cuerpo2d* planetas, int planetas_number, cuerpo2d* p
                 planeta_j->pos_x = kahan_sum(sum_pjx, 3);
                 planeta_j->pos_y = kahan_sum(sum_pjy, 3);
 
-                printf("                    pix: %f\n", planeta_i->pos_x);
-                printf("                    piy: %f\n", planeta_i->pos_y);
-                printf("                    pjx: %f\n", planeta_j->pos_x);
-                printf("                    pjy: %f\n", planeta_j->pos_y);
-
                 //Las constantes las voy a pasar por aqui por ahora
                 planeta_i->m = planeta_i_frame_anterior->m;
                 planeta_i->r = planeta_i_frame_anterior->r;
@@ -647,14 +592,13 @@ void cuerpos_simular_verlet(cuerpo2d* planetas, int planetas_number, cuerpo2d* p
                 planeta_j->r = planeta_j_frame_anterior->r;
             }
         }
-        printf("\n\n\n");
     }
 
     //Simulacion
     //Empezamos en el frame 2, en lugar del 0, porque el 0 y el 1 son las condiciones iniciales
     for (int f = 2; f < frames; f++) {
 
-        printf("        f: %d\n", f);
+        //printf("        f: %d\n", f);
 
         //Primero quiero calcular los vectores entre los planetas
         /*
@@ -682,12 +626,12 @@ void cuerpos_simular_verlet(cuerpo2d* planetas, int planetas_number, cuerpo2d* p
         int index_frame_n_menos_2 = (f - 1) * planetas_number - planetas_number;
         for (int j = 0; j < buffer_size; j++) {
             
-            printf("                j: %d\n", j);
+            //printf("                j: %d\n", j);
             
             for (int i = j + 1; i < buffer_size + 1; i++) {
                 
-                printf("                i: %d\n", i);
-                printf("\n");
+                //printf("                i: %d\n", i);
+                //printf("\n");
 
                 //Estado del frame n-2
                 cuerpo2d* planeta_i_frame_n_menos_2 = &planetas[index_frame_n_menos_2 + i];
@@ -698,9 +642,9 @@ void cuerpos_simular_verlet(cuerpo2d* planetas, int planetas_number, cuerpo2d* p
                 double j_posx_n2 = planeta_j_frame_n_menos_2->pos_x;
                 double j_posy_n2 = planeta_j_frame_n_menos_2->pos_y;
 
-                printf("                (pix_n2, piy_n2) = (%f, %f)\n", i_posx_n2, i_posy_n2);
-                printf("                (pjx_n2, pjy_n2) = (%f, %f)\n", j_posx_n2, j_posy_n2);
-                printf("\n");
+                //printf("                (pix_n2, piy_n2) = (%f, %f)\n", i_posx_n2, i_posy_n2);
+                //printf("                (pjx_n2, pjy_n2) = (%f, %f)\n", j_posx_n2, j_posy_n2);
+                //printf("\n");
 
                 //Estado del frame n-1
                 cuerpo2d* planeta_i_frame_n_menos_1 = &planetas[index_frame_n_menos_1 + i];
@@ -715,9 +659,9 @@ void cuerpos_simular_verlet(cuerpo2d* planetas, int planetas_number, cuerpo2d* p
                 double j_vx_n1 = planeta_j_frame_n_menos_1->v_x;
                 double j_vy_n1 = planeta_j_frame_n_menos_1->v_y;
  
-                printf("                (pix_n1, piy_n1) = (%f, %f)\n", i_posx_n1, i_posy_n1);
-                printf("                (pjx_n1, pjy_n1) = (%f, %f)\n", j_posx_n1, j_posy_n1);
-                printf("\n");
+                //printf("                (pix_n1, piy_n1) = (%f, %f)\n", i_posx_n1, i_posy_n1);
+                //printf("                (pjx_n1, pjy_n1) = (%f, %f)\n", j_posx_n1, j_posy_n1);
+                //printf("\n");
                 /*
                 printf("                (vix_n1, viy_n1) = (%f, %f)\n", i_vx_n1, i_vy_n1);
                 printf("                (vjx_n1, vjy_n1) = (%f, %f)\n", j_vx_n1, j_vy_n1);
@@ -799,8 +743,8 @@ void cuerpos_simular_verlet(cuerpo2d* planetas, int planetas_number, cuerpo2d* p
                 double j_posx_n = 2 * j_posx_n1 - j_posx_n2 + aj_x_n1 * dt * dt;
                 double j_posy_n = 2 * j_posy_n1 - j_posy_n2 + aj_y_n1 * dt * dt;
 
-                printf("                (pix_n, piy_n) = (%f, %f)\n", i_posx_n, i_posy_n);
-                printf("                (pjx_n, pjy_n) = (%f, %f)\n", j_posx_n, j_posy_n);
+                //printf("                (pix_n, piy_n) = (%f, %f)\n", i_posx_n, i_posy_n);
+                //printf("                (pjx_n, pjy_n) = (%f, %f)\n", j_posx_n, j_posy_n);
 
 
                 //Por mantener consistencia, vamos a calcular velocidad ES UN PUTO COÑAZO
@@ -812,8 +756,9 @@ void cuerpos_simular_verlet(cuerpo2d* planetas, int planetas_number, cuerpo2d* p
                 double dist_n = vector2_module(dx_n, dy_n);
                 double dist_n_2 = dist_n * dist_n;
                 
-                printf("                Distancia: %f\n", dist_n);
-                printf("\n");
+                //printf("                Distancia: %f\n", dist_n);
+                //printf("\n");
+                printf("%f\n", dist_n);
 
                 double Gm1m2_n = G * m1_n * m2_n;
 
@@ -855,6 +800,6 @@ void cuerpos_simular_verlet(cuerpo2d* planetas, int planetas_number, cuerpo2d* p
                 */
             }
         }
-        printf("\n\n\n");
+        //printf("\n\n\n");
     }
 }

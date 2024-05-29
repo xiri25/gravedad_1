@@ -61,8 +61,8 @@ cuerpo2d mover_luna(cuerpo2d tierra, double radio_orbita, double w, int t) {
 int main() {
 
     //TESTING
-    test_simulacion_cuerpos(20, 2, 1);
-    test_simulacion_cuerpos_verlet(20, 2, 1);
+    //test_simulacion_cuerpos(20, 2, 1);
+    test_simulacion_cuerpos_verlet(20000, 2, 0.01);
     //test_simulacion_cuerpos_kahan(20, 2, 1);
     //Literalemente los mismos resultados probado con (20, 2, 1) y (200, 1, 0.1)
 //    
