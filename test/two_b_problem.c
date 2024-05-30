@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
+#include <float.h>
 #include "two_b_problem.h"
 
 // ESTA FUNCION ALOJA EL ARRAY DE LAS DISTANCIAS, PERO NO LO LIBERA
@@ -88,4 +89,66 @@ cuerpo2d *condiciones_iniciales_2_body(double r_orbita, double v_factor) {
     planetas_t0[1] = Tierra;
 
     return planetas_t0;
+}
+
+// Ddvuelve un array de resultados alojado, hay que liberarlo
+test_result *test_two_b_p_v_factor(double *v_factors, double v_factors_len) {
+
+    //Vamos a empezar variando el factor de la velocidad
+    double orbita_radio = 100;
+
+    // Con un dt bajito para mayor precision y muchos frames para sacar tener mas datos
+    double dt = 0.1;
+    int frames = 200000;
+
+    test_result *resultados = (test_result*)malloc(sizeof(test_result) * v_factors_len);
+    if (resultados == NULL) {
+        printf("Error alojando el array para los resultados\n");
+        return NULL;
+    }
+
+    //Variamos el factor velocidad
+    for (int i = 0; i < v_factors_len; i++) {
+        cuerpo2d *cond_iniciales = condiciones_iniciales_2_body(orbita_radio, v_factors[i]);
+        double *dists = dist_verlet_2_body(cond_iniciales, frames, dt);
+
+        // Hacer los calculos
+        // Empezamos por calcular la desviacion de la orbita
+        for (int f = 0; f < frames; f++) {
+            dists[f] = dists[f] - orbita_radio;
+        }
+
+        //Calculamos el minimo, maximo y la media de las diferencias de distancias
+        double min = DBL_MAX;
+        for (int f = 0; f < frames; f++) {
+            if (dists[f] < min) {
+                min = dists[f];
+            }
+        }
+
+        double max = DBL_MIN;
+        for (int f = 0; f < frames; f++) {
+            if (dists[f] > max) {
+                max = dists[f];
+            }
+        }
+
+        double media = 0;
+        for (int f = 0; f < frames; f++) {
+            media += dists[f];
+        }
+        media = media / frames;
+
+        test_result resultado = {
+            .min = min,
+            .max = max,
+            .media = media
+        };
+
+        resultados[i] = resultado;
+
+        free(cond_iniciales);
+        free(dists);
+    }
+    return resultados;
 }
