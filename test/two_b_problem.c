@@ -40,8 +40,8 @@ double *dist_verlet_2_body(cuerpo2d *planetas_t0, int frames, double dt) {
     // Solo hay dos planetas, la distancia entre ellos se calcula una vez por frame
     for (int f = 0; f < frames; f++) {
 
-        double dx = planetas[f].pos_x - planetas[f + 1].pos_x;
-        double dy = planetas[f].pos_y - planetas[f + 1].pos_y;
+        double dx = planetas[f * 2].pos_x - planetas[f * 2 + 1].pos_x;
+        double dy = planetas[f * 2].pos_y - planetas[f * 2 + 1].pos_y;
         
         dists[f] = vector2_module(dx, dy);
     }
@@ -93,7 +93,7 @@ cuerpo2d *condiciones_iniciales_2_body(double r_orbita, double v_factor) {
 
 // Ddvuelve un array de resultados alojado, hay que liberarlo.
 // El array con las distancias es devuelto, por lo que no se libera.
-test_result *test_two_b_p_v_factor(double *v_factors, double v_factors_len) {
+test_result *test_two_b_p_v_factor(double *v_factors, int v_factors_len) {
 
     //Vamos a empezar variando el factor de la velocidad
     double orbita_radio = 100;
