@@ -8,6 +8,7 @@ typedef struct {
     double min;
     double max;
     double media;
+    double *arr;
 } test_result;
 
 double *dist_verlet_2_body(cuerpo2d *planetas_t0, int frames, double dt);

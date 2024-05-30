@@ -91,7 +91,8 @@ cuerpo2d *condiciones_iniciales_2_body(double r_orbita, double v_factor) {
     return planetas_t0;
 }
 
-// Ddvuelve un array de resultados alojado, hay que liberarlo
+// Ddvuelve un array de resultados alojado, hay que liberarlo.
+// El array con las distancias es devuelto, por lo que no se libera.
 test_result *test_two_b_p_v_factor(double *v_factors, double v_factors_len) {
 
     //Vamos a empezar variando el factor de la velocidad
@@ -142,13 +143,13 @@ test_result *test_two_b_p_v_factor(double *v_factors, double v_factors_len) {
         test_result resultado = {
             .min = min,
             .max = max,
-            .media = media
+            .media = media,
+            .arr = dists
         };
 
         resultados[i] = resultado;
 
         free(cond_iniciales);
-        free(dists);
     }
     return resultados;
 }
