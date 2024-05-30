@@ -4,7 +4,7 @@
 #include "../cuerpos/cuerpos.h"
 #include "../points/points.h"
 
-// De momento aqui, a falta de mandarla a una libreria de math
+// TODO:De momento aqui, a falta de mandarla a una libreria de math
 double vector2_module(double x, double y);
 
 void points_simular_secuencial_1(point2d_64* puntos, int puntos_number, cuerpo2d* planetas, int planetas_number, int frames); 
