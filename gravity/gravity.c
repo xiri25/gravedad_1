@@ -758,7 +758,7 @@ void cuerpos_simular_verlet(cuerpo2d* planetas, int planetas_number, cuerpo2d* p
                 
                 //printf("                Distancia: %f\n", dist_n);
                 //printf("\n");
-                printf("%f\n", dist_n);
+                //printf("%f\n", dist_n);
 
                 double Gm1m2_n = G * m1_n * m2_n;
 
