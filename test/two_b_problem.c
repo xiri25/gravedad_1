@@ -113,6 +113,7 @@ test_result *test_two_b_p_v_factor(double *v_factors, int v_factors_len) {
         cuerpo2d *cond_iniciales = condiciones_iniciales_2_body(orbita_radio, v_factors[i]);
         double *dists = dist_verlet_2_body(cond_iniciales, frames, dt);
 
+        free(cond_iniciales);
         // Hacer los calculos
         // Empezamos por calcular la desviacion de la orbita
         for (int f = 0; f < frames; f++) {
@@ -148,8 +149,6 @@ test_result *test_two_b_p_v_factor(double *v_factors, int v_factors_len) {
         };
 
         resultados[i] = resultado;
-
-        free(cond_iniciales);
     }
     return resultados;
 }
