@@ -7,6 +7,7 @@
 #include "gravity/gravity.h"
 #include "setup/setup.h"
 #include "test/test.h"
+#include "test/two_b_problem.h"
 
 #define MEASURE_TIME 1
 
@@ -61,6 +62,43 @@ cuerpo2d mover_luna(cuerpo2d tierra, double radio_orbita, double w, int t) {
 int main() {
 
     //TESTING
+
+    int v_factors_len = 15;
+    // El 0 es una mala idea, porque no hay colisiones
+    double v_factors[] = {-10, -8, -6, -4, -2, 0, 2, 4, 6, 8, 10, 12, 14, 16, 18};
+    test_result *variableInd_vfactor = test_two_b_p_v_factor(v_factors, v_factors_len);
+
+    int frames_harcodeado = 200000; //Harcodeado en la funcion test_two_b_p_v_factor
+    double radio_harcodeado = 100; //Tambien harcodeado
+
+    //printf("Resultados respecto a la orbita circular XD: \n");
+
+    for (int i = 0; i < v_factors_len; i++) {
+        test_result test = variableInd_vfactor[i];
+        
+        printf("V_factor = %f\n", v_factors[i]);
+        printf("Desviacion Media = %f\n", test.media);
+        printf("Desviacion Maxima = %f\n", test.max);
+        printf("Desviacion Minima = %f\n", test.min);
+        //printf("Pointer resultados: %p\n", test.arr);
+        
+        /*
+        for (int f = 0; f < frames_harcodeado; f++) {
+            printf("%f\n", test.arr[f]);
+        }
+        */
+        printf("\n");
+    }
+
+    // Al menos por ahora en un bucle distinto, no se muy bien si es esto lo que hay que hacer
+    for (int i = 0; i < v_factors_len; i++) {
+        free(variableInd_vfactor[i].arr);
+    }
+
+    free(variableInd_vfactor);
+
+    return 0;
+
     //test_simulacion_cuerpos(20, 2, 1);
     test_simulacion_cuerpos_verlet(20000, 2, 0.01);
     //test_simulacion_cuerpos_kahan(20, 2, 1);

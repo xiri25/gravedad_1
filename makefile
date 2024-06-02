@@ -6,7 +6,7 @@ LDFLAGS=-lm -g
 
 all: planetas
 
-planetas: main.c points/points.c result/write.c gravity/gravity.c setup/setup.c test/test.c
+planetas: main.c points/points.c result/write.c gravity/gravity.c setup/setup.c test/test.c test/two_b_problem.c
 	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
 
 clean:

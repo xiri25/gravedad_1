@@ -91,6 +91,9 @@ cuerpo2d *condiciones_iniciales_2_body(double r_orbita, double v_factor) {
     return planetas_t0;
 }
 
+//TODO: Implementacion donde pueda elegir la variable independiente fuera
+//pasar tanto las velocidades como los radios, uno de ellos fijo y el otro no
+
 // Devuelve un array de resultados alojado, hay que liberarlo.
 // Los arrays con las distancias son devueltos, por lo que no se liberan.
 test_result *test_two_b_p_v_factor(double *v_factors, int v_factors_len) {
