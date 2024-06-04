@@ -8,6 +8,7 @@
 #include "setup/setup.h"
 #include "test/test.h"
 #include "test/two_b_problem.h"
+#include "math_utils/math_utils.h"
 
 #define MEASURE_TIME 1
 
@@ -63,23 +64,26 @@ int main() {
 
     //TESTING
 
-    int v_factors_len = 15;
+    int v_factors_len = 21;
     // El 0 es una mala idea, porque no hay colisiones
-    double v_factors[] = {-10, -8, -6, -4, -2, 0, 2, 4, 6, 8, 10, 12, 14, 16, 18};
-    test_result *variableInd_vfactor = test_two_b_p_v_factor(v_factors, v_factors_len);
+    double v_factors[] = {-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
+    test_result *variableInd_vfactors = test_two_b_p_v_factor(v_factors, v_factors_len);
 
     int frames_harcodeado = 200000; //Harcodeado en la funcion test_two_b_p_v_factor
     double radio_harcodeado = 100; //Tambien harcodeado
 
     //printf("Resultados respecto a la orbita circular XD: \n");
 
+    //Vamos a crear los dos arrays para poder diferenciar
+    double medias[v_factors_len];
     for (int i = 0; i < v_factors_len; i++) {
-        test_result test = variableInd_vfactor[i];
+        test_result test = variableInd_vfactors[i];
         
-        printf("V_factor = %f\n", v_factors[i]);
-        printf("Desviacion Media = %f\n", test.media);
-        printf("Desviacion Maxima = %f\n", test.max);
-        printf("Desviacion Minima = %f\n", test.min);
+        //printf("V_factor = %f\n", v_factors[i]);
+        //printf("Desviacion Media = %f\n", test.media);
+        medias[i] = test.media;
+        //printf("Desviacion Maxima = %f\n", test.max);
+        //printf("Desviacion Minima = %f\n", test.min);
         //printf("Pointer resultados: %p\n", test.arr);
         
         /*
@@ -87,15 +91,64 @@ int main() {
             printf("%f\n", test.arr[f]);
         }
         */
-        printf("\n");
+        //printf("\n");
     }
 
+    double *d_medias = math_derivada_arr(medias, v_factors, v_factors_len);
+
+    printf("Derivada de desviacion media respecto a v_factor\ndx/dy x\n");
+    for (int i = 0; i < v_factors_len - 1; i++) {
+        printf("%f %f\n", d_medias[i], v_factors[i]);
+    }
+
+    double *dd_medias = math_derivada_arr(d_medias, v_factors, v_factors_len - 1);
+    free(d_medias);
+
+    printf("Segunda derivada de desviacion media respecto a v_factor\ndx/dy x\n");
+    for (int i = 0; i < v_factors_len - 2; i++) {
+        printf("%f %f\n", dd_medias[i], v_factors[i]);
+    }
+
+    double *ddd_medias = math_derivada_arr(dd_medias, v_factors, v_factors_len - 2);
+    free(dd_medias);
+
+    printf("Tercera derivada de desviacion media respecto a v_factor\ndx/dy x\n");
+    for (int i = 0; i < v_factors_len - 3; i++) {
+        printf("%f %f\n", ddd_medias[i], v_factors[i]);
+    }
+
+    double *dddd_medias = math_derivada_arr(ddd_medias, v_factors, v_factors_len - 3);
+    free(ddd_medias);
+
+    printf("Cuarta derivada de desviacion media respecto a v_factor\ndx/dy x\n");
+    for (int i = 0; i < v_factors_len - 4; i++) {
+        printf("%f %f\n", dddd_medias[i], v_factors[i]);
+    }
+
+    double *d5_medias = math_derivada_arr(dddd_medias, v_factors, v_factors_len - 4);
+    free(dddd_medias);
+
+    printf("Quinta derivada de desviacion media respecto a v_factor\ndx/dy x\n");
+    for (int i = 0; i < v_factors_len - 5; i++) {
+        printf("%f %f\n", d5_medias[i], v_factors[i]);
+    }
+
+    double *d6_medias = math_derivada_arr(d5_medias, v_factors, v_factors_len - 5);
+    free(d5_medias);
+
+    printf("Sexta derivada de desviacion media respecto a v_factor\ndx/dy x\n");
+    for (int i = 0; i < v_factors_len - 6; i++) {
+        printf("%f %f\n", d6_medias[i], v_factors[i]);
+    }
+
+    free(d6_medias);
+    
     // Al menos por ahora en un bucle distinto, no se muy bien si es esto lo que hay que hacer
     for (int i = 0; i < v_factors_len; i++) {
-        free(variableInd_vfactor[i].arr);
+        free(variableInd_vfactors[i].arr);
     }
 
-    free(variableInd_vfactor);
+    free(variableInd_vfactors);
 
     return 0;
 
