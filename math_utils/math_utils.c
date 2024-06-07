@@ -1,10 +1,10 @@
 #include "math_utils.h"
 
 // x1 = F(x + h)
-// x2 = F(x - h)
+// x2 = F(x)
 double math_derivada(double x1, double x2, double h) {
     double numerator = x1 - x2;
-    return numerator / 2 * h;
+    return numerator / h;
 }
 
 // Devuelve un nuevo array, que tiene un elemento menos
