@@ -1,16 +1,8 @@
-#include <math.h>
 #include <stdio.h>
 #include "gravity.h"
 
 #define G 1.0
 #define EPSILON 0.00000001
-
-
-//Esta funcion quizas la quiero en otro archivo
-double vector2_module(double x, double y) {
-    double mod = sqrt(x * x + y * y);
-    return mod;
-}
 
 void points_simular_secuencial_1(point2d_64* puntos, int puntos_number, cuerpo2d* planetas, int planetas_number, int frames) {
 

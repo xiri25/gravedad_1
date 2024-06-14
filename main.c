@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include "math_utils/math_utils.h"
 #include "points/points.h"
 #include "cuerpos/cuerpos.h"
 #include "result/write.h"
@@ -8,7 +9,7 @@
 #include "setup/setup.h"
 #include "test/test.h"
 #include "test/two_b_problem.h"
-#include "math_utils/math_utils.h"
+#include "test/test_desmos.h"
 
 #define MEASURE_TIME 1
 
@@ -63,6 +64,10 @@ cuerpo2d mover_luna(cuerpo2d tierra, double radio_orbita, double w, int t) {
 int main() {
 
     //TESTING
+
+    test_desmos_simulacion(100);
+
+    return 0;
 
     int v_factors_len = 21;
     // El 0 es una mala idea, porque no hay colisiones

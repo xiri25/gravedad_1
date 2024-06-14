@@ -18,3 +18,8 @@ double *math_derivada_arr(double *F, double *x, int size) {
     }
     return result;
 }
+
+double vector2_module(double x, double y) {
+    double mod = sqrt(x * x + y * y);
+    return mod;
+}
