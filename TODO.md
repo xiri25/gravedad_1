@@ -31,3 +31,5 @@ activar las optimizaciones de ningun tipo gcc haya optimizado esto, es inutil en
 - Normalizar las variables alrededor de 0 para mayor precision (idealmente -1,1)
 
 - Pairwise summation parece mejor que Kahan Summation
+
+- Buscar el fallo en el calculo de la gravedad, empezar por j fija que es más facil
