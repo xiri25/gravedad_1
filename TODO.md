@@ -31,3 +31,5 @@ activar las optimizaciones de ningun tipo gcc haya optimizado esto, es inutil en
 - Normalizar las variables alrededor de 0 para mayor precision (idealmente -1,1)
 
 - Pairwise summation parece mejor que Kahan Summation
+
+- Vamos a obligar a que un cuerpo se quede quieto, actualizando su posicion cada frame, a ver que tal sale
