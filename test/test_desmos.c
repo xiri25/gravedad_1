@@ -18,7 +18,7 @@ void test_desmos_simulacion(int frames) {
     }
 
     //Condiciones iniciales
-    /*
+/*
     cuerpo2d p1 = {
         .m = 20.0,
         .r = 1.0,
@@ -36,16 +36,18 @@ void test_desmos_simulacion(int frames) {
         .pos_x = sqrt(2.0),
         .pos_y = sqrt(2.0)
     };
-    */
+*/
 
+    
     cuerpo2d p1 = {
-        .m = 20.0,
+        .m = 2000.0,
         .r = 1.0,
         .v_x = 0.0,
         .v_y = 0.0,
         .pos_x = 0.0,
         .pos_y = 0.0
     };
+    
     /*
     orbita circular
     radio v_factor
@@ -58,19 +60,21 @@ void test_desmos_simulacion(int frames) {
 
     v_factor(radio) = sqrt(radio)
     */
-    double radio = 4.0;
+
+    double radio = 100.0;
     double v_orbital = sqrt(p1.m/radio);
-    double v_factor = 2;
+    double v_factor = sqrt(radio);
     
     cuerpo2d p2 = {
         .m = 20.0, 
         .r = 1.0,
         .v_x = 0.0,
-        .v_y = v_orbital * v_factor,
+        //.v_y = v_orbital * v_factor,
+        .v_y = sqrt(p1.m), //WTF
         .pos_x = radio,
         .pos_y = 0.0
     };
-
+    
     cuerpo2d planetas_t0[2] = {p1, p2};
 
     //Simulacion
