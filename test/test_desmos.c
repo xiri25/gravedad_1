@@ -19,19 +19,19 @@ void test_desmos_simulacion(int frames) {
 
     //Condiciones iniciales
     cuerpo2d p1 = {
-        .m = 20,
-        .r = 1,
-        .v_x = 5,
-        .v_y = -5,
+        .m = 20.0,
+        .r = 1.0,
+        .v_x = 5.0,
+        .v_y = -5.0,
         .pos_x = -sqrt(2.0),
         .pos_y = -sqrt(2.0)
     };
     
     cuerpo2d p2 = {
-        .m = 20, 
-        .r = 1,
-        .v_x = -5,
-        .v_y = 5,
+        .m = 20.0, 
+        .r = 1.0,
+        .v_x = -5.0,
+        .v_y = 5.0,
         .pos_x = sqrt(2.0),
         .pos_y = sqrt(2.0)
     };
@@ -47,7 +47,10 @@ void test_desmos_simulacion(int frames) {
         double dx = planetas[f * 2].pos_x - planetas[f * 2 + 1].pos_x;
         double dy = planetas[f * 2].pos_y - planetas[f * 2 + 1].pos_y;
         double dist = vector2_module(dx, dy);
-        printf("%f\n", dist);
+        //printf("Dist= %f\n", dist);
+        printf("%f %f\n", planetas[f * 2].pos_x, planetas[f * 2].pos_y);
+        printf("%f %f\n", planetas[f * 2 + 1].pos_x, planetas[f * 2 + 1].pos_y);
+        printf("\n");
     }
 
     free(planetas);
