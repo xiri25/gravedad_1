@@ -21,7 +21,7 @@ x1, y1 = zip(*posiciones_planeta1)
 x2, y2 = zip(*posiciones_planeta2)
 
 # Representar las trayectorias de los planetas con Matplotlib
-plt.figure(figsize=(10, 6))
+plt.figure(figsize=(10, 10))
 plt.plot(x1, y1, marker='o', linestyle='-', color='b', markersize=4, label='Planeta 1')
 plt.plot(x2, y2, marker='o', linestyle='-', color='r', markersize=4, label='Planeta 2')
 plt.axhline(0, color='gray', linewidth=0.5)
@@ -31,6 +31,7 @@ plt.xlabel('Posición X')
 plt.ylabel('Posición Y')
 plt.legend()
 plt.grid(True)
+plt.axis('equal')
 
 # Guardar la gráfica como imagen (opcional)
 # plt.savefig('trayectorias_planetas.png')
