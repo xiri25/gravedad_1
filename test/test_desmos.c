@@ -46,10 +46,21 @@ void test_desmos_simulacion(int frames) {
         .pos_x = 0.0,
         .pos_y = 0.0
     };
-    
-    double radio = 5.0;
+    /*
+    orbita circular
+    radio v_factor
+    1.0 1.0
+    2.0 1.4
+    3.0 1.75
+    4.0 2.0
+    5.0 2.25
+    10.0 3.175
+
+    v_factor(radio) = sqrt(radio)
+    */
+    double radio = 4.0;
     double v_orbital = sqrt(p1.m/radio);
-    double v_factor = 1.0;
+    double v_factor = 2;
     
     cuerpo2d p2 = {
         .m = 20.0, 
