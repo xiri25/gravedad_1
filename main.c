@@ -65,7 +65,7 @@ int main() {
 
     //TESTING
 
-    test_desmos_simulacion(1000);
+    test_desmos_simulacion(2000);
 
     return 0;
 
