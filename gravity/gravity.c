@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include "gravity.h"
 
-#define G 1.0
 #define EPSILON 0.00000001
 
 void points_simular_secuencial_1(point2d_64* puntos, int puntos_number, cuerpo2d* planetas, int planetas_number, int frames) {
@@ -272,6 +271,117 @@ void cuerpos_simular(cuerpo2d* planetas, int planetas_number, cuerpo2d* planetas
             }
         }
         printf("\n\n\n");
+    }
+}
+
+//El array planetas_t0 contiene las condiciones iniciales y por lo tanto tiene {planetas_number} elementos
+void cuerpos_simular_j_fijo(cuerpo2d* planetas, int planetas_number, cuerpo2d* planetas_t0, int frames, double dt) {
+    
+    //Condiciones iniciales
+    for (int i = 0; i < planetas_number; i++) {
+        planetas[i] = planetas_t0[i];
+    }
+
+    //buffers, TODO: teniendo en cuenta que al final no estoy usando ningun buffer, buscar otro nombre
+    int buffer_size = calc_buffer_size(planetas_number);
+    
+    //Simulacion
+    //Empezamos en el frame 1, en lugar del 0, porque el 0 son las condiciones iniciales
+    for (int f = 1; f < frames; f++) {
+
+
+        //Primero quiero calcular los vectores entre los planetas
+        /*
+            |  |p1|p2|p3|p4|p5|
+            |p1|  |01|02|03|04|
+            |p2|  |  |05|06|07|
+            |p3|  |  |  |08|09|
+            |p4|  |  |  |  |10|
+            |p5|  |  |  |  |  |
+
+            |  |p0|p1|p2|p3|p4|
+            |p0|  |00|01|02|03|
+            |p1|  |  |04|05|06|
+            |p2|  |  |  |07|08|
+            |p3|  |  |  |  |09|
+            |p4|  |  |  |  |  |
+
+            la i es el eje x
+            la j es el eje y
+
+            Calculamos los vactores en el sentido planeta[j] - planeta[i]
+            Es decir estos vectores apuntan a planeta[j] desde planeta[i]
+        */
+        int index_frames_anterior = f * planetas_number - planetas_number;
+        for (int j = 0; j < buffer_size; j++) {
+            
+            
+            for (int i = j + 1; i < buffer_size + 1; i++) {
+                
+
+                //Estado del frame anterior
+                cuerpo2d* planeta_i_frame_anterior = &planetas[index_frames_anterior + i];
+                cuerpo2d* planeta_j_frame_anterior = &planetas[index_frames_anterior + j];
+                
+                
+                //Calculamos el vector
+                double dx = 0.0 - planeta_i_frame_anterior->pos_x;
+                double dy = 0.0 - planeta_i_frame_anterior->pos_y;
+
+                //Calculamos la distancia
+                double dist = vector2_module(dx, dy);
+
+                //Calculo de Gm1m2
+                double m1 = planeta_j_frame_anterior->m;
+                
+                double m2 = planeta_i_frame_anterior->m;
+                
+                double Gm1m2 = G * m1 * m2;
+                
+                double dist_2 = dist * dist;
+
+                //Calculamos la fuerza
+                double F_x = (Gm1m2 * dx) / dist_2;
+                double F_y = (Gm1m2 * dy) / dist_2;
+
+                //Aceleraciones
+                double ai_x = F_x / m2;
+                double ai_y = F_y / m2;
+                double aj_x = 0.0;
+                double aj_y = 0.0;
+
+                cuerpo2d* planeta_i = &planetas[index_frames_anterior + planetas_number + i];
+                cuerpo2d* planeta_j = &planetas[index_frames_anterior + planetas_number + j];
+
+                //Estado antes de los deltas
+                planeta_i->v_x = planeta_i_frame_anterior->v_x;
+                planeta_i->v_y = planeta_i_frame_anterior->v_y;
+                planeta_i->pos_x = planeta_i_frame_anterior->pos_x;
+                planeta_i->pos_y = planeta_i_frame_anterior->pos_y;
+                planeta_j->v_x = 0.0;
+                planeta_j->v_y = 0.0;
+                planeta_j->pos_x = 0.0;
+                planeta_j->pos_y = 0.0;
+
+                //Velocidades
+                planeta_i->v_x += ai_x * dt;
+                planeta_i->v_y += ai_y * dt;
+                planeta_j->v_x += 0.0;
+                planeta_j->v_y += 0.0;
+
+                //Posiciones TODO: variables para tener las velocidades en el stack y no tener que acceder al array
+                planeta_i->pos_x += planeta_i->v_x * dt + 0.5 * ai_x * dt * dt;
+                planeta_i->pos_y += planeta_i->v_y * dt + 0.5 * ai_y * dt * dt;
+                planeta_j->pos_x += 0.0;
+                planeta_j->pos_y += 0.0;
+
+                //Las constantes las voy a pasar por aqui por ahora
+                planeta_i->m = planeta_i_frame_anterior->m;
+                planeta_i->r = planeta_i_frame_anterior->r;
+                planeta_j->m = planeta_j_frame_anterior->m;
+                planeta_j->r = planeta_j_frame_anterior->r;
+            }
+        }
     }
 }
 
