@@ -36,7 +36,7 @@ void test_desmos_simulacion(int frames) {
         .v_x = 1.0,
         .v_y = 0,
         .pos_x = -10,
-        .pos_y = -10
+        .pos_y = -1
     };
     
     cuerpo2d planetas_t0[2] = {p1, p2};

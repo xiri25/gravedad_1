@@ -32,7 +32,7 @@ int main() {
 
     //TESTING
 
-    test_desmos_simulacion(20000);
+    test_desmos_simulacion(2000);
 
     return 0;
 
