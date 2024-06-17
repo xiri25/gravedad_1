@@ -61,7 +61,7 @@ void test_desmos_simulacion(int frames) {
     v_factor(radio) = sqrt(radio)
     */
 
-    double radio = 4.0;
+    double radio = 1.0;
     double v_orbital = sqrt(G * p1.m/radio);
     double v_factor = sqrt(radio);
     
@@ -69,8 +69,8 @@ void test_desmos_simulacion(int frames) {
         .m = 20.0, 
         .r = 1.0,
         .v_x = 0.0,
-        //.v_y = v_orbital * v_factor,
-        .v_y = sqrt(p1.m), //WTF
+        .v_y = v_orbital,
+        //.v_y = sqrt(p1.m), //WTF
         .pos_x = radio,
         .pos_y = 0.0
     };
@@ -79,8 +79,8 @@ void test_desmos_simulacion(int frames) {
 
     //Simulacion
     //cuerpos_simular_verlet(planetas, 2, planetas_t0, frames, 0.01);
-    //cuerpos_simular_verlet_j_fijo(planetas, 2, planetas_t0, frames, 0.01);
-    cuerpos_simular_j_fijo(planetas, 2, planetas_t0, frames, 0.01);
+    cuerpos_simular_verlet_j_fijo(planetas, 2, planetas_t0, frames, 0.01);
+    //cuerpos_simular_j_fijo(planetas, 2, planetas_t0, frames, 0.01);
 
     //Frame por frame, printf distancia
     for (int f = 0; f < frames; f++) {

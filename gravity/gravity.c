@@ -905,6 +905,18 @@ void cuerpos_simular_verlet(cuerpo2d* planetas, int planetas_number, cuerpo2d* p
         //printf("\n\n\n");
     }
 }
+ 
+vector2 F_gravedad(double G_cte, double mi, double mj, double dx, double dy) {
+
+    double Gmimj = G_cte * mi * mj;
+    double r_mod = vector2_module(dx, dy);
+    double r_mod_3 = r_mod * r_mod * r_mod;
+    double g = Gmimj / r_mod_3;
+
+    vector2 gravedad = {g * dx, g * dy};
+
+    return gravedad;
+}
 
 //El array planetas_t0 contiene las condiciones iniciales y por lo tanto tiene {planetas_number} elementos
 void cuerpos_simular_verlet_j_fijo(cuerpo2d* planetas, int planetas_number, cuerpo2d* planetas_t0, int frames, double dt) {
@@ -974,8 +986,9 @@ void cuerpos_simular_verlet_j_fijo(cuerpo2d* planetas, int planetas_number, cuer
                 double dist_2 = dist * dist;
 
                 //Calculamos la fuerza
-                double F_x = (Gm1m2 * dx) / dist_2;
-                double F_y = (Gm1m2 * dy) / dist_2;
+                vector2 gravedad = F_gravedad(G, m1, m2, dx, dy);
+                double F_x = gravedad.x;
+                double F_y = gravedad.y;
 
                 //Aceleraciones
                 double ai_x = F_x / m2;
@@ -1133,11 +1146,13 @@ void cuerpos_simular_verlet_j_fijo(cuerpo2d* planetas, int planetas_number, cuer
 
 
                 //Calculamos la fuerza
-                double F_x_n1 = (Gmjmi_n1 * dx_n1) / dist_2_n1;
-                double F_y_n1 = (Gmjmi_n1 * dy_n1) / dist_2_n1;
+                vector2 gravedad_n1 = F_gravedad(G, mi_n1, mj_n1, dx_n1, dy_n1);
+                double F_x_n1 = gravedad_n1.x;
+                double F_y_n1 = gravedad_n1.y;
 
-                double F_x_n2 = (Gmjmi_n2 * dx_n2) / dist_2_n2;
-                double F_y_n2 = (Gmjmi_n2 * dy_n2) / dist_2_n2;
+                vector2 gravedad_n2 = F_gravedad(G, mi_n2, mj_n2, dx_n2, dy_n2);
+                double F_x_n2 = gravedad_n2.x;
+                double F_y_n2 = gravedad_n2.y;
 
 
                 //Aceleraciones
@@ -1185,8 +1200,9 @@ void cuerpos_simular_verlet_j_fijo(cuerpo2d* planetas, int planetas_number, cuer
 
                 double Gmjmi_n = G * mj_n * mi_n;
 
-                double F_x_n = (Gmjmi_n * dx_n) / dist_n_2;
-                double F_y_n = (Gmjmi_n * dy_n) / dist_n_2;
+                vector2 gravedad_n = F_gravedad(G, mi_n, mj_n, dx_n, dy_n);
+                double F_x_n = gravedad_n.x;
+                double F_y_n = gravedad_n.y;
 
                 double ai_x_n =  F_x_n / mi_n;
                 double ai_y_n =  F_y_n / mi_n;
