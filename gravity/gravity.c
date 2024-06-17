@@ -1120,34 +1120,34 @@ void cuerpos_simular_verlet_j_fijo(cuerpo2d* planetas, int planetas_number, cuer
                 printf("\n");
                 */
 
-                //Calculo de Gm1m2
-                double m1_n1 = planeta_j_frame_n_menos_1->m;
-                double m2_n1 = planeta_i_frame_n_menos_1->m;
-                double Gm1m2_n1 = G * m1_n1 * m2_n1;
+                //Calculo de Gmjmi
+                double mj_n1 = planeta_j_frame_n_menos_1->m;
+                double mi_n1 = planeta_i_frame_n_menos_1->m;
+                double Gmjmi_n1 = G * mj_n1 * mi_n1;
                 double dist_2_n1 = dist_n1 * dist_n1;
 
-                double m1_n2 = planeta_j_frame_n_menos_2->m;
-                double m2_n2 = planeta_i_frame_n_menos_2->m;
-                double Gm1m2_n2 = G * m1_n2 * m2_n2;
+                double mj_n2 = planeta_j_frame_n_menos_2->m;
+                double mi_n2 = planeta_i_frame_n_menos_2->m;
+                double Gmjmi_n2 = G * mj_n2 * mi_n2;
                 double dist_2_n2 = dist_n2 * dist_n2;
 
 
                 //Calculamos la fuerza
-                double F_x_n1 = (Gm1m2_n1 * dx_n1) / dist_2_n1;
-                double F_y_n1 = (Gm1m2_n1 * dy_n1) / dist_2_n1;
+                double F_x_n1 = (Gmjmi_n1 * dx_n1) / dist_2_n1;
+                double F_y_n1 = (Gmjmi_n1 * dy_n1) / dist_2_n1;
 
-                double F_x_n2 = (Gm1m2_n2 * dx_n2) / dist_2_n2;
-                double F_y_n2 = (Gm1m2_n2 * dy_n2) / dist_2_n2;
+                double F_x_n2 = (Gmjmi_n2 * dx_n2) / dist_2_n2;
+                double F_y_n2 = (Gmjmi_n2 * dy_n2) / dist_2_n2;
 
 
                 //Aceleraciones
-                double ai_x_n1 =  F_x_n1 / m2_n1;
-                double ai_y_n1 =  F_y_n1 / m2_n1;
+                double ai_x_n1 =  F_x_n1 / mi_n1;
+                double ai_y_n1 =  F_y_n1 / mi_n1;
                 double aj_x_n1 = 0.0;
                 double aj_y_n1 = 0.0;
 
-                double ai_x_n2 =  F_x_n2 / m2_n2;
-                double ai_y_n2 =  F_y_n2 / m2_n2;
+                double ai_x_n2 =  F_x_n2 / mi_n2;
+                double ai_y_n2 =  F_y_n2 / mi_n2;
                 double aj_x_n2 = 0.0;
                 double aj_y_n2 = 0.0;
 
@@ -1156,21 +1156,11 @@ void cuerpos_simular_verlet_j_fijo(cuerpo2d* planetas, int planetas_number, cuer
                 cuerpo2d* planeta_j = &planetas[index_frame_n_menos_1 + planetas_number + j];
                 
                 //Esto por ahora asi XD TODO: Quizas buscar otra manera
-                double m1_n = m1_n1;
-                double m2_n = m2_n1;
+                double mj_n = mj_n1;
+                double mi_n = mi_n1;
 
                 // x(n) = 2x(n-1) - x(n-2) + a(n-1)dt2
                 
-                /*
-                double _2x_n1_menos_x_n2 = 2 * dx_n1 - dx_n2;
-                double _2y_n1_menos_y_n2 = 2 * dy_n1 - dy_n2;
-
-                double i_posx_n = _2x_n1_menos_x_n2 + ai_x_n1 * dt * dt;
-                double i_posy_n = _2y_n1_menos_y_n2 + ai_y_n1 * dt * dt;
-                double j_posx_n = _2x_n1_menos_x_n2 + aj_x_n1 * dt * dt;
-                double j_posy_n = _2y_n1_menos_y_n2 + aj_y_n1 * dt * dt;
-                */
-
                 double i_posx_n = 2 * i_posx_n1 - i_posx_n2 + ai_x_n1 * dt * dt;
                 double i_posy_n = 2 * i_posy_n1 - i_posy_n2 + ai_y_n1 * dt * dt;
                 double j_posx_n = 0.0;
@@ -1193,13 +1183,13 @@ void cuerpos_simular_verlet_j_fijo(cuerpo2d* planetas, int planetas_number, cuer
                 //printf("\n");
                 //printf("%f\n", dist_n);
 
-                double Gm1m2_n = G * m1_n * m2_n;
+                double Gmjmi_n = G * mj_n * mi_n;
 
-                double F_x_n = (Gm1m2_n * dx_n) / dist_n_2;
-                double F_y_n = (Gm1m2_n * dy_n) / dist_n_2;
+                double F_x_n = (Gmjmi_n * dx_n) / dist_n_2;
+                double F_y_n = (Gmjmi_n * dy_n) / dist_n_2;
 
-                double ai_x_n =  F_x_n / m2_n;
-                double ai_y_n =  F_y_n / m2_n;
+                double ai_x_n =  F_x_n / mi_n;
+                double ai_y_n =  F_y_n / mi_n;
                 double aj_x_n = 0.0;
                 double aj_y_n = 0.0;
 

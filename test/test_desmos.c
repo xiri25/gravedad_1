@@ -69,8 +69,8 @@ void test_desmos_simulacion(int frames) {
         .m = 20.0, 
         .r = 1.0,
         .v_x = 0.0,
-        .v_y = v_orbital * v_factor,
-        //.v_y = sqrt(p1.m), //WTF
+        //.v_y = v_orbital * v_factor,
+        .v_y = sqrt(p1.m), //WTF
         .pos_x = radio,
         .pos_y = 0.0
     };
