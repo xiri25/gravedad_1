@@ -20,10 +20,10 @@ void test_desmos_simulacion(int frames) {
     cuerpo2d p1 = {
         .m = 200.0,
         .r = 1.0,
-        .v_x = 0,
+        .v_x = -1,
         .v_y = 0,
-        .pos_x = 0,
-        .pos_y = 0
+        .pos_x = 10,
+        .pos_y = 10
     };
 
     double radio = 50.0;
@@ -31,12 +31,12 @@ void test_desmos_simulacion(int frames) {
     double v_factor = sqrt(radio);
     
     cuerpo2d p2 = {
-        .m = 20.0, 
+        .m = 200.0, 
         .r = 1.0,
-        .v_x = v_orbital,
+        .v_x = 1.0,
         .v_y = 0,
-        .pos_x = 0,
-        .pos_y = radio
+        .pos_x = -10,
+        .pos_y = -10
     };
     
     cuerpo2d planetas_t0[2] = {p1, p2};
