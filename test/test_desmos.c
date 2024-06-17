@@ -16,71 +16,34 @@ void test_desmos_simulacion(int frames) {
         printf("Malloc failed alojando el array planetas\n");
         return;
     }
-
-    //Condiciones iniciales
-/*
+  
     cuerpo2d p1 = {
-        .m = 20.0,
+        .m = 200.0,
         .r = 1.0,
-        .v_x = 5.0,
-        .v_y = -5.0,
-        .pos_x = -sqrt(2.0),
-        .pos_y = -sqrt(2.0)
+        .v_x = 0,
+        .v_y = 0,
+        .pos_x = 0,
+        .pos_y = 0
     };
-    
-    cuerpo2d p2 = {
-        .m = 20.0, 
-        .r = 1.0,
-        .v_x = -5.0,
-        .v_y = 5.0,
-        .pos_x = sqrt(2.0),
-        .pos_y = sqrt(2.0)
-    };
-*/
 
-    
-    cuerpo2d p1 = {
-        .m = 20.0,
-        .r = 1.0,
-        .v_x = 0.0,
-        .v_y = -sqrt(20),
-        .pos_x = 0.0,
-        .pos_y = 0.0
-    };
-    
-    /*
-    orbita circular
-    radio v_factor
-    1.0 1.0
-    2.0 1.4
-    3.0 1.75
-    4.0 2.0
-    5.0 2.25
-    10.0 3.175
-
-    v_factor(radio) = sqrt(radio)
-    */
-
-    double radio = 1.0;
+    double radio = 50.0;
     double v_orbital = sqrt(G * p1.m/radio);
     double v_factor = sqrt(radio);
     
     cuerpo2d p2 = {
         .m = 20.0, 
         .r = 1.0,
-        .v_x = 0.0,
-        .v_y = v_orbital,
-        //.v_y = sqrt(p1.m), //WTF
-        .pos_x = radio,
-        .pos_y = 0.0
+        .v_x = v_orbital,
+        .v_y = 0,
+        .pos_x = 0,
+        .pos_y = radio
     };
     
     cuerpo2d planetas_t0[2] = {p1, p2};
 
     //Simulacion
-    //cuerpos_simular_verlet(planetas, 2, planetas_t0, frames, 0.01);
-    cuerpos_simular_verlet_j_fijo(planetas, 2, planetas_t0, frames, 0.01);
-    //cuerpos_simular_j_fijo(planetas, 2, planetas_t0, frames, 0.01);
+    cuerpos_simular_verlet(planetas, 2, planetas_t0, frames, 0.01);
+    //cuerpos_simular_verlet_j_fijo(planetas, 2, planetas_t0, frames, 0.01);
 
     //Frame por frame, printf distancia
     for (int f = 0; f < frames; f++) {
