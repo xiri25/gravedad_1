@@ -36,4 +36,4 @@ activar las optimizaciones de ningun tipo gcc haya optimizado esto, es inutil en
 
 - Test energia
 
-- Test con más de dos cuerpos
+- Test con más de dos cuerpos, parece que las simulaciones se rompen con más de dos objetos
