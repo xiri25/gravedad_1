@@ -10,8 +10,9 @@
 #include "test/test.h"
 #include "test/two_b_problem.h"
 #include "test/test_desmos.h"
+#include "test/three_body.h"
 
-#define MEASURE_TIME 1
+#define MEASURE_TIME 0
 
 #if MEASURE_TIME
 #include <time.h>
@@ -31,9 +32,7 @@ double now(void) {
 int main() {
 
     //TESTING
-
-    test_desmos_simulacion(2000);
-
+    test_simulacion_three_bodies_verlet(1000, 0.1);
     return 0;
 
     #if MEASURE_TIME
