@@ -13,6 +13,7 @@ void cuerpos_simular_kahan(cuerpo2d* planetas, int planetas_number, cuerpo2d* pl
 void cuerpos_simular_verlet(cuerpo2d* planetas, int planetas_number, cuerpo2d* planetas_t0, int frames, double dt);
 void cuerpos_simular_verlet_j_fijo(cuerpo2d* planetas, int planetas_number, cuerpo2d* planetas_t0, int frames, double dt);
 void cuerpos_simular_j_fijo(cuerpo2d* planetas, int planetas_number, cuerpo2d* planetas_t0, int frames, double dt);
+void cuerpos_simular_euler_2(cuerpo2d *planetas, int planetas_number, cuerpo2d *planetas_t0, int frames, double dt);
 
 vector2 F_gravedad(double G_cte, double mi, double mj, double dx, double dy);
 #endif

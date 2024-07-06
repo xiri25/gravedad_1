@@ -485,6 +485,8 @@ void cuerpos_simular_verlet(cuerpo2d* planetas, int planetas_number, cuerpo2d* p
 
     //buffers, TODO: teniendo en cuenta que al final no estoy usando ningun buffer, buscar otro nombre
     int buffer_size = calc_buffer_size(planetas_number);
+    printf("    Cuerpos_simular_verlet. buffer_size = %d\n", buffer_size);
+    printf("    El frame 0 son las condiciones iniciales, por eso no se loopea por el\n");
     
     //Condiciones iniciales
     
@@ -523,9 +525,13 @@ void cuerpos_simular_verlet(cuerpo2d* planetas, int planetas_number, cuerpo2d* p
 
             for (int i = j + 1; i < buffer_size + 1; i++) {
 
+                printf("    f: %d, j: %d, i: %d\n", f, j, i);
                 //Estado del frame anterior
                 cuerpo2d* planeta_i_frame_anterior = &planetas[index_frames_anterior + i];
                 cuerpo2d* planeta_j_frame_anterior = &planetas[index_frames_anterior + j];
+                
+                printf("        idx_f_n-1 + i: %d\n", index_frames_anterior + i);
+                printf("        idx_f_n-1 + j: %d\n", index_frames_anterior + j);
                 
                 //Calculamos el vector
                 double dx = planeta_j_frame_anterior->pos_x - planeta_i_frame_anterior->pos_x;
@@ -546,6 +552,9 @@ void cuerpos_simular_verlet(cuerpo2d* planetas, int planetas_number, cuerpo2d* p
                 cuerpo2d* planeta_i = &planetas[index_frames_anterior + planetas_number + i];
                 cuerpo2d* planeta_j = &planetas[index_frames_anterior + planetas_number + j];
  
+                printf("        idx_f_n + i: %d\n", index_frames_anterior + planetas_number + i);
+                printf("        idx_f_n + j: %d\n", index_frames_anterior + planetas_number + j);
+                
                 //Estado antes de los deltas
                 planeta_i->v_x = planeta_i_frame_anterior->v_x;
                 planeta_i->v_y = planeta_i_frame_anterior->v_y;
@@ -626,9 +635,13 @@ void cuerpos_simular_verlet(cuerpo2d* planetas, int planetas_number, cuerpo2d* p
                 //printf("                i: %d\n", i);
                 //printf("\n");
 
+                printf("    f: %d, j: %d, i: %d\n", f, j, i);
                 //Estado del frame n-2
                 cuerpo2d* planeta_i_frame_n_menos_2 = &planetas[index_frame_n_menos_2 + i];
                 cuerpo2d* planeta_j_frame_n_menos_2 = &planetas[index_frame_n_menos_2 + j];
+
+                printf("        idx_f_n-2 + i: %d\n", index_frame_n_menos_2 + i);
+                printf("        idx_f_n-2 + j: %d\n", index_frame_n_menos_2 + j);
 
                 double i_posx_n2 = planeta_i_frame_n_menos_2->pos_x;
                 double i_posy_n2 = planeta_i_frame_n_menos_2->pos_y;
@@ -640,6 +653,9 @@ void cuerpos_simular_verlet(cuerpo2d* planetas, int planetas_number, cuerpo2d* p
                 cuerpo2d* planeta_i_frame_n_menos_1 = &planetas[index_frame_n_menos_1 + i];
                 cuerpo2d* planeta_j_frame_n_menos_1 = &planetas[index_frame_n_menos_1 + j];
 
+                printf("        idx_f_n-1 + i: %d\n", index_frame_n_menos_1 + i);
+                printf("        idx_f_n-1 + j: %d\n", index_frame_n_menos_1 + j);
+                
                 double i_posx_n1 = planeta_i_frame_n_menos_1->pos_x;
                 double i_posy_n1 = planeta_i_frame_n_menos_1->pos_y;
                 double j_posx_n1 = planeta_j_frame_n_menos_1->pos_x;
@@ -681,6 +697,9 @@ void cuerpos_simular_verlet(cuerpo2d* planetas, int planetas_number, cuerpo2d* p
                 //Planeta actual
                 cuerpo2d* planeta_i = &planetas[index_frame_n_menos_1 + planetas_number + i];
                 cuerpo2d* planeta_j = &planetas[index_frame_n_menos_1 + planetas_number + j];
+                
+                printf("        idx_f_n + i: %d\n", index_frame_n_menos_1 + planetas_number + i);
+                printf("        idx_f_n + j: %d\n", index_frame_n_menos_1 + planetas_number + j);
                 
                 //Esto por ahora asi XD TODO: Quizas buscar otra manera
                 double mj_n = mj_n1;
@@ -1061,5 +1080,62 @@ void cuerpos_simular_verlet_j_fijo(cuerpo2d* planetas, int planetas_number, cuer
             }
         }
         //printf("\n\n\n");
+    }
+}
+
+// Las distancias calculadas son siempre positivas
+void dist_calc(cuerpo2d* frame, int frame_len, double* buffer, int buffer_size) {
+    //printf("    planetas_number = %d\n", frame_len);
+    int counter = 0;
+    for (int j = 0; j < frame_len - 1; j++) {
+        for (int i = j + 1; i < frame_len; i++) {
+            printf("    j = %d, i = %d\n", j, i);
+            printf("    counter = %d\n", counter);
+
+            double dx = frame[j].pos_x - frame[i].pos_x;
+            double dy = frame[j].pos_y - frame[i].pos_y;
+            double dist = vector2_module(dx, dy);
+            printf("    dist = %f\n", dist);
+            buffer[counter] = dist;
+            
+            counter++;
+        }
+    }
+    printf("    counter_max = %d\n", counter);
+}
+
+void cuerpos_simular_euler_2(cuerpo2d *planetas, int planetas_number, cuerpo2d *planetas_t0, int frames, double dt) {
+    /*
+        * Calcular el tamaño de los bufferes
+        * Crear el buffer distancias
+        * Calcular la distancia entre los planetas (frame n-1)
+        * Crear el buffer gravedad/aceleracion (son vector2 y gravedad es inutil cuando tengo aceleracion)
+        * Calcular la gravedad entre los planetas
+        * Calcular las aceleraciones (unas positivas y otras negativas)
+        *
+        * Integrar
+        *
+        * Actualizar valores
+    */
+
+    for (int p = 0; p < planetas_number; p++) {
+        planetas[p] = planetas_t0[p];
+    }
+
+    // Creo que el buffer lo quiero fuera para que no se genere uno nuevo por frame
+    // Aunque si lo piensas deberia dar igual con suficientes optimizaciones
+    // los bucles no se deserrollan en enamblador a no ser que sepan de antemano
+    // cuantos loops deben hacer (supongo)
+    int buffers_size = calc_buffer_size(planetas_number);
+    printf("dist_buffer_size = %d\n", buffers_size);
+    double distancias[buffers_size];
+    
+    for (int f = 0; f < frames; f++) {
+
+        printf("f: %d\n", f);
+
+        cuerpo2d* frame = &planetas[f * planetas_number];
+        dist_calc(frame, planetas_number, distancias, buffers_size);
+
     }
 }

@@ -5,10 +5,12 @@
 
 void test_simulacion_three_bodies_verlet(int frames, double dt) {
     
-    int planetas_number = 3;
+    const int planetas_number = 4;
 
     int planetas_arr_size = sizeof(cuerpo2d) * frames * planetas_number;
     printf("planetas_arr_size = %d\n", planetas_arr_size);
+    printf("planetas_arr_elementos = %d\n", planetas_arr_size / (int)sizeof(cuerpo2d));
+    printf("frames = %d\n", frames);
     cuerpo2d* planetas3 = (cuerpo2d*)malloc(planetas_arr_size);
     if (planetas3 == NULL) {
         printf("Error malloc planetas3\n");
@@ -45,19 +47,19 @@ void test_simulacion_three_bodies_verlet(int frames, double dt) {
         .pos_y = 0.0
     };
 
-    cuerpo2d planetas_t0[3] = {Sol, Tierra, Luna};
+    cuerpo2d Marte = {
+        .m     = 10.0,
+        .r     = 10.0,
+        .v_x   = 0.0,
+        .v_y   = 1.0,
+        .pos_x = -10.0,
+        .pos_y = 0.0
+    };
+    cuerpo2d planetas_t0[4] = {Sol, Tierra, Luna, Marte};
 
     //cuerpos_simular_verlet(planetas3, planetas_number, planetas_t0, frames, dt);
-    cuerpos_simular(planetas3, planetas_number, planetas_t0, frames, dt);
-
-    for (int f = 0; f < frames; f++) {
-        for (int i = 0; i < planetas_number; i++) {
-            printf("%12.10f %12.10f\n",
-                   planetas3[f * planetas_number + i].pos_x,
-                   planetas3[f * planetas_number + i].pos_y);
-        }
-        printf("\n");
-    }
+    //cuerpos_simular(planetas3, planetas_number, planetas_t0, frames, dt);
+    cuerpos_simular_euler_2(planetas3, planetas_number, planetas_t0, frames, dt);
 
     printf("&planetas = %p\n", planetas3);
     free(planetas3);

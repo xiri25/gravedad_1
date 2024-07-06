@@ -32,7 +32,7 @@ double now(void) {
 int main() {
 
     //TESTING
-    test_simulacion_three_bodies_verlet(10, 0.1);
+    test_simulacion_three_bodies_verlet(4, 0.1);
     return 0;
 
     #if MEASURE_TIME
