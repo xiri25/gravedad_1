@@ -1114,6 +1114,68 @@ void gravedades_calc(cuerpo2d* frame, int frame_len, vector2* buffer, int buffer
     }
 }
 
+// Double pointer porque un array2d es un array de arrays
+void gravedades_to_gra_matrix(vector2 *buffer, int buffer_size, int planetas_number, vector2 gra_matrix[planetas_number][planetas_number]) {
+    /*
+        |  |p1|p2|p3|p4|
+        |p1|  |00|01|02|
+        |p2|0'|  |03|04|
+        |p3|1'|3'|  |05|
+        |p4|2'|4'|5'|  |
+    */
+    int counter = 0;
+    vector2 cero = {0.0, 0.0};
+
+    for (int j = 0; j < planetas_number; j++) {
+        for (int i = 0; i < planetas_number; i++) {
+            gra_matrix[j][i] = cero;
+        }
+    }
+
+    // Este -1 no se puede quitar, por lo que los "valores espejo" hay que añadirlos despues CREO
+    for (int j = 0; j < planetas_number - 1; j++) {
+        for (int i = j + 1; i < planetas_number; i++) {
+            
+            // TODO: Esto es provisional, quitar de aqui o añadir algo para el preprocesador
+            if (counter > buffer_size) {
+                printf("Se estan asignados mas valores la matrix de los que hay en el buffer en gravedades_to_gra_matrix()\n");
+                return;
+            }
+
+            if (i > j) {
+                //Original
+                gra_matrix[j][i] = buffer[counter];
+                counter++;
+            } else if (i == j) {
+                gra_matrix[j][i] = cero;
+            } else {
+                // TODO: Esto es provisional, quitar de aqui o añadir algo para el preprocesador
+                printf("Esto no deberia pasar gravedades_to_gra_matrix()\n");
+                return;
+            }
+        }
+    }
+
+    for (int j = 0; j < planetas_number; j++) {
+        for (int i = 0; i < planetas_number; i++) {
+            if (i < j) {
+                gra_matrix[j][i] = gra_matrix[i][j];
+            }
+        }
+    }
+}
+
+void gra_matrix_to_gra_sum(int planetas_number, vector2 gra_matrix[planetas_number][planetas_number], vector2* gra_sum) {
+    vector2 cero = {0.0, 0.0};
+    for (int j = 0; j < planetas_number; j++) {
+        gra_sum[j] = cero;
+        for (int i = 0; i < planetas_number; i++) {
+            gra_sum[j].x += gra_matrix[j][i].x;
+            gra_sum[j].y += gra_matrix[j][i].y;
+        }
+    }
+}
+
 void cuerpos_simular_euler_2(cuerpo2d *planetas, int planetas_number, cuerpo2d *planetas_t0, int frames, double dt) {
     /*
         * Crear el buffer
@@ -1152,6 +1214,23 @@ void cuerpos_simular_euler_2(cuerpo2d *planetas, int planetas_number, cuerpo2d *
 
         for (int i = 0; i < buffer_size; i++) {
             printf("    gravedad[%d] = (%f, %f)\n", i, buffer[i].x, buffer[i].y);
+        }
+
+        vector2 gra_matrix[planetas_number][planetas_number];
+        gravedades_to_gra_matrix(buffer, buffer_size, planetas_number, gra_matrix);
+
+        for (int j = 0; j < planetas_number; j++) {
+            for (int i = 0; i < planetas_number; i++) {
+                printf("(%f, %f)", gra_matrix[j][i].x, gra_matrix[j][i].y);
+            }
+            printf("\n");
+        }
+
+        vector2 gra_sum[planetas_number];
+        gra_matrix_to_gra_sum(planetas_number, gra_matrix, gra_sum);
+
+        for (int i = 0; i < planetas_number; i++) {
+            printf("(%f, %f)\n", gra_sum[i].x, gra_sum[i].y);
         }
     }
 }
