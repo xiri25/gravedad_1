@@ -21,21 +21,21 @@ void test_simulacion_three_bodies_verlet(int frames, double dt) {
     // Crear unas condiciones iniciales
 
     cuerpo2d Sol = {
-        .m     = 100.0,
+        .m     = 110.0,
         .r     = 100.0,
         .v_x   = 0.0,
         .v_y   = 0.0,
-        .pos_x = 0.0,
-        .pos_y = 0.0
+        .pos_x = -4.0,
+        .pos_y = 5.0
     };
 
     cuerpo2d Tierra = {
-        .m     = 10.0,
+        .m     = 20.0,
         .r     = 10.0,
         .v_x   = 0.0,
         .v_y   = 1.0,
-        .pos_x = 10.0,
-        .pos_y = 0.0
+        .pos_x = 2.0,
+        .pos_y = 1.0
     };
 
     cuerpo2d Luna = {
@@ -43,17 +43,17 @@ void test_simulacion_three_bodies_verlet(int frames, double dt) {
         .r     = 1.0,
         .v_x   = 0.0,
         .v_y   = 0.1,
-        .pos_x = 11.0,
-        .pos_y = 0.0
+        .pos_x = -1.0,
+        .pos_y = -8.0
     };
 
     cuerpo2d Marte = {
-        .m     = 10.0,
+        .m     = 15.0,
         .r     = 10.0,
         .v_x   = 0.0,
         .v_y   = 1.0,
-        .pos_x = -10.0,
-        .pos_y = 0.0
+        .pos_x = 3.0,
+        .pos_y = -3.0
     };
     cuerpo2d planetas_t0[4] = {Sol, Tierra, Luna, Marte};
 
