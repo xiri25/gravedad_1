@@ -1177,6 +1177,13 @@ void gra_matrix_to_gra_sum(int planetas_number, vector2 gra_matrix[planetas_numb
     }
 }
 
+void gra_to_aceleracion(cuerpo2d* frame, vector2* gra_sum, int planetas_number) {
+    for (int p = 0; p < planetas_number; p++) {
+        gra_sum[p].x = gra_sum[p].x / frame[p].m;
+        gra_sum[p].y = gra_sum[p].y / frame[p].m;
+    }
+}
+
 void cuerpos_simular_euler_2(cuerpo2d *planetas, int planetas_number, cuerpo2d *planetas_t0, int frames, double dt) {
     /*
         * Crear el buffer
@@ -1238,5 +1245,14 @@ void cuerpos_simular_euler_2(cuerpo2d *planetas, int planetas_number, cuerpo2d *
         for (int i = 0; i < planetas_number; i++) {
             printf("(%f, %f)\n", gra_sum[i].x, gra_sum[i].y);
         }
+
+        gra_to_aceleracion(frame, gra_sum, planetas_number);
+
+        // TODO: Esto es provisional, quitar de aqui o añadir algo para el preprocesador
+        printf("\n");
+        for (int i = 0; i < planetas_number; i++) {
+            printf("(%f, %f)\n", gra_sum[i].x, gra_sum[i].y);
+        }
+
     }
 }
