@@ -1083,34 +1083,43 @@ void cuerpos_simular_verlet_j_fijo(cuerpo2d* planetas, int planetas_number, cuer
     }
 }
 
-// Las distancias calculadas son siempre positivas
-void dist_calc(cuerpo2d* frame, int frame_len, double* buffer, int buffer_size) {
-    //printf("    planetas_number = %d\n", frame_len);
+// Calcula la gravedad que sentirian cada pareja de planetas si estuvieran solos
+void gravedades_calc(cuerpo2d* frame, int frame_len, vector2* buffer, int buffer_size) {
     int counter = 0;
     for (int j = 0; j < frame_len - 1; j++) {
         for (int i = j + 1; i < frame_len; i++) {
-            printf("    j = %d, i = %d\n", j, i);
-            printf("    counter = %d\n", counter);
+            // TODO: Esto es provisional, quitar de aqui o añadir algo para el preprocesador
+            if (counter > buffer_size) {
+                printf("Se estan realizando más calculos que iteracciones hay en el sistema en gravedades_calc()\n");
+                return;
+            }
 
             double dx = frame[j].pos_x - frame[i].pos_x;
             double dy = frame[j].pos_y - frame[i].pos_y;
-            double dist = vector2_module(dx, dy);
-            printf("    dist = %f\n", dist);
-            buffer[counter] = dist;
             
+            // TODO: Esto es provisional, quitar de aqui o añadir algo para el preprocesador
+            printf("    dist = %f\n", vector2_module(dx,dy));
+
+            double mi = frame[i].m;
+            double mj = frame[j].m;
+            vector2 gra = F_gravedad(G, mi, mj, dx, dy);
+            
+
+            // TODO: Esto es provisional, quitar de aqui o añadir algo para el preprocesador
+            printf("    gra = (%f, %f)\n", gra.x, gra.y);
+
+            buffer[counter] = gra;
             counter++;
         }
     }
-    printf("    counter_max = %d\n", counter);
 }
 
 void cuerpos_simular_euler_2(cuerpo2d *planetas, int planetas_number, cuerpo2d *planetas_t0, int frames, double dt) {
     /*
-        * Calcular el tamaño de los bufferes
-        * Crear el buffer distancias
+        * Crear el buffer
         * Calcular la distancia entre los planetas (frame n-1)
-        * Crear el buffer gravedad/aceleracion (son vector2 y gravedad es inutil cuando tengo aceleracion)
         * Calcular la gravedad entre los planetas
+        * Buffer para las aceleraciones
         * Calcular las aceleraciones (unas positivas y otras negativas)
         *
         * Integrar
@@ -1118,24 +1127,32 @@ void cuerpos_simular_euler_2(cuerpo2d *planetas, int planetas_number, cuerpo2d *
         * Actualizar valores
     */
 
+    //Condiciones Iniciales
     for (int p = 0; p < planetas_number; p++) {
         planetas[p] = planetas_t0[p];
     }
 
+    // Darle valor al array entero para las comprobaciones
+    for (int p = 0; p < planetas_number * frames; p++) {
+        planetas[p] = planetas_t0[p % frames];
+    }
     // Creo que el buffer lo quiero fuera para que no se genere uno nuevo por frame
     // Aunque si lo piensas deberia dar igual con suficientes optimizaciones
     // los bucles no se deserrollan en enamblador a no ser que sepan de antemano
     // cuantos loops deben hacer (supongo)
-    int buffers_size = calc_buffer_size(planetas_number);
-    printf("dist_buffer_size = %d\n", buffers_size);
-    double distancias[buffers_size];
+    int buffer_size = calc_buffer_size(planetas_number);
+    printf("dist_buffer_size = %d\n", buffer_size);
+    vector2 buffer[buffer_size];
     
     for (int f = 0; f < frames; f++) {
 
         printf("f: %d\n", f);
 
         cuerpo2d* frame = &planetas[f * planetas_number];
-        dist_calc(frame, planetas_number, distancias, buffers_size);
+        gravedades_calc(frame, planetas_number, buffer, buffer_size);
 
+        for (int i = 0; i < buffer_size; i++) {
+            printf("    gravedad[%d] = (%f, %f)\n", i, buffer[i].x, buffer[i].y);
+        }
     }
 }
