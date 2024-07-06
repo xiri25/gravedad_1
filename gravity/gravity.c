@@ -1119,7 +1119,6 @@ void cuerpos_simular_euler_2(cuerpo2d *planetas, int planetas_number, cuerpo2d *
         * Crear el buffer
         * Calcular la distancia entre los planetas (frame n-1)
         * Calcular la gravedad entre los planetas
-        * Buffer para las aceleraciones
         * Calcular las aceleraciones (unas positivas y otras negativas)
         *
         * Integrar
