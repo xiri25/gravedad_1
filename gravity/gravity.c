@@ -1207,11 +1207,14 @@ void cuerpos_simular_euler_2(cuerpo2d *planetas, int planetas_number, cuerpo2d *
     
     for (int f = 0; f < frames; f++) {
 
+
+        // TODO: Esto es provisional, quitar de aqui o añadir algo para el preprocesador
         printf("f: %d\n", f);
 
         cuerpo2d* frame = &planetas[f * planetas_number];
         gravedades_calc(frame, planetas_number, buffer, buffer_size);
 
+        // TODO: Esto es provisional, quitar de aqui o añadir algo para el preprocesador
         for (int i = 0; i < buffer_size; i++) {
             printf("    gravedad[%d] = (%f, %f)\n", i, buffer[i].x, buffer[i].y);
         }
@@ -1219,6 +1222,7 @@ void cuerpos_simular_euler_2(cuerpo2d *planetas, int planetas_number, cuerpo2d *
         vector2 gra_matrix[planetas_number][planetas_number];
         gravedades_to_gra_matrix(buffer, buffer_size, planetas_number, gra_matrix);
 
+        // TODO: Esto es provisional, quitar de aqui o añadir algo para el preprocesador
         for (int j = 0; j < planetas_number; j++) {
             for (int i = 0; i < planetas_number; i++) {
                 printf("(%f, %f)", gra_matrix[j][i].x, gra_matrix[j][i].y);
@@ -1229,6 +1233,7 @@ void cuerpos_simular_euler_2(cuerpo2d *planetas, int planetas_number, cuerpo2d *
         vector2 gra_sum[planetas_number];
         gra_matrix_to_gra_sum(planetas_number, gra_matrix, gra_sum);
 
+        // TODO: Esto es provisional, quitar de aqui o añadir algo para el preprocesador
         for (int i = 0; i < planetas_number; i++) {
             printf("(%f, %f)\n", gra_sum[i].x, gra_sum[i].y);
         }
