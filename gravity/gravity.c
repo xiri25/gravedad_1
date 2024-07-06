@@ -1205,6 +1205,7 @@ void cuerpos_simular_euler_2(cuerpo2d *planetas, int planetas_number, cuerpo2d *
     int buffer_size = calc_buffer_size(planetas_number);
     printf("dist_buffer_size = %d\n", buffer_size);
     vector2 buffer[buffer_size];
+    vector2 gra_sum[planetas_number];
     
     for (int f = 0; f < frames; f++) {
 
@@ -1231,7 +1232,6 @@ void cuerpos_simular_euler_2(cuerpo2d *planetas, int planetas_number, cuerpo2d *
             printf("\n");
         }
 
-        vector2 gra_sum[planetas_number];
         gra_matrix_to_gra_sum(planetas_number, gra_matrix, gra_sum);
 
         // TODO: Esto es provisional, quitar de aqui o añadir algo para el preprocesador
