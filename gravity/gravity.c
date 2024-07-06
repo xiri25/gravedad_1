@@ -10,7 +10,7 @@ vector2 F_gravedad(double G_cte, double mi, double mj, double dx, double dy) {
     double r_mod_3 = r_mod * r_mod * r_mod;
     double g = Gmimj / r_mod_3;
 
-    vector2 gravedad = {g * dx, g * dy};
+    vector2 gravedad = {-g * dx, -g * dy};
 
     return gravedad;
 }
@@ -1159,7 +1159,8 @@ void gravedades_to_gra_matrix(vector2 *buffer, int buffer_size, int planetas_num
     for (int j = 0; j < planetas_number; j++) {
         for (int i = 0; i < planetas_number; i++) {
             if (i < j) {
-                gra_matrix[j][i] = gra_matrix[i][j];
+                gra_matrix[j][i].x = -gra_matrix[i][j].x;
+                gra_matrix[j][i].y = -gra_matrix[i][j].y;
             }
         }
     }
