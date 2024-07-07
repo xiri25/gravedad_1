@@ -22,39 +22,39 @@ void test_simulacion_three_bodies_verlet(int frames, double dt) {
     // Crear unas condiciones iniciales
 
     cuerpo2d Sol = {
-        .m     = 10.0,
+        .m     = 100.0,
         .r     = 100.0,
         .v_x   = 0.0,
-        .v_y   = 5.0,
-        .pos_x = 10.0,
-        .pos_y = -10.0
+        .v_y   = 0.0,
+        .pos_x = 0.0,
+        .pos_y = 0.0
     };
 
     cuerpo2d Tierra = {
-        .m     = 10.0,
+        .m     = 1.0,
         .r     = 10.0,
-        .v_x   = -5.0,
+        .v_x   = -3.33,
         .v_y   = 0.0,
-        .pos_x = 10.0,
+        .pos_x = 0.0,
         .pos_y = 10.0
     };
 
     cuerpo2d Luna = {
         .m     = 10.0,
         .r     = 1.0,
-        .v_x   = 0.0,
-        .v_y   = -5.0,
-        .pos_x = -10.0,
-        .pos_y = 10.0
+        .v_x   = sqrt(2.5),
+        .v_y   = sqrt(2.5),
+        .pos_x = sqrt(200),
+        .pos_y = -sqrt(200)
     };
 
     cuerpo2d Marte = {
-        .m     = 10.0,
+        .m     = 20.0,
         .r     = 10.0,
-        .v_x   = 5.0,
-        .v_y   = 0.0,
-        .pos_x = -10.0,
-        .pos_y = -10.0
+        .v_x   = sqrt(1.5),
+        .v_y   = 1.0,
+        .pos_x = -sqrt(1000),
+        .pos_y = -sqrt(600)
     };
     cuerpo2d planetas_t0[4] = {Sol, Tierra, Luna, Marte};
 
@@ -63,10 +63,12 @@ void test_simulacion_three_bodies_verlet(int frames, double dt) {
     test_mechanical_energy(planetas3, planetas_number, frames);
     printf("Simulacion euler acabada\n");
 
+    /*
     printf("Simulacion verlet empezada\n");
     cuerpos_simular_verlet_2(planetas3, planetas_number, planetas_t0, frames, dt);
     test_mechanical_energy(planetas3, planetas_number, frames);
     printf("Simulacion verlet acabada\n");
+    */
 
     for (int f = 0; f < frames; f++) {
         for (int p = 0; p < planetas_number; p++) {
