@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "gravity.h"
 
-#define GRAVITY_DEBUG 0
+#define GRAVITY_DEBUG 1
 
 #define EPSILON 0.00000001
 
@@ -1341,9 +1341,21 @@ void verlet_integration(cuerpo2d* frame_n_2, cuerpo2d* frame_n_1, cuerpo2d* fram
         vector2 v = verlet_velocity(v_n1, a_n, a_n1, a_n2, dt);
 
         frame[p].pos_x = pos.x;
-        frame[p].pos_y = pos.x;
+        frame[p].pos_y = pos.y;
         frame[p].v_x = v.x;
         frame[p].v_x = v.y;
+
+        #if GRAVITY_DEBUG
+        printf("    pos(n-2) = (%f, %f)\n", pos_n2.x, pos_n2.y);
+        printf("    pos(n-1) = (%f, %f)\n", pos_n1.x, pos_n1.y);
+        printf("      a(n-2) = (%f, %f)\n", a_n2.x, a_n2.y);
+        printf("      a(n-1) = (%f, %f)\n", a_n1.x, a_n1.y);
+        printf("      v(n-1) = (%f, %f)\n", v_n1.x, v_n1.y);
+        printf("       a(n)  = (%f, %f)\n", a_n.x, a_n.y);
+        printf("      pos(n) = (%f, %f)\n", pos.x, pos.y);
+        printf("        v(n) = (%f, %f)\n", v.x, v.y);
+        printf("    -------------------\n");
+        #endif
     }
 }
 

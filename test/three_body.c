@@ -52,7 +52,7 @@ void test_simulacion_three_bodies_verlet(int frames, double dt) {
         .m     = 20.0,
         .r     = 10.0,
         .v_x   = sqrt(1.5),
-        .v_y   = 1.0,
+        .v_y   = -1.0,
         .pos_x = -sqrt(1000),
         .pos_y = -sqrt(600)
     };
@@ -63,13 +63,11 @@ void test_simulacion_three_bodies_verlet(int frames, double dt) {
     test_mechanical_energy(planetas3, planetas_number, frames);
     printf("Simulacion euler acabada\n");
 
-    /*
     printf("Simulacion verlet empezada\n");
     cuerpos_simular_verlet_2(planetas3, planetas_number, planetas_t0, frames, dt);
     test_mechanical_energy(planetas3, planetas_number, frames);
     printf("Simulacion verlet acabada\n");
-    */
-
+    
     for (int f = 0; f < frames; f++) {
         for (int p = 0; p < planetas_number; p++) {
             printf("%f %f\n",
