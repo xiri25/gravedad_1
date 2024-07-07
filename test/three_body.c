@@ -59,7 +59,9 @@ void test_simulacion_three_bodies_verlet(int frames, double dt) {
 
     //cuerpos_simular_verlet(planetas3, planetas_number, planetas_t0, frames, dt);
     //cuerpos_simular(planetas3, planetas_number, planetas_t0, frames, dt);
+    printf("Simulacion empieza\n");
     cuerpos_simular_euler_2(planetas3, planetas_number, planetas_t0, frames, dt);
+    printf("Simulacion acabada\n");
 
     printf("&planetas = %p\n", planetas3);
     free(planetas3);

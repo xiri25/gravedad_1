@@ -1228,36 +1228,34 @@ void euler_integration(cuerpo2d* frame_n_1, cuerpo2d* frame, int frame_len, vect
 }
 
 void cuerpos_simular_euler_2(cuerpo2d *planetas, int planetas_number, cuerpo2d *planetas_t0, int frames, double dt) {
-    /*
-        * Crear el buffer
-        * Calcular la distancia entre los planetas (frame n-1)
-        * Calcular la gravedad entre los planetas
-        * Calcular las aceleraciones (unas positivas y otras negativas)
-        *
-        * Integrar
-        *
-        * Actualizar valores
-    */
+
+    printf("cuerpos_simular_euler_2(), inicio\n");
 
     //Condiciones Iniciales
     for (int p = 0; p < planetas_number; p++) {
         planetas[p] = planetas_t0[p];
     }
+    printf("    Despues de aplicar las Condiciones Iniciales\n");
 
     // Darle valor al array entero para las comprobaciones
     for (int p = 0; p < planetas_number * frames; p++) {
-        planetas[p] = planetas_t0[p % frames];
+        planetas[p] = planetas_t0[p % planetas_number];
     }
+    printf("    Despues de darle valor al array entero\n");
+
     // Creo que el buffer lo quiero fuera para que no se genere uno nuevo por frame
     // Aunque si lo piensas deberia dar igual con suficientes optimizaciones
     // los bucles no se deserrollan en enamblador a no ser que sepan de antemano
     // cuantos loops deben hacer (supongo)
     int buffer_size = calc_buffer_size(planetas_number);
-    printf("dist_buffer_size = %d\n", buffer_size);
+    
+    printf("    dist_buffer_size = %d\n", buffer_size);
+    
     vector2 buffer[buffer_size];
     vector2 gra_sum[planetas_number];
     vector2 gra_matrix[planetas_number][planetas_number];
 
+    printf("    Antes del loop de la simulacion\n");
     // Estamos con euler, deberia empezar en 1 (si esta en 0 es porque estoy probando que funciona hasta el 
     // calculo de las aceleraciones)
     for (int f = 1; f < frames; f++) {
@@ -1306,4 +1304,5 @@ void cuerpos_simular_euler_2(cuerpo2d *planetas, int planetas_number, cuerpo2d *
 
         euler_integration(frame_n1, frame, planetas_number, gra_sum, dt);
     }
+    printf("    Despues del loop\n");
 }
