@@ -1,1 +1,17 @@
+3body
+gmon.out
+gravity.s
+hola
+planetas
+plot/__pycache__/
+plot/animacion.mp4
+plot/animacion_frames/
+plot/desmos.png
+plot/desmos2.png
+plot/grafico_valores.png
+plot/images/
+plot/media/
+plot/plot/
+resultados_cuerpos.txt
+resultados_puntos.txt
 plot/images2/*
