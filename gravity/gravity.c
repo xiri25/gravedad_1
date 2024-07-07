@@ -1211,7 +1211,7 @@ vector2 euler_pos(vector2 x_0, vector2 v_0, vector2 a, double dt) {
     return pos;
 }
 
-// En teoria solo con una frame deberia funcionar, pero prefiero los dos
+// En teoria solo con una frame deberia funcionar (el frame es un pointer al array planetas), pero prefiero los dos
 void euler_integration(cuerpo2d* frame_n_1, cuerpo2d* frame, int frame_len, vector2* a, double dt) {
     for (int p = 0; p < frame_len; p++) {
         vector2 v_n_1 = {frame_n_1[p].v_x, frame_n_1[p].v_y};
@@ -1305,4 +1305,195 @@ void cuerpos_simular_euler_2(cuerpo2d *planetas, int planetas_number, cuerpo2d *
         euler_integration(frame_n1, frame, planetas_number, gra_sum, dt);
     }
     printf("    Despues del loop\n");
+}
+
+// x(n) = 2x(n-1) - x(n-2) + a(n-1) * dt * dt
+vector2 verlet_pos(vector2 x_n_1, vector2 x_n_2, vector2 a_n_1, double dt) {
+    vector2 pos = {
+        .x = 2 * x_n_1.x - x_n_2.x + a_n_1.x * dt * dt,
+        .y = 2 * x_n_1.y - x_n_2.y + a_n_1.y * dt * dt,
+    };
+    return pos;
+}
+
+// v(n) = v(n-1) + 1/6 * (2a(n) + 5a(n-1) - a(n-2)) * dt
+vector2 verlet_velocity(vector2 v_n_1, vector2 a, vector2 a_n_1, vector2 a_n_2, double dt) {
+    vector2 vel = {
+        .x = v_n_1.x + (double)1/6 * (2 * a.x + 5 * a_n_1.x - a_n_2.x) * dt,
+        .y = v_n_1.y + (double)1/6 * (2 * a.y + 5 * a_n_1.y - a_n_2.y) * dt,
+    };
+    return vel;
+}
+
+void verlet_integration(cuerpo2d* frame_n_2, cuerpo2d* frame_n_1, cuerpo2d* frame, int frame_len,
+                        vector2* a, vector2* a_n_1, vector2* a_n_2, double dt)
+{ 
+    for (int p = 0; p < frame_len; p++) {
+        vector2 pos_n1 = {frame_n_1[p].pos_x, frame_n_1[p].pos_y};
+        vector2 pos_n2 = {frame_n_2[p].pos_x, frame_n_2[p].pos_y};
+        vector2 a_n1 = a_n_1[p];
+        vector2 a_n2 = a_n_2[p];
+        vector2 a_n = a[p];
+        vector2 v_n1 = {frame_n_1[p].v_x, frame_n_1[p].v_y};
+
+        vector2 pos = verlet_pos(pos_n1, pos_n2, a_n1, dt);
+        vector2 v = verlet_velocity(v_n1, a_n, a_n1, a_n2, dt);
+
+        frame[p].pos_x = pos.x;
+        frame[p].pos_y = pos.x;
+        frame[p].v_x = v.x;
+        frame[p].v_x = v.y;
+    }
+}
+
+// La primera vez que verlet se los encuentre a_n2 deberia contener 0 (Condiciones iniciales)
+// y a_n1 deberia tener los valores calculados por euler
+// Despues verlet (en el loop, no en la integracion) hace uso de esos valores y asigna al final del loop
+// a a_n1 el valor de a y a a_n2 el valor de a_n1
+void cuerpos_simular_verlet_2(cuerpo2d *planetas, int planetas_number, cuerpo2d *planetas_t0, int frames, double dt) {
+
+    printf("cuerpos_simular_verlet_2(), inicio\n");
+
+    //Condiciones Iniciales
+    for (int p = 0; p < planetas_number; p++) {
+        planetas[p] = planetas_t0[p];
+    }
+    printf("    Despues de aplicar las Condiciones Iniciales\n");
+
+    // Darle valor al array entero para las comprobaciones
+    for (int p = 0; p < planetas_number * frames; p++) {
+        planetas[p] = planetas_t0[p % planetas_number];
+    }
+    printf("    Despues de darle valor al array entero\n");
+
+    // Creo que el buffer lo quiero fuera para que no se genere uno nuevo por frame
+    // Aunque si lo piensas deberia dar igual con suficientes optimizaciones
+    // los bucles no se deserrollan en enamblador a no ser que sepan de antemano
+    // cuantos loops deben hacer (supongo)
+    int buffer_size = calc_buffer_size(planetas_number);
+    
+    printf("    dist_buffer_size = %d\n", buffer_size);
+    
+    vector2 buffer[buffer_size];
+    vector2 gra_sum[planetas_number];
+    vector2 gra_matrix[planetas_number][planetas_number];
+    vector2 a_n1_buffer[planetas_number];
+    vector2 a_n2_buffer[planetas_number];
+
+    printf("    Antes del frame calculado con euler\n");
+    // Solo un frame, porque este se calcula con euler
+    // TODO: Mejorear esto
+    for (int f = 1; f < 2; f++) {
+
+        #if GRAVITY_DEBUG
+        printf("f: %d\n", f);
+        #endif
+
+        cuerpo2d* frame_n1 = &planetas[(f - 1) * planetas_number];
+        cuerpo2d* frame = &planetas[f * planetas_number];
+        gravedades_calc(frame_n1, planetas_number, buffer, buffer_size);
+
+        #if GRAVITY_DEBUG
+        for (int i = 0; i < buffer_size; i++) {
+            printf("    gravedad[%d] = (%f, %f)\n", i, buffer[i].x, buffer[i].y);
+        }
+        #endif
+
+        gravedades_to_gra_matrix(buffer, buffer_size, planetas_number, gra_matrix);
+
+        #if GRAVITY_DEBUG
+        for (int j = 0; j < planetas_number; j++) {
+            for (int i = 0; i < planetas_number; i++) {
+                printf("(%f, %f)", gra_matrix[j][i].x, gra_matrix[j][i].y);
+            }
+            printf("\n");
+        }
+        #endif
+
+        gra_matrix_to_gra_sum(planetas_number, gra_matrix, gra_sum);
+
+        #if GRAVITY_DEBUG
+        for (int i = 0; i < planetas_number; i++) {
+            printf("(%f, %f)\n", gra_sum[i].x, gra_sum[i].y);
+        }
+        #endif
+
+        gra_to_aceleracion(frame_n1, gra_sum, planetas_number);
+
+        #if GRAVITY_DEBUG
+        printf("\n");
+        for (int i = 0; i < planetas_number; i++) {
+            printf("(%f, %f)\n", gra_sum[i].x, gra_sum[i].y);
+        }
+        #endif
+
+        euler_integration(frame_n1, frame, planetas_number, gra_sum, dt);
+    }
+    printf("    Despues del frame calculado por euler\n");
+
+    // Inicializar los bufferes
+    // En este momento gra_sum tiene los valores de las aceleraciones calculadas por euler
+    vector2 cero = {0, 0};
+    for (int p = 0; p < planetas_number; p++) {
+        a_n1_buffer[p] = gra_sum[p];
+        a_n2_buffer[p] = cero;
+    }
+
+    printf("    Antes de la simulacion\n");
+    // Parte simulada con verlet
+    for (int f = 2; f < frames; f++) {
+
+        #if GRAVITY_DEBUG
+        printf("f: %d\n", f);
+        #endif
+
+        cuerpo2d* frame_n2 = &planetas[(f - 2) * planetas_number];
+        cuerpo2d* frame_n1 = &planetas[(f - 1) * planetas_number];
+        cuerpo2d* frame = &planetas[f * planetas_number];
+        gravedades_calc(frame_n1, planetas_number, buffer, buffer_size);
+
+        #if GRAVITY_DEBUG
+        for (int i = 0; i < buffer_size; i++) {
+            printf("    gravedad[%d] = (%f, %f)\n", i, buffer[i].x, buffer[i].y);
+        }
+        #endif
+
+        gravedades_to_gra_matrix(buffer, buffer_size, planetas_number, gra_matrix);
+
+        #if GRAVITY_DEBUG
+        for (int j = 0; j < planetas_number; j++) {
+            for (int i = 0; i < planetas_number; i++) {
+                printf("(%f, %f)", gra_matrix[j][i].x, gra_matrix[j][i].y);
+            }
+            printf("\n");
+        }
+        #endif
+
+        gra_matrix_to_gra_sum(planetas_number, gra_matrix, gra_sum);
+
+        #if GRAVITY_DEBUG
+        for (int i = 0; i < planetas_number; i++) {
+            printf("(%f, %f)\n", gra_sum[i].x, gra_sum[i].y);
+        }
+        #endif
+
+        gra_to_aceleracion(frame_n1, gra_sum, planetas_number);
+
+        #if GRAVITY_DEBUG
+        printf("\n");
+        for (int i = 0; i < planetas_number; i++) {
+            printf("(%f, %f)\n", gra_sum[i].x, gra_sum[i].y);
+        }
+        #endif
+
+        // Verlet_integration
+        verlet_integration(frame_n2, frame_n1, frame, planetas_number, gra_sum, a_n1_buffer, a_n2_buffer, dt);
+
+        // Actualizar buffer para el siguiente frame
+        for (int p = 0; p < planetas_number; p++) {
+            a_n2_buffer[p] = a_n1_buffer[p];
+            a_n2_buffer[p] = gra_sum[p];
+        }
+    }
+    printf("    Despues de la simulacion\n");
 }

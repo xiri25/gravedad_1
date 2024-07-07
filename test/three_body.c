@@ -57,11 +57,13 @@ void test_simulacion_three_bodies_verlet(int frames, double dt) {
     };
     cuerpo2d planetas_t0[4] = {Sol, Tierra, Luna, Marte};
 
-    //cuerpos_simular_verlet(planetas3, planetas_number, planetas_t0, frames, dt);
-    //cuerpos_simular(planetas3, planetas_number, planetas_t0, frames, dt);
-    printf("Simulacion empieza\n");
+    printf("Simulacion euler empiezada\n");
     cuerpos_simular_euler_2(planetas3, planetas_number, planetas_t0, frames, dt);
-    printf("Simulacion acabada\n");
+    printf("Simulacion euler acabada\n");
+
+    printf("Simulacion verlet empezada\n");
+    cuerpos_simular_verlet_2(planetas3, planetas_number, planetas_t0, frames, dt);
+    printf("Simulacion verlet acabada\n");
 
     for (int f = 0; f < frames; f++) {
         for (int p = 0; p < planetas_number; p++) {
