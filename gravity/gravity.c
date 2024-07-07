@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include "gravity.h"
 
+#define GRAVITY_DEBUG 0
+
 #define EPSILON 0.00000001
 
 vector2 F_gravedad(double G_cte, double mi, double mj, double dx, double dy) {
@@ -1088,25 +1090,28 @@ void gravedades_calc(cuerpo2d* frame, int frame_len, vector2* buffer, int buffer
     int counter = 0;
     for (int j = 0; j < frame_len - 1; j++) {
         for (int i = j + 1; i < frame_len; i++) {
-            // TODO: Esto es provisional, quitar de aqui o añadir algo para el preprocesador
+            
+            #if GRAVITY_DEBUG
             if (counter > buffer_size) {
                 printf("Se estan realizando más calculos que iteracciones hay en el sistema en gravedades_calc()\n");
                 return;
             }
+            #endif
 
             double dx = frame[j].pos_x - frame[i].pos_x;
             double dy = frame[j].pos_y - frame[i].pos_y;
-            
-            // TODO: Esto es provisional, quitar de aqui o añadir algo para el preprocesador
+           
+            #if GRAVITY_DEBUG 
             printf("    dist = %f\n", vector2_module(dx,dy));
+            #endif
 
             double mi = frame[i].m;
             double mj = frame[j].m;
             vector2 gra = F_gravedad(G, mi, mj, dx, dy);
             
-
-            // TODO: Esto es provisional, quitar de aqui o añadir algo para el preprocesador
+            #if GRAVITY_DEBUG
             printf("    gra = (%f, %f)\n", gra.x, gra.y);
+            #endif
 
             buffer[counter] = gra;
             counter++;
@@ -1136,11 +1141,12 @@ void gravedades_to_gra_matrix(vector2 *buffer, int buffer_size, int planetas_num
     for (int j = 0; j < planetas_number - 1; j++) {
         for (int i = j + 1; i < planetas_number; i++) {
             
-            // TODO: Esto es provisional, quitar de aqui o añadir algo para el preprocesador
+            #if GRAVITY_DEBUG           
             if (counter > buffer_size) {
                 printf("Se estan asignados mas valores la matrix de los que hay en el buffer en gravedades_to_gra_matrix()\n");
                 return;
             }
+            #endif
 
             if (i > j) {
                 //Original
@@ -1150,6 +1156,7 @@ void gravedades_to_gra_matrix(vector2 *buffer, int buffer_size, int planetas_num
                 gra_matrix[j][i] = cero;
             } else {
                 // TODO: Esto es provisional, quitar de aqui o añadir algo para el preprocesador
+                // este no se como lo voy a quitar por ahora
                 printf("Esto no deberia pasar gravedades_to_gra_matrix()\n");
                 return;
             }
@@ -1184,6 +1191,42 @@ void gra_to_aceleracion(cuerpo2d* frame, vector2* gra_sum, int planetas_number) 
     }
 }
 
+// v(n) = v(n-1) + a(n) * dt
+// v(n-1) se puede pensar como la velocidad inicial
+vector2 euler_velocity(vector2 v_0, vector2 a, double dt) {
+    vector2 vel = {
+        .x = v_0.x + a.x * dt,
+        .y = v_0.y + a.y * dt,
+    };
+    return vel;
+}
+
+// x(n) = x(n-1) + v(n-1) * dt + 1/2 * a(n) * dt * dt
+// De nuevo los valores x(n-1) y v(n-1) se pueden considerar los iniciales
+vector2 euler_pos(vector2 x_0, vector2 v_0, vector2 a, double dt) {
+    vector2 pos = {
+        .x = x_0.x + v_0.x * dt + (double)1/2 * a.x * dt * dt,
+        .y = x_0.y + v_0.y * dt + (double)1/2 * a.y * dt * dt,
+    };
+    return pos;
+}
+
+// En teoria solo con una frame deberia funcionar, pero prefiero los dos
+void euler_integration(cuerpo2d* frame_n_1, cuerpo2d* frame, int frame_len, vector2* a, double dt) {
+    for (int p = 0; p < frame_len; p++) {
+        vector2 v_n_1 = {frame_n_1[p].v_x, frame_n_1[p].v_y};
+        vector2 pos_n_1 = {frame_n_1[p].pos_x, frame_n_1[p].pos_y};
+
+        vector2 v = euler_velocity(v_n_1, a[p], dt);
+        vector2 pos = euler_pos(pos_n_1, v_n_1, a[p], dt);
+
+        frame[p].v_x = v.x;
+        frame[p].v_y = v.y;
+        frame[p].pos_x = pos.x;
+        frame[p].pos_x = pos.y;
+    }
+}
+
 void cuerpos_simular_euler_2(cuerpo2d *planetas, int planetas_number, cuerpo2d *planetas_t0, int frames, double dt) {
     /*
         * Crear el buffer
@@ -1214,45 +1257,53 @@ void cuerpos_simular_euler_2(cuerpo2d *planetas, int planetas_number, cuerpo2d *
     vector2 buffer[buffer_size];
     vector2 gra_sum[planetas_number];
     vector2 gra_matrix[planetas_number][planetas_number];
-    
-    for (int f = 0; f < frames; f++) {
 
+    // Estamos con euler, deberia empezar en 1 (si esta en 0 es porque estoy probando que funciona hasta el 
+    // calculo de las aceleraciones)
+    for (int f = 1; f < frames; f++) {
 
-        // TODO: Esto es provisional, quitar de aqui o añadir algo para el preprocesador
+        #if GRAVITY_DEBUG
         printf("f: %d\n", f);
+        #endif
 
+        cuerpo2d* frame_n1 = &planetas[(f - 1) * planetas_number];
         cuerpo2d* frame = &planetas[f * planetas_number];
-        gravedades_calc(frame, planetas_number, buffer, buffer_size);
+        gravedades_calc(frame_n1, planetas_number, buffer, buffer_size);
 
-        // TODO: Esto es provisional, quitar de aqui o añadir algo para el preprocesador
+        #if GRAVITY_DEBUG
         for (int i = 0; i < buffer_size; i++) {
             printf("    gravedad[%d] = (%f, %f)\n", i, buffer[i].x, buffer[i].y);
         }
+        #endif
 
         gravedades_to_gra_matrix(buffer, buffer_size, planetas_number, gra_matrix);
 
-        // TODO: Esto es provisional, quitar de aqui o añadir algo para el preprocesador
+        #if GRAVITY_DEBUG
         for (int j = 0; j < planetas_number; j++) {
             for (int i = 0; i < planetas_number; i++) {
                 printf("(%f, %f)", gra_matrix[j][i].x, gra_matrix[j][i].y);
             }
             printf("\n");
         }
+        #endif
 
         gra_matrix_to_gra_sum(planetas_number, gra_matrix, gra_sum);
 
-        // TODO: Esto es provisional, quitar de aqui o añadir algo para el preprocesador
+        #if GRAVITY_DEBUG
         for (int i = 0; i < planetas_number; i++) {
             printf("(%f, %f)\n", gra_sum[i].x, gra_sum[i].y);
         }
+        #endif
 
-        gra_to_aceleracion(frame, gra_sum, planetas_number);
+        gra_to_aceleracion(frame_n1, gra_sum, planetas_number);
 
-        // TODO: Esto es provisional, quitar de aqui o añadir algo para el preprocesador
+        #if GRAVITY_DEBUG
         printf("\n");
         for (int i = 0; i < planetas_number; i++) {
             printf("(%f, %f)\n", gra_sum[i].x, gra_sum[i].y);
         }
+        #endif
 
+        euler_integration(frame_n1, frame, planetas_number, gra_sum, dt);
     }
 }
