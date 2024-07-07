@@ -103,7 +103,7 @@ double cinetic_energy_frame(cuerpo2d* frame, int frame_len) {
         double vmod = vector2_module(frame[p].v_x, frame[p].v_y);
         double m = frame[p].m;
 
-        double T =+ 0.5 * m * vmod * vmod;
+        T += 0.5 * m * vmod * vmod;
     }
 
     return T;

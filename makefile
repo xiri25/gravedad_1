@@ -10,7 +10,8 @@ SRC_FILES=main.c\
 		  test/test.c \
 		  test/two_b_problem.c \
 		  test/test_desmos.c \
-		  test/three_body.c
+		  test/three_body.c \
+		  test/energy.c
 
 .PHONY: all clean
 

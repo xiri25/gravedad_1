@@ -1,4 +1,5 @@
 #include "three_body.h"
+#include "energy.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -59,10 +60,12 @@ void test_simulacion_three_bodies_verlet(int frames, double dt) {
 
     printf("Simulacion euler empiezada\n");
     cuerpos_simular_euler_2(planetas3, planetas_number, planetas_t0, frames, dt);
+    test_mechanical_energy(planetas3, planetas_number, frames);
     printf("Simulacion euler acabada\n");
 
     printf("Simulacion verlet empezada\n");
     cuerpos_simular_verlet_2(planetas3, planetas_number, planetas_t0, frames, dt);
+    test_mechanical_energy(planetas3, planetas_number, frames);
     printf("Simulacion verlet acabada\n");
 
     for (int f = 0; f < frames; f++) {
