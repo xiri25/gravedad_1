@@ -1086,6 +1086,7 @@ void cuerpos_simular_verlet_j_fijo(cuerpo2d* planetas, int planetas_number, cuer
 }
 
 // Calcula la gravedad que sentirian cada pareja de planetas si estuvieran solos
+// TODO: Esta funcion deberia tener G como input, probablemente const double G
 void gravedades_calc(cuerpo2d* frame, int frame_len, vector2* buffer, int buffer_size) {
     int counter = 0;
     for (int j = 0; j < frame_len - 1; j++) {

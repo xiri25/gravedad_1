@@ -16,5 +16,6 @@ void cuerpos_simular_j_fijo(cuerpo2d* planetas, int planetas_number, cuerpo2d* p
 void cuerpos_simular_euler_2(cuerpo2d *planetas, int planetas_number, cuerpo2d *planetas_t0, int frames, double dt);
 void cuerpos_simular_verlet_2(cuerpo2d *planetas, int planetas_number, cuerpo2d *planetas_t0, int frames, double dt);
 
+int calc_buffer_size(int planetas_number);
 vector2 F_gravedad(double G_cte, double mi, double mj, double dx, double dy);
 #endif
