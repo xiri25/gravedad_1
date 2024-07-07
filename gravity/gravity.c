@@ -1223,7 +1223,7 @@ void euler_integration(cuerpo2d* frame_n_1, cuerpo2d* frame, int frame_len, vect
         frame[p].v_x = v.x;
         frame[p].v_y = v.y;
         frame[p].pos_x = pos.x;
-        frame[p].pos_x = pos.y;
+        frame[p].pos_y = pos.y;
     }
 }
 

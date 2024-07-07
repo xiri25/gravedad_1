@@ -63,6 +63,15 @@ void test_simulacion_three_bodies_verlet(int frames, double dt) {
     cuerpos_simular_euler_2(planetas3, planetas_number, planetas_t0, frames, dt);
     printf("Simulacion acabada\n");
 
+    for (int f = 0; f < frames; f++) {
+        for (int p = 0; p < planetas_number; p++) {
+            printf("%f %f\n",
+                   planetas3[f * planetas_number + p].pos_x,
+                   planetas3[f * planetas_number + p].pos_y);
+        }
+        printf("\n");
+    }
+
     printf("&planetas = %p\n", planetas3);
     free(planetas3);
 }
