@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "gravity.h"
 
-#define GRAVITY_DEBUG 1
+#define GRAVITY_DEBUG 0
 
 #define EPSILON 0.00000001
 
@@ -1230,19 +1230,19 @@ void euler_integration(cuerpo2d* frame_n_1, cuerpo2d* frame, int frame_len, vect
 
 void cuerpos_simular_euler_2(cuerpo2d *planetas, int planetas_number, cuerpo2d *planetas_t0, int frames, double dt) {
 
-    printf("cuerpos_simular_euler_2(), inicio\n");
+    //printf("cuerpos_simular_euler_2(), inicio\n");
 
     //Condiciones Iniciales
     for (int p = 0; p < planetas_number; p++) {
         planetas[p] = planetas_t0[p];
     }
-    printf("    Despues de aplicar las Condiciones Iniciales\n");
+    //printf("    Despues de aplicar las Condiciones Iniciales\n");
 
     // Darle valor al array entero para las comprobaciones
     for (int p = 0; p < planetas_number * frames; p++) {
         planetas[p] = planetas_t0[p % planetas_number];
     }
-    printf("    Despues de darle valor al array entero\n");
+    //printf("    Despues de darle valor al array entero\n");
 
     // Creo que el buffer lo quiero fuera para que no se genere uno nuevo por frame
     // Aunque si lo piensas deberia dar igual con suficientes optimizaciones
@@ -1250,13 +1250,13 @@ void cuerpos_simular_euler_2(cuerpo2d *planetas, int planetas_number, cuerpo2d *
     // cuantos loops deben hacer (supongo)
     int buffer_size = calc_buffer_size(planetas_number);
     
-    printf("    dist_buffer_size = %d\n", buffer_size);
+    //printf("    dist_buffer_size = %d\n", buffer_size);
     
     vector2 buffer[buffer_size];
     vector2 gra_sum[planetas_number];
     vector2 gra_matrix[planetas_number][planetas_number];
 
-    printf("    Antes del loop de la simulacion\n");
+    //printf("    Antes del loop de la simulacion\n");
     // Estamos con euler, deberia empezar en 1 (si esta en 0 es porque estoy probando que funciona hasta el 
     // calculo de las aceleraciones)
     for (int f = 1; f < frames; f++) {
@@ -1305,7 +1305,7 @@ void cuerpos_simular_euler_2(cuerpo2d *planetas, int planetas_number, cuerpo2d *
 
         euler_integration(frame_n1, frame, planetas_number, gra_sum, dt);
     }
-    printf("    Despues del loop\n");
+    //printf("    Despues del loop\n");
 }
 
 // x(n) = 2x(n-1) - x(n-2) + a(n-1) * dt * dt
@@ -1365,19 +1365,19 @@ void verlet_integration(cuerpo2d* frame_n_2, cuerpo2d* frame_n_1, cuerpo2d* fram
 // a a_n1 el valor de a y a a_n2 el valor de a_n1
 void cuerpos_simular_verlet_2(cuerpo2d *planetas, int planetas_number, cuerpo2d *planetas_t0, int frames, double dt) {
 
-    printf("cuerpos_simular_verlet_2(), inicio\n");
+    //printf("cuerpos_simular_verlet_2(), inicio\n");
 
     //Condiciones Iniciales
     for (int p = 0; p < planetas_number; p++) {
         planetas[p] = planetas_t0[p];
     }
-    printf("    Despues de aplicar las Condiciones Iniciales\n");
+    //printf("    Despues de aplicar las Condiciones Iniciales\n");
 
     // Darle valor al array entero para las comprobaciones
     for (int p = 0; p < planetas_number * frames; p++) {
         planetas[p] = planetas_t0[p % planetas_number];
     }
-    printf("    Despues de darle valor al array entero\n");
+    //printf("    Despues de darle valor al array entero\n");
 
     // Creo que el buffer lo quiero fuera para que no se genere uno nuevo por frame
     // Aunque si lo piensas deberia dar igual con suficientes optimizaciones
@@ -1385,7 +1385,7 @@ void cuerpos_simular_verlet_2(cuerpo2d *planetas, int planetas_number, cuerpo2d 
     // cuantos loops deben hacer (supongo)
     int buffer_size = calc_buffer_size(planetas_number);
     
-    printf("    dist_buffer_size = %d\n", buffer_size);
+    //printf("    dist_buffer_size = %d\n", buffer_size);
     
     vector2 buffer[buffer_size];
     vector2 gra_sum[planetas_number];
@@ -1393,7 +1393,7 @@ void cuerpos_simular_verlet_2(cuerpo2d *planetas, int planetas_number, cuerpo2d 
     vector2 a_n1_buffer[planetas_number];
     vector2 a_n2_buffer[planetas_number];
 
-    printf("    Antes del frame calculado con euler\n");
+    //printf("    Antes del frame calculado con euler\n");
     // Solo un frame, porque este se calcula con euler
     // TODO: Mejorear esto
     for (int f = 1; f < 2; f++) {
@@ -1442,7 +1442,7 @@ void cuerpos_simular_verlet_2(cuerpo2d *planetas, int planetas_number, cuerpo2d 
 
         euler_integration(frame_n1, frame, planetas_number, gra_sum, dt);
     }
-    printf("    Despues del frame calculado por euler\n");
+    //printf("    Despues del frame calculado por euler\n");
 
     // Inicializar los bufferes
     // En este momento gra_sum tiene los valores de las aceleraciones calculadas por euler
@@ -1452,7 +1452,7 @@ void cuerpos_simular_verlet_2(cuerpo2d *planetas, int planetas_number, cuerpo2d 
         a_n2_buffer[p] = cero;
     }
 
-    printf("    Antes de la simulacion\n");
+    //printf("    Antes de la simulacion\n");
     // Parte simulada con verlet
     for (int f = 2; f < frames; f++) {
 
@@ -1508,5 +1508,5 @@ void cuerpos_simular_verlet_2(cuerpo2d *planetas, int planetas_number, cuerpo2d 
             a_n2_buffer[p] = gra_sum[p];
         }
     }
-    printf("    Despues de la simulacion\n");
+    //printf("    Despues de la simulacion\n");
 }

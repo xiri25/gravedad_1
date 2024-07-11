@@ -6,6 +6,7 @@ SRC_FILES=main.c\
 		  points/points.c \
 		  result/write.c \
 		  gravity/gravity.c \
+		  gravity/cm.c \
 		  setup/setup.c \
 		  test/test.c \
 		  test/two_b_problem.c \

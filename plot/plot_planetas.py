@@ -59,9 +59,9 @@ def plot(frames_planetas, nombre):
 
         # Asumiendo que frame_planeta tiene al menos 2 columnas (x, y)
         if frame_planeta.shape[1] > 2:
-            ratio_radio = 0.02
+            ratio_radio = 0.001
             for planeta in frame_planeta:
-                ax.add_patch(plt.Circle((planeta[0], planeta[1]), planeta[2] * ratio_radio, color='yellow'))
+                ax.add_patch(plt.Circle((planeta[0], planeta[1]), planeta[2] * ratio_radio, color='red'))
         else:
             for planeta in frame_planeta:
                 ax.scatter(planeta[0], planeta[1], color='yellow')

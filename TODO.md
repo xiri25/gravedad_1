@@ -34,6 +34,4 @@ activar las optimizaciones de ningun tipo gcc haya optimizado esto, es inutil en
 
 - La constante G no se donde/como ponerla
 
-- Test energia
-
-- Test con más de dos cuerpos, parece que las simulaciones se rompen con más de dos objetos
+- Crear un generador de condiciones iniciales (para automatizar orbitas circulares, velocidad de escape, etc)
