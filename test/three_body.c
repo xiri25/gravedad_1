@@ -79,6 +79,7 @@ void test_simulacion_three_bodies_verlet(int frames, double dt) {
 
     Center_mass_calc(CM, planetas3, planetas_number, frames);
 
+    /*
     for (int f = 0; f < frames; f++) {
         for (int p = 0; p < planetas_number; p++) {
             printf("%f %f\n",
@@ -86,6 +87,17 @@ void test_simulacion_three_bodies_verlet(int frames, double dt) {
                    planetas3[f * planetas_number + p].pos_y);
         }
         printf("%f %f\n", CM[f].x, CM[f].y);
+        printf("\n");
+    }
+    */
+
+    // CM => Origin of frame of reference
+    for (int f = 0; f < frames; f++) {
+        for (int p = 0; p < planetas_number; p++) {
+            printf("%f %f\n",
+                   planetas3[f * planetas_number + p].pos_x - CM[f].x,
+                   planetas3[f * planetas_number + p].pos_y - CM[f].y);
+        }
         printf("\n");
     }
 
