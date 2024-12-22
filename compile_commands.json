@@ -1,0 +1,197 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-Wall",
+      "-Wextra",
+      "-g",
+      "-o",
+      "planetas",
+      "main.c"
+    ],
+    "directory": "/home/xiri/repos/gravedad_1",
+    "file": "/home/xiri/repos/gravedad_1/main.c",
+    "output": "/home/xiri/repos/gravedad_1/planetas"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-Wall",
+      "-Wextra",
+      "-g",
+      "-o",
+      "planetas",
+      "math_utils/math_utils.c"
+    ],
+    "directory": "/home/xiri/repos/gravedad_1",
+    "file": "/home/xiri/repos/gravedad_1/math_utils/math_utils.c",
+    "output": "/home/xiri/repos/gravedad_1/planetas"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-Wall",
+      "-Wextra",
+      "-g",
+      "-o",
+      "planetas",
+      "points/points.c"
+    ],
+    "directory": "/home/xiri/repos/gravedad_1",
+    "file": "/home/xiri/repos/gravedad_1/points/points.c",
+    "output": "/home/xiri/repos/gravedad_1/planetas"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-Wall",
+      "-Wextra",
+      "-g",
+      "-o",
+      "planetas",
+      "result/write.c"
+    ],
+    "directory": "/home/xiri/repos/gravedad_1",
+    "file": "/home/xiri/repos/gravedad_1/result/write.c",
+    "output": "/home/xiri/repos/gravedad_1/planetas"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-Wall",
+      "-Wextra",
+      "-g",
+      "-o",
+      "planetas",
+      "gravity/gravity.c"
+    ],
+    "directory": "/home/xiri/repos/gravedad_1",
+    "file": "/home/xiri/repos/gravedad_1/gravity/gravity.c",
+    "output": "/home/xiri/repos/gravedad_1/planetas"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-Wall",
+      "-Wextra",
+      "-g",
+      "-o",
+      "planetas",
+      "gravity/cm.c"
+    ],
+    "directory": "/home/xiri/repos/gravedad_1",
+    "file": "/home/xiri/repos/gravedad_1/gravity/cm.c",
+    "output": "/home/xiri/repos/gravedad_1/planetas"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-Wall",
+      "-Wextra",
+      "-g",
+      "-o",
+      "planetas",
+      "gravity/orbit.c"
+    ],
+    "directory": "/home/xiri/repos/gravedad_1",
+    "file": "/home/xiri/repos/gravedad_1/gravity/orbit.c",
+    "output": "/home/xiri/repos/gravedad_1/planetas"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-Wall",
+      "-Wextra",
+      "-g",
+      "-o",
+      "planetas",
+      "setup/setup.c"
+    ],
+    "directory": "/home/xiri/repos/gravedad_1",
+    "file": "/home/xiri/repos/gravedad_1/setup/setup.c",
+    "output": "/home/xiri/repos/gravedad_1/planetas"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-Wall",
+      "-Wextra",
+      "-g",
+      "-o",
+      "planetas",
+      "test/test.c"
+    ],
+    "directory": "/home/xiri/repos/gravedad_1",
+    "file": "/home/xiri/repos/gravedad_1/test/test.c",
+    "output": "/home/xiri/repos/gravedad_1/planetas"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-Wall",
+      "-Wextra",
+      "-g",
+      "-o",
+      "planetas",
+      "test/two_b_problem.c"
+    ],
+    "directory": "/home/xiri/repos/gravedad_1",
+    "file": "/home/xiri/repos/gravedad_1/test/two_b_problem.c",
+    "output": "/home/xiri/repos/gravedad_1/planetas"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-Wall",
+      "-Wextra",
+      "-g",
+      "-o",
+      "planetas",
+      "test/test_desmos.c"
+    ],
+    "directory": "/home/xiri/repos/gravedad_1",
+    "file": "/home/xiri/repos/gravedad_1/test/test_desmos.c",
+    "output": "/home/xiri/repos/gravedad_1/planetas"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-Wall",
+      "-Wextra",
+      "-g",
+      "-o",
+      "planetas",
+      "test/three_body.c"
+    ],
+    "directory": "/home/xiri/repos/gravedad_1",
+    "file": "/home/xiri/repos/gravedad_1/test/three_body.c",
+    "output": "/home/xiri/repos/gravedad_1/planetas"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-Wall",
+      "-Wextra",
+      "-g",
+      "-o",
+      "planetas",
+      "test/energy.c"
+    ],
+    "directory": "/home/xiri/repos/gravedad_1",
+    "file": "/home/xiri/repos/gravedad_1/test/energy.c",
+    "output": "/home/xiri/repos/gravedad_1/planetas"
+  }
+]
