@@ -1,5 +1,8 @@
 # gravedad_1
 
+Tener en cuenta que todo se basa en las leyes de Newton por lo que fenómenos como la precesión
+de mercurio no pueden ser simulados
+
 A LA LARGA TENER LOS PUNTOS DEL CAMPO Y LOS CUERPOS DEFINIDOS POR LA MISMA STRUCT
 Y POR LO TANTO EN EL MISMO ARRAY PUEDE RESULATAR ALTAMENTE BENEFICIOSO
 no lo creo, se gasta mas memoria de la que me esperaba
