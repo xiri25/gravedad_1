@@ -1,4 +1,4 @@
-#include "orbit.h"
+#include "frame_reference.h"
 
 #include <stdio.h>
 
@@ -14,14 +14,14 @@ void change_OFR_2d_frame(cuerpo2d* frame, int frame_len, vector2 new_origin)
     }
 }
 
-void ORBIT_new_constant_OFR_2d(cuerpo2d* planetas, int planetas_number, int frames, vector2 new_origin)
+void FR_new_constant_OFR_2d(cuerpo2d* planetas, int planetas_number, int frames, vector2 new_origin)
 {
     for (int f = 0; f < frames; f++) {
         change_OFR_2d_frame(&planetas[f * planetas_number], planetas_number, new_origin);
     }
 }
 
-void ORBIT_new_variable_OFR_2d(cuerpo2d *planetas, int planetas_number, int frames, vector2* new_origin)
+void FR_new_variable_OFR_2d(cuerpo2d *planetas, int planetas_number, int frames, vector2* new_origin)
 {
     /*
     * Se supone que:
@@ -32,10 +32,10 @@ void ORBIT_new_variable_OFR_2d(cuerpo2d *planetas, int planetas_number, int fram
     }
 }
 
-void ORBIT_new_OFR_2d_is_body(cuerpo2d *planetas, int planetas_number, int frames, int planeta_idx)
+void FR_new_OFR_2d_is_body(cuerpo2d *planetas, int planetas_number, int frames, int planeta_idx)
 {
     if (planeta_idx > planetas_number || planeta_idx < 0) {
-        printf("ORBIT_OFR_2d_is_body(): El indice del planeta proporcionado (%d) no es correcto\n", planeta_idx);
+        printf("FR_OFR_2d_is_body(): El indice del planeta proporcionado (%d) no es correcto\n", planeta_idx);
         return;
     }
 
