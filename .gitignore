@@ -15,4 +15,4 @@ plot/plot/
 resultados_cuerpos.txt
 resultados_puntos.txt
 plot/images2/*
-.chache/*
+.cache/*
