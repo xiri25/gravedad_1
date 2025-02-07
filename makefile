@@ -8,6 +8,7 @@ SRC_FILES=main.c\
 		  gravity/gravity.c \
 		  gravity/cm.c \
 		  gravity/frame_reference.c \
+		  gravity/ONEtoN/ONEtoN.c \
 		  setup/setup.c \
 		  test/test.c \
 		  test/two_b_problem.c \
