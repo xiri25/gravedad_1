@@ -60,3 +60,32 @@ vector3 cross_product_3d(const vector3* a, const vector3* b)
     };
     return c;
 }
+
+// a - b
+vector3 vector3_subtract(const vector3* a, const vector3* b)
+{
+    vector3 c = {
+        a->x - b->x,
+        a->y - b->y,
+        a->z - b->z,
+    };
+    return c;
+}
+
+// a + b
+vector3 vector3_add(const vector3* a, const vector3* b)
+{
+    vector3 c = {
+        a->x + b->x,
+        a->y + b->y,
+        a->z + b->z,
+    };
+    return c;
+}
+
+void vector3_escale(vector3* a, const double b)
+{
+    a->x *= b;
+    a->y *= b;
+    a->z *= b;
+}

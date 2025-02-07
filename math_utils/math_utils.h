@@ -25,5 +25,8 @@ double dot_product_3d(const vector3* a, const vector3* b);
 double self_dot_product_3d(const vector3* a);
 double vector3_module(const vector3* a);
 vector3 cross_product_3d(const vector3* a, const vector3* b);
+vector3 vector3_subtract(const vector3* a, const vector3* b);
+vector3 vector3_add(const vector3* a, const vector3* b);
+void vector3_escale(vector3* a, const double b);
 
 #endif

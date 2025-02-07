@@ -17,6 +17,18 @@ vector2 F_gravedad(double G_cte, double mi, double mj, double dx, double dy) {
     return gravedad;
 }
 
+vector3 F_gravedad_3d(const double G_cte, const double mi, const double mj, const vector3* dr)
+{
+
+    double Gmimj = G_cte * mi * mj;
+    double r_mod_3 = self_dot_product_3d(dr) * vector3_module(dr);
+    double g = Gmimj / r_mod_3;
+
+    vector3 gravedad = {-g * dr->x, -g * dr->y, -g * dr->z};
+
+    return gravedad;
+}
+
 void points_simular_secuencial_1(point2d_64* puntos, int puntos_number, cuerpo2d* planetas, int planetas_number, int frames) {
 
     for (int f = 0; f < frames; f++) {
