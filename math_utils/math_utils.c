@@ -83,9 +83,42 @@ vector3 vector3_add(const vector3* a, const vector3* b)
     return c;
 }
 
-void vector3_escale(vector3* a, const double b)
+void vector3_escale_in_place(vector3* a, const double b)
 {
     a->x *= b;
     a->y *= b;
     a->z *= b;
+}
+
+vector3 vector3_normalize(const vector3* a)
+{
+    double mod = vector3_module(a);
+    double mod_inv = 1.0 / mod;
+    return (vector3){a->x * mod_inv, a->y * mod_inv, a->z * mod_inv};
+}
+
+void vector3_normalize_in_place(vector3* a)
+{
+    double mod = vector3_module(a);
+    double mod_inv = 1.0 / mod;
+    vector3_escale_in_place(a, mod_inv);
+}
+
+// Como valor para poder escribir las columnas directamente en los parametros
+double det_matrix3_by_col(const vector3 col1, const vector3 col2, const vector3 col3)
+{
+    /*
+     *     |a b c|
+     * det |d e f| = aei + dhc + bfg - ceg - bdi - fha
+     *     |g h i|
+     */
+
+    double aei = col1.x * col2.y * col3.z;
+    double dhc = col1.y * col2.z * col3.x;
+    double bfg = col2.x * col3.y * col1.z;
+    double ceg = col3.x * col2.y * col1.z;
+    double bdi = col2.x * col1.y * col3.z;
+    double fha = col3.y * col2.z * col1.x;
+
+    return aei + dhc + bfg - ceg - bdi - fha;
 }

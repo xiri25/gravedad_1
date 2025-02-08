@@ -39,3 +39,6 @@ activar las optimizaciones de ningun tipo gcc haya optimizado esto, es inutil en
 - Hay que exponer las funciones que se usan para el calculo de las fuerzas que sienten cada cuerpo, aprovechar para
 mejorar la documentación, son necesarias cada vez que se quieran implementar estos calculos. Debería mover los distintos
 métodos de simulación a sus propios archivos, aprovechando los cambios
+
+- tengo la velocidad angular, puedo ir multiplicandola por dt para sacar nuevos angulos. con esos nuevos angulos tengo
+nuevos readios y nueva velocidad angular
