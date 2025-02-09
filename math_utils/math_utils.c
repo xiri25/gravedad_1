@@ -27,13 +27,13 @@ double vector2_module(double x, double y) {
 
 // En algun momento puede ser buena idea implementar directivas de avx directamente?????? creo que esta usando SSE2 (GePeTo)
 // por otro lado avx puede peder accuracy, segun GePeTo
-double dot_product_3d(const vector3* a, const vector3* b)
+double vector3_dot_product(const vector3* a, const vector3* b)
 {
     return a->x * b->x + a->y * b->y + a->z * b->z;
 }
 
 // Esta versión hace menos accesos a memoria el caso de un solo vector
-double self_dot_product_3d(const vector3* a)
+double vector3_self_dot_product(const vector3* a)
 {
     return a->x * a->x + a->y * a->y + a->z * a->z;
 }
@@ -44,7 +44,7 @@ double vector3_module(const vector3* a)
 }
 
 // anticommutative a x b = - b x a
-vector3 cross_product_3d(const vector3* a, const vector3* b)
+vector3 vector3_cross_product(const vector3* a, const vector3* b)
 {
     /*
      *         |  i  j  k |
@@ -105,7 +105,7 @@ void vector3_normalize_in_place(vector3* a)
 }
 
 // Como valor para poder escribir las columnas directamente en los parametros
-double det_matrix3_by_col(const vector3 col1, const vector3 col2, const vector3 col3)
+double matrix3_by_col_det(const vector3 col1, const vector3 col2, const vector3 col3)
 {
     /*
      *     |a b c|

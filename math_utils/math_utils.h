@@ -25,15 +25,15 @@ double *math_derivada_arr(double *F, double *x, int size);
 
 double vector2_module(double x, double y);
 
-double dot_product_3d(const vector3* a, const vector3* b);
-double self_dot_product_3d(const vector3* a);
+double vector3_dot_product(const vector3* a, const vector3* b);
+double vector3_self_dot_product(const vector3* a);
 double vector3_module(const vector3* a);
-vector3 cross_product_3d(const vector3* a, const vector3* b);
+vector3 vector3_cross_product(const vector3* a, const vector3* b);
 vector3 vector3_subtract(const vector3* a, const vector3* b);
 vector3 vector3_add(const vector3* a, const vector3* b);
 void vector3_escale_in_place(vector3* a, const double b);
 vector3 vector3_normalize(const vector3* a);
 void vector3_normalize_in_place(vector3* a);
-double det_matrix3_by_col(const vector3 col1, const vector3 col2, const vector3 col3);
+double matrix3_by_col_det(const vector3 col1, const vector3 col2, const vector3 col3);
 
 #endif

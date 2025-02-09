@@ -8,13 +8,13 @@
 // Esta funcion se ejecuta fuera del bucle, thanksGOD
 void create_local_base_ortonormal(cMatrix3* base, const vector3* N, const vector3* r)
 {
-    vector3 v = cross_product_3d(N, r);
+    vector3 v = vector3_cross_product(N, r);
     vector3_normalize_in_place(&v);
     vector3 N_n = vector3_normalize(N);
     vector3 r_n = vector3_normalize(r);
 
     // No hace daño comprobarlo, ya que estoy fuera del bucle
-    if (dot_product_3d(N, r) != 0)
+    if (vector3_dot_product(N, r) != 0)
     {
         printf("Error en create_local_base_ortonormal()\n");
         printf("N = (%f, %f, %f) y r = (%f, %f, %f) no son perpendiculares!!!!!\n",
@@ -22,7 +22,7 @@ void create_local_base_ortonormal(cMatrix3* base, const vector3* N, const vector
         return;
     };
 
-    if (dot_product_3d(N, &v) != 0)
+    if (vector3_dot_product(N, &v) != 0)
     {
         printf("Error en create_local_base_ortonormal()\n");
         printf("N = (%f, %f, %f) y v = (%f, %f, %f) no son perpendiculares!!!!!\n",
@@ -30,7 +30,7 @@ void create_local_base_ortonormal(cMatrix3* base, const vector3* N, const vector
         return;
     };
 
-    if (dot_product_3d(&v, r) != 0)
+    if (vector3_dot_product(&v, r) != 0)
     {
         printf("Error en create_local_base_ortonormal()\n");
         printf("v = (%f, %f, %f) y r = (%f, %f, %f) no son perpendiculares!!!!!\n",
@@ -94,7 +94,7 @@ void create_change_base_matrix_to_ijk(cMatrix3* mcb, const cMatrix3* from)
      *              |c f i|            |c f i|            |c f i|
     */
 
-    double det_0 = det_matrix3_by_col((vector3){from->m[0][0], from->m[0][1], from->m[0][2]},
+    double det_0 = matrix3_by_col_det((vector3){from->m[0][0], from->m[0][1], from->m[0][2]},
                                       (vector3){from->m[1][0], from->m[1][1], from->m[1][2]},
                                       (vector3){from->m[2][0], from->m[2][1], from->m[2][2]});
     if (det_0 == 0)
@@ -104,41 +104,41 @@ void create_change_base_matrix_to_ijk(cMatrix3* mcb, const cMatrix3* from)
     }
 
 
-    double det_1 = det_matrix3_by_col((vector3){1,0,0},
+    double det_1 = matrix3_by_col_det((vector3){1,0,0},
                                       (vector3){from->m[1][0], from->m[1][1], from->m[1][2]},
                                       (vector3){from->m[2][0], from->m[2][1], from->m[2][2]});
 
-    double det_2 = det_matrix3_by_col((vector3){from->m[0][0], from->m[0][1], from->m[0][2]},
+    double det_2 = matrix3_by_col_det((vector3){from->m[0][0], from->m[0][1], from->m[0][2]},
                                       (vector3){1,0,1},
                                       (vector3){from->m[2][0], from->m[2][1], from->m[2][2]});
 
-    double det_3 = det_matrix3_by_col((vector3){from->m[0][0], from->m[0][1], from->m[0][2]},
+    double det_3 = matrix3_by_col_det((vector3){from->m[0][0], from->m[0][1], from->m[0][2]},
                                       (vector3){from->m[1][0], from->m[1][1], from->m[1][2]},
                                       (vector3){1,0,0});
 
 
-    double det_4 = det_matrix3_by_col((vector3){0,1,0},
+    double det_4 = matrix3_by_col_det((vector3){0,1,0},
                                       (vector3){from->m[1][0], from->m[1][1], from->m[1][2]},
                                       (vector3){from->m[2][0], from->m[2][1], from->m[2][2]});
 
-    double det_5 = det_matrix3_by_col((vector3){from->m[0][0], from->m[0][1], from->m[0][2]},
+    double det_5 = matrix3_by_col_det((vector3){from->m[0][0], from->m[0][1], from->m[0][2]},
                                       (vector3){0,1,0},
                                       (vector3){from->m[2][0], from->m[2][1], from->m[2][2]});
 
-    double det_6 = det_matrix3_by_col((vector3){from->m[0][0], from->m[0][1], from->m[0][2]},
+    double det_6 = matrix3_by_col_det((vector3){from->m[0][0], from->m[0][1], from->m[0][2]},
                                       (vector3){from->m[1][0], from->m[1][1], from->m[1][2]},
                                       (vector3){0,1,0});
 
 
-    double det_7 = det_matrix3_by_col((vector3){0,0,1},
+    double det_7 = matrix3_by_col_det((vector3){0,0,1},
                                       (vector3){from->m[1][0], from->m[1][1], from->m[1][2]},
                                       (vector3){from->m[2][0], from->m[2][1], from->m[2][2]});
 
-    double det_8 = det_matrix3_by_col((vector3){from->m[0][0], from->m[0][1], from->m[0][2]},
+    double det_8 = matrix3_by_col_det((vector3){from->m[0][0], from->m[0][1], from->m[0][2]},
                                       (vector3){0,0,1},
                                       (vector3){from->m[2][0], from->m[2][1], from->m[2][2]});
 
-    double det_9 = det_matrix3_by_col((vector3){from->m[0][0], from->m[0][1], from->m[0][2]},
+    double det_9 = matrix3_by_col_det((vector3){from->m[0][0], from->m[0][1], from->m[0][2]},
                                       (vector3){from->m[1][0], from->m[1][1], from->m[1][2]},
                                       (vector3){0,0,1});
 
