@@ -40,7 +40,7 @@ double vector3_self_dot_product(const vector3* a)
 
 double vector3_module(const vector3* a)
 {
-    return sqrt(self_dot_product_3d(a));
+    return sqrt(vector3_self_dot_product(a));
 }
 
 // anticommutative a x b = - b x a
@@ -121,4 +121,23 @@ double matrix3_by_col_det(const vector3 col1, const vector3 col2, const vector3 
     double fha = col3.y * col2.z * col1.x;
 
     return aei + dhc + bfg - ceg - bdi - fha;
+}
+
+// Returns a colum vector
+// Maybe pasar tambien el vector para guardar el resultado, evitar la copia si nos es inline
+vector3 matrix3_mul_v3col(const cMatrix3* matrix, const vector3* v_col)
+{
+    /*
+     * |A B C|   |a|   |Aa + Bb + Cc|
+     * |D E F| x |b| = |Da + Eb + Fc|
+     * |G H I|   |c|   |Ga + Hb + Ic|
+     */
+
+    vector3 a_col = {
+        .x = matrix->m[0][0] * v_col->x + matrix->m[0][1] * v_col->y + matrix->m[0][2] * v_col->z,
+        .y = matrix->m[1][0] * v_col->x + matrix->m[1][1] * v_col->y + matrix->m[1][2] * v_col->z,
+        .z = matrix->m[2][0] * v_col->x + matrix->m[2][1] * v_col->y + matrix->m[2][2] * v_col->z,
+    };
+
+    return a_col;
 }

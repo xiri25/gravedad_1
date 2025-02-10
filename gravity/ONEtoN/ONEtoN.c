@@ -43,6 +43,7 @@ void create_local_base_ortonormal(cMatrix3* base, const vector3* N, const vector
     base->m[2][0] = r_n.x; base->m[2][1] = r_n.y; base->m[2][2] = r_n.z;
 }
 
+// TODO: Esto pasa por no leer la teoria XDDDDDDDDDDD
 // Solo necesito que sea capaz de crear la matriz de cambio de base a la base canonica :)
 void create_change_base_matrix_to_ijk(cMatrix3* mcb, const cMatrix3* from)
 {
